@@ -11,6 +11,9 @@ Step 0: Install "Pyeda" libary
 Preferbly Python version of 3.11 or 3.10, since using "pyeda" library
 And also download Visual Studio Build Tools (if u dont have 1):
 ```
+The one im using: https://www.python.org/downloads/release/python-3119/
+```
+```
 https://visualstudio.microsoft.com/fr/visual-cpp-build-tools/
 ```
 If it's above 3.11, then try to download another Python with version 3.11
