@@ -16,6 +16,7 @@ The one im using: https://www.python.org/downloads/release/python-3119/
 ```
 https://visualstudio.microsoft.com/fr/visual-cpp-build-tools/
 ```
+REMEMBER: When you finished download from the website -> in the configuration window: choose **Desktob development with C++
 If it's above 3.11, then try to download another Python with version 3.11
 If done -> install pyeda with the below command:
 ```
