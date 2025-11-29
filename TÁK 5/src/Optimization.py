@@ -21,7 +21,7 @@ def max_reachable_marking(
     # Mapping từ tên biến BDD sang index của vector trọng số c
     var_name_to_index = {name: i for i, name in enumerate(place_ids)}
     
-    # Memoization: Key=Node, Value=(max_val, choice)
+    # Memo: Key=Node, Value=(max_val, choice)
     memo = {}
 
     def get_var_index(node) -> int:
@@ -33,11 +33,11 @@ def max_reachable_marking(
         if var_name in var_name_to_index:
             return var_name_to_index[var_name]
         
-        # Trường hợp biến BDD không khớp tên trong place_ids (hiếm gặp nếu setup đúng)
+        # Trường hợp biến BDD không khớp tên trong place_ids
         raise ValueError(f"Biến BDD '{var_name}' không tìm thấy trong place_ids: {place_ids}")
 
     def get_skipped_gain(start_idx: int, end_idx: int) -> int:
-        """Tính tổng trọng số dương của các biến bị nhảy qua (Don't care variables)."""
+        """Tính tổng trọng số dương của các biến bị bỏ qua."""
         gain = 0
         for i in range(start_idx, end_idx):
             if c[i] > 0:
@@ -46,7 +46,7 @@ def max_reachable_marking(
 
     def solve(node) -> Tuple[float, int]:
         """
-        Trả về (Giá trị lớn nhất từ node này, Hướng đi tốt nhất)
+        Trả về giá trị lớn nhất từ node này (hướng đi tốt nhất)
         """
         # Base case: Terminal 1 -> Thành công (đến đích)
         if node.is_one():
@@ -63,7 +63,7 @@ def max_reachable_marking(
         top_var = node.top
         curr_idx = get_var_index(node)
 
-        # --- Nhánh LOW (x = 0) ---
+        # Nhánh LOW (x = 0)
         # Sử dụng restrict để lấy node con tương ứng với gán x=0
         low_node = node.restrict({top_var: 0})
         low_val, _ = solve(low_node)
@@ -79,7 +79,7 @@ def max_reachable_marking(
             skipped_gain = get_skipped_gain(curr_idx + 1, next_idx_low)
             total_low = low_val + skipped_gain
 
-        # --- Nhánh HIGH (x = 1) ---
+        # Nhánh HIGH (x = 1)
         # Sử dụng restrict để lấy node con tương ứng với gán x=1
         high_node = node.restrict({top_var: 1})
         high_val, _ = solve(high_node)
@@ -96,7 +96,7 @@ def max_reachable_marking(
             # Cộng thêm trọng số của chính node hiện tại (vì chọn x=1)
             total_high = high_val + skipped_gain + c[curr_idx]
 
-        # --- So sánh và lưu kết quả ---
+        # So sánh và lưu kết quả 
         if total_high >= total_low:
             res = (total_high, 1) # 1: Chọn nhánh High
         else:
@@ -105,13 +105,13 @@ def max_reachable_marking(
         memo[node] = res
         return res
 
-    # --- Bước 1: Tính giá trị max (Bottom-up DP) ---
+    # Bước 1: Tính giá trị max (Bottom-up DP) 
     root_val, _ = solve(bdd)
 
     if root_val == float('-inf'):
         return None, None
 
-    # --- Bước 2: Dựng lại Marking (Top-down Reconstruction) ---
+    # Bước 2: Dựng lại Marking (Top-down Reconstruction) 
     final_marking = [0] * n
     
     # Xử lý các biến bị skip TRƯỚC root (nếu có)
@@ -123,13 +123,13 @@ def max_reachable_marking(
     for i in range(0, root_idx):
         if c[i] > 0: final_marking[i] = 1
 
-    # Duyệt từ root xuống terminal 1 dựa trên quyết định trong memo
+    # Duyệt từ root xuống terminal 1
     curr_node = bdd
     while not curr_node.is_one():
         curr_idx = get_var_index(curr_node)
         top_var = curr_node.top
         
-        # Lấy quyết định đã lưu
+        # Lấy choice đã lưu
         if curr_node not in memo:
             break
         max_val, choice = memo[curr_node]
