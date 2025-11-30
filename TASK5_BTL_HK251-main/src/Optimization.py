@@ -33,7 +33,7 @@ def max_reachable_marking(
         if var_name in var_name_to_index:
             return var_name_to_index[var_name]
         
-        # Trường hợp biến BDD không khớp tên trong place_ids (hiếm gặp nếu setup đúng)
+        # Trường hợp biến BDD không khớp tên trong place_ids
         raise ValueError(f"Biến BDD '{var_name}' không tìm thấy trong place_ids: {place_ids}")
 
     def get_skipped_gain(start_idx: int, end_idx: int) -> int:
@@ -123,13 +123,13 @@ def max_reachable_marking(
     for i in range(0, root_idx):
         if c[i] > 0: final_marking[i] = 1
 
-    # Duyệt từ root xuống terminal 1 dựa trên quyết định trong memo
+    # Duyệt từ root xuống terminal 1 dựa trên choice trong memo
     curr_node = bdd
     while not curr_node.is_one():
         curr_idx = get_var_index(curr_node)
         top_var = curr_node.top
         
-        # Lấy quyết định đã lưu
+        # Lấy choice đã lưu
         if curr_node not in memo:
             break # Should not happen
         max_val, choice = memo[curr_node]
