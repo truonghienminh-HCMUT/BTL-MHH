@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # TASK 2 BTL MHH
 
 **Explicit computation of reachable markings:** Implement a basic breadth-first search
@@ -59,3 +60,7 @@ python3 -m pytest -vv test_DFS.py::test_001
     <img src="https://img.shields.io/badge/GitHub-181717?style=for-the-badge&logo=github&logoColor=white" alt="GitHub"/>
   </a>
 </p>
+=======
+# BTL-MHH
+Đây là repository chứa những file phục vụ cho bài tập lớn môn Mô hình hóa Toán học (CO2011) của thầy Trần Hồng Tài.
+>>>>>>> a6fc0af1f6d39256f840028cc96d0d61482a8953
