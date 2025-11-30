@@ -1,10 +1,9 @@
+import collections
+from typing import Tuple, List, Optional
+from pyeda.inter import *
+from collections import deque
+from .PetriNet import PetriNet
 import numpy as np
-from typing import List, Tuple, Optional
-
-from PetriNet import PetriNet
-from BDD import bdd_reachable
-from pyeda.inter import bdd2expr, exprvar, BinaryDecisionDiagram
-import pulp
 
 
 def deadlock_reachable_marking(
