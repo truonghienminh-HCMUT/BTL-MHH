@@ -1,8 +1,8 @@
 import numpy as np
 from typing import List, Tuple, Optional
 
-from PetriNet import PetriNet
-from BDD import bdd_reachable
+from .PetriNet import PetriNet
+from .BDD import bdd_reachable
 from pyeda.inter import bdd2expr, exprvar, BinaryDecisionDiagram
 from collections import deque
 import pulp

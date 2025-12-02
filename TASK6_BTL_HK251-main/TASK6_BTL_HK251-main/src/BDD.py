@@ -1,7 +1,7 @@
 import collections
 from typing import Tuple
 from pyeda.inter import *
-from PetriNet import PetriNet
+from .PetriNet import PetriNet
 from collections import deque
 import numpy as np
 
