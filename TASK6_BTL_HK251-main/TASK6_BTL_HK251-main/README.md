@@ -25,11 +25,11 @@ flowchart TD
 ```sh
 python3 -m venv venv
 ```
-+ Nếu không chạy được thì chạy lệnh sau
+> Nếu không chạy được thì chạy lệnh sau
 ```sh
 python -m venv venv
 ```
-+ Nếu máy có nhiều phiên bản python, chạy lệnh
+> Nếu máy có nhiều phiên bản python, chạy lệnh
 ```sh
 python -3.11 -m venv venv
 ```
