@@ -17,6 +17,20 @@ flowchart TD
     P4 --> P5
 ```
 
+## Installing
+
+- Tải python phiên bản 3.11 (hoặc 3.10) cho window 64 bit
+> Lưu ý: nhớ tích chọn thêm PATH cho python khi cài đặt
+```
+https://www.python.org/ftp/python/3.11.9/python-3.11.9-amd64.exe
+```
+
+- Tải graphviz để tạo hình ảnh (phiên bản 14.0.5 cho window 64bit)
+> Lưu ý: nhớ tích chọn thêm PATH cho graphviz khi cài đặt
+```
+https://gitlab.com/api/v4/projects/4207231/packages/generic/graphviz-releases/14.0.5/windows_10_cmake_Release_graphviz-install-14.0.5-win64.exe
+```
+
 ## Requirements
 
 - Tạo môi trường ảo (virtual environment)
