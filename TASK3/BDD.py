@@ -5,6 +5,7 @@ from PetriNet import PetriNet
 from collections import deque
 import numpy as np
 
+
 # Lấy ma trận I (input), O (output) và marking ban đầu M0:
 def bdd_reachable(pn: PetriNet) -> Tuple[BinaryDecisionDiagram, int]:
     
