@@ -25,11 +25,11 @@ python3 -m venv venv
 ```
 > Nếu không chạy được thì chạy lệnh sau
 ```sh
-python -m venv venv
+py -m venv venv
 ```
 > Nếu máy có nhiều phiên bản python, chạy lệnh
 ```sh
-python -3.11 -m venv venv
+py -3.11 -m venv venv
 ```
 
 
@@ -50,24 +50,24 @@ pip install -r requirements.txt
 ## Chạy Code
 
 ```sh
-python run.py
+py run.py
 ```
 
 ##  Chạy tests
 
 - Chạy tất cả các tests
 ```sh
-python -m pytest tests/ -v
+py -m pytest tests/ -v
 ```
 
 - Chạy một file test
 
 ```sh
-python -m pytest tests/test_petriNet.py -v
+py -m pytest tests/test_petriNet.py -v
 ```
 
 - Chạy một testcase
 
 ```sh
-python -m pytest tests/test_petriNet.py::test_001 -v
+py -m pytest tests/test_petriNet.py::test_001 -v
 ```
