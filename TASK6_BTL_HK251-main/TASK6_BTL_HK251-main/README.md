@@ -7,31 +7,16 @@ flowchart TD
 
     %% Places
     P1(("TASK1"))
-    P2(("TASK2"))
-    P3(("TASK3"))
     P4(("TASK4"))
     P5(("TASK5"))
 
     %% Transitions
-    T12([T1_to_T2])
-    T13([T1_to_T3])
-    T134([T1_T3_to_T4])
-    T135([T1_T3_to_T5])
+    P23([TASK2 & TASK3])
 
-    %% Arcs
-    P1 --> T12
-    T12 --> P2
-
-    P1 --> T13
-    T13 --> P3
-
-    P1 --> T134
-    P3 --> T134
-    T134 --> P4
-
-    P1 --> T135
-    P3 --> T135
-    T135 --> P5
+    %% Arcs 
+    P1 --> P23
+    P23 --> P4
+    P4 --> P5
 ```
 
 ## Requirements

@@ -32,7 +32,7 @@ def main():
 
     # ------------------------------------------------------
     # 2. BFS reachable
-    # ------------------------------------------------------
+    # -----------------------------------------------------e-
     print("\n--- BFS Reachable Markings ---")
     bfs_set = bfs_reachable(pn)
     print("Total BFS reachable =", len(bfs_set))
