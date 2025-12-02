@@ -7,8 +7,6 @@ flowchart TD
 
     %% Places
     P1(("TASK1"))
-    P2(("TASK2"))
-    P3(("TASK3"))
     P4(("TASK4"))
     P5(("TASK5"))
 
