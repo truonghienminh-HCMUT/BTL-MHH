@@ -1,7 +1,5 @@
  Symbolic and Algebraic Reasoning in Petri Nets 
 
-**Này thiết kế src của anh các bạn có thể chỉnh lại src theo cấu trúc nhóm mình cho khác đi khỏi bị trùng cấu trúc**
-
 ```mermaid
 flowchart TD
 
@@ -49,27 +47,27 @@ source venv/bin/activate
 pip install -r requirements.txt
 ```
 
-## Running Code
+## Chạy Code
 
 ```sh
-python3 run.py
+python run.py
 ```
 
-##  Running tests
+##  Chạy tests
 
-- Run all tests
+- Chạy tất cả các tests
 ```sh
-python3 -m pytest tests/ -v
+python -m pytest tests/ -v
 ```
 
-- Run a single test FIle
+- Chạy một file test
 
 ```sh
-python3 -m pytest tests/test_petriNet.py -v
+python -m pytest tests/test_petriNet.py -v
 ```
 
-- Run a single test FIle
+- Chạy một testcase
 
 ```sh
-python3 -m pytest tests/test_petriNet.py::test_001 -v
+python -m pytest tests/test_petriNet.py::test_001 -v
 ```
