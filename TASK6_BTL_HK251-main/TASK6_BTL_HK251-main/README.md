@@ -13,7 +13,7 @@ flowchart TD
     P5(("TASK5"))
 
     %% Transitions
-    P23([P2 & P3])
+    P23([TASK2 & TASK3])
 
     %% Arcs 
     P1 --> P23
