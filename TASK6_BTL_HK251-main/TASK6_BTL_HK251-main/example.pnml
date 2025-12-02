@@ -1,1 +1,64 @@
-﻿<pnml xmlns="http://www.pnml.org/version-2009/grammar/pnml"><net id="219fea7f-3b3b-4186-9c7d-8c706a0cd158" type="http://www.pnml.org/version-2009/grammar/ptnet"><name><text>PetriNetExported</text></name><page id="4d34dd12-0945-4abd-8b26-b86a7b89f998"><place id="04f1e850-bbe1-40f3-a946-580daa43e9bd"><name><text>P1</text></name><graphics><position x="750" y="260"/></graphics></place><place id="6c62ac95-6327-4abd-ad31-4218692decae"><name><text>P2</text><graphics><offset x="-45" y="10"/></graphics></name><graphics><position x="520" y="340"/></graphics><initialMarking><text>1</text></initialMarking></place><place id="2f0245b8-7d77-4747-99ac-ff0863181d8b"><name><text>P3</text><graphics><offset x="0" y="35"/></graphics></name><graphics><position x="760" y="410"/></graphics></place><place id="17c67894-9ae2-43a0-805f-140dc4f80c87"><name><text>P4</text></name><graphics><position x="950" y="260"/></graphics></place><place id="1cd17b2d-bd45-4afa-81b6-97f61fb21e36"><name><text>P5</text><graphics><offset x="40" y="10"/></graphics></name><graphics><position x="1030" y="410"/></graphics></place><place id="f2bd962c-1b31-4d38-aae7-cdbccc20b03e"><name><text>P6</text><graphics><offset x="0" y="35"/></graphics></name><graphics><position x="950" y="150"/></graphics></place><transition id="00c1512f-e5e1-4890-a703-4a98ad566060"><name><text>T1</text><graphics><offset x="0" y="35"/></graphics></name><graphics><position x="640" y="340"/></graphics></transition><transition id="c8f2eedb-cd16-4c0f-a43b-fa21081ea22e"><name><text>T2</text></name><graphics><position x="850" y="260"/></graphics></transition><transition id="ea068c9b-fc93-4790-8783-91033bdb42ee"><name><text>T3</text><graphics><offset x="0" y="35"/></graphics></name><graphics><position x="890" y="410"/></graphics></transition><transition id="cf8fa2cf-fc18-4b64-b33d-5319d55cc9ca"><name><text>T4</text><graphics><offset x="35" y="10"/></graphics></name><graphics><position x="1030" y="260"/></graphics></transition><transition id="c1244870-2ae8-4269-9d24-3b0ef1421f61"><name><text>T5</text></name><graphics><position x="810" y="570"/></graphics></transition><transition id="052971c6-f9fd-48ff-b92f-6a153ab8e49b"><name><text>T6</text></name><graphics><position x="850" y="150"/></graphics></transition><arc id="8ac5ca6e-15c1-439f-8774-7b4c837826ed" source="6c62ac95-6327-4abd-ad31-4218692decae" target="00c1512f-e5e1-4890-a703-4a98ad566060"/><arc id="1d6d82a6-2d38-4012-a75a-337476c9c53a" source="00c1512f-e5e1-4890-a703-4a98ad566060" target="04f1e850-bbe1-40f3-a946-580daa43e9bd"/><arc id="5f4d92b3-7973-4569-855d-d6dbb6854de6" source="00c1512f-e5e1-4890-a703-4a98ad566060" target="2f0245b8-7d77-4747-99ac-ff0863181d8b"/><arc id="454bfefc-cf7f-479f-8dee-9d18f6dd94b7" source="04f1e850-bbe1-40f3-a946-580daa43e9bd" target="052971c6-f9fd-48ff-b92f-6a153ab8e49b"/><arc id="a4128433-000f-45e5-82e6-3d02d3832552" source="04f1e850-bbe1-40f3-a946-580daa43e9bd" target="c8f2eedb-cd16-4c0f-a43b-fa21081ea22e"/><arc id="22cfc968-b0ee-4f13-84c1-b1843bfd8923" source="052971c6-f9fd-48ff-b92f-6a153ab8e49b" target="f2bd962c-1b31-4d38-aae7-cdbccc20b03e"/><arc id="420bcd10-327b-4840-9efb-818e7b999bde" source="c8f2eedb-cd16-4c0f-a43b-fa21081ea22e" target="17c67894-9ae2-43a0-805f-140dc4f80c87"/><arc id="25e8bc9a-3504-460d-92b1-1b8d7c693b1e" source="17c67894-9ae2-43a0-805f-140dc4f80c87" target="cf8fa2cf-fc18-4b64-b33d-5319d55cc9ca"/><arc id="3db04125-e0f5-4b8f-9dbb-ffaddd2d2410" source="cf8fa2cf-fc18-4b64-b33d-5319d55cc9ca" target="1cd17b2d-bd45-4afa-81b6-97f61fb21e36"/><arc id="bc5dc075-9d27-4ae7-8f06-7e8cdabf8449" source="2f0245b8-7d77-4747-99ac-ff0863181d8b" target="ea068c9b-fc93-4790-8783-91033bdb42ee"/><arc id="81321816-df4c-4cb5-af8c-bed9186b65ed" source="ea068c9b-fc93-4790-8783-91033bdb42ee" target="1cd17b2d-bd45-4afa-81b6-97f61fb21e36"/><arc id="318318c4-38fb-4fb4-b056-f8d3d5b8bdba" source="1cd17b2d-bd45-4afa-81b6-97f61fb21e36" target="c1244870-2ae8-4269-9d24-3b0ef1421f61"/><arc id="9ed342dc-2741-4702-800a-2deb539687ab" source="c1244870-2ae8-4269-9d24-3b0ef1421f61" target="6c62ac95-6327-4abd-ad31-4218692decae"/></page></net></pnml>
+﻿<pnml xmlns="http://www.pnml.org/version-2009/grammar/pnml">
+  <net id="net-prod-cons-01" type="http://www.pnml.org/version-2009/grammar/ptnet">
+    <name>
+      <text>ProducerConsumer_Buffer1</text>
+    </name>
+    <page id="page-01">
+      
+      <place id="p1">
+        <name><text>P1</text></name>
+        <graphics><position x="100" y="100"/></graphics>
+        <initialMarking><text>1</text></initialMarking>
+      </place>
+
+      <place id="p2">
+        <name><text>P2</text></name>
+        <graphics><position x="300" y="200"/></graphics>
+        <initialMarking><text>0</text></initialMarking>
+      </place>
+
+      <place id="p3">
+        <name><text>P3</text></name>
+        <graphics><position x="300" y="100"/></graphics>
+        <initialMarking><text>1</text></initialMarking>
+      </place>
+
+      <place id="p4">
+        <name><text>P4</text></name>
+        <graphics><position x="500" y="100"/></graphics>
+        <initialMarking><text>1</text></initialMarking>
+      </place>
+
+      <place id="p5">
+        <name><text>P5</text></name>
+        <graphics><position x="500" y="300"/></graphics>
+      </place>
+
+      <place id="p6">
+        <name><text>P6</text></name>
+        <graphics><position x="100" y="300"/></graphics>
+      </place>
+
+      <transition id="t1">
+        <name><text>T1</text></name>
+        <graphics><position x="100" y="200"/></graphics>
+      </transition>
+
+      <transition id="t2">
+        <name><text>T2</text></name>
+        <graphics><position x="200" y="300"/></graphics>
+      </transition>
+
+      <transition id="t3">
+        <name><text>T3</text></name>
+        <graphics><position x="500" y="200"/></graphics>
+      </transition>
+
+      <transition id="t4">
+        <name><text>T4</text></name>
+        <graphics><position x="400" y="300"/></graphics>
+      </transition>
+
+      <arc id="a1" source="p1" target="t1"/> <arc id="a2" source="p3" target="t1"/> <arc id="a3" source="t1" target="p6"/> <arc id="a4" source="p6" target="t2"/> <arc id="a5" source="t2" target="p1"/> <arc id="a6" source="t2" target="p2"/> <arc id="a7" source="p4" target="t3"/> <arc id="a8" source="p2" target="t3"/> <arc id="a9" source="t3" target="p5"/> <arc id="a10" source="p5" target="t4"/> <arc id="a11" source="t4" target="p4"/> <arc id="a12" source="t4" target="p3"/> </page>
+  </net>
+</pnml>
