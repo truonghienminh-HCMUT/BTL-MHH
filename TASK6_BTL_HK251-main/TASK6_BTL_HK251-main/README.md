@@ -15,7 +15,7 @@ flowchart TD
     %% Transitions
     P23([P2 & P3])
 
-    %% Arcs
+    %% Arcs 
     P1 --> P23
     P23 --> P4
     P4 --> P5
