@@ -45,7 +45,7 @@ def main():
     print("Satisfying all:", list(bdd.satisfy_all()))
     print("Minimized =", espresso_exprs(bdd2expr(bdd)))
     print("BDD reachable markings =", count)
-    ## Source(bdd.to_dot()).render("bdd", format="png", cleanup=True)
+    Source(bdd.to_dot()).render("bdd", format="png", cleanup=True)
 
     # ------------------------------------------------------
     # 5. Deadlock detection
