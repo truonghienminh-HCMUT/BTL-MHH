@@ -32,13 +32,13 @@ flowchart TD
     TASK5 --> END
 
     %% Styling: Đổi màu nền (fill) và viền (stroke) theo màu sắc nổi bật
-    style START fill:#c1e1c1, stroke:#468847, stroke-width:2px 
-    style END fill:#c1e1c1, stroke:#468847, stroke-width:2px
-    style TASK1 fill:#f2baba, stroke:#a94442, stroke-width:2px 
-    style TASK2 fill:#e6c9e6, stroke:#800080, stroke-width:2px 
-    style TASK3 fill:#d0e6f0, stroke:#31708f, stroke-width:2px 
-    style TASK4 fill:#fff3d4, stroke:#ffc107, stroke-width:2px 
-    style TASK5 fill:#d1f7f7, stroke:#008b8b, stroke-width:2px
+    style START stroke:#468847, stroke-width:2px 
+    style END stroke:#468847, stroke-width:2px
+    style TASK1 stroke:#a94442, stroke-width:2px 
+    style TASK2 stroke:#800080, stroke-width:2px 
+    style TASK3 stroke:#31708f, stroke-width:2px 
+    style TASK4 stroke:#ffc107, stroke-width:2px 
+    style TASK5 stroke:#008b8b, stroke-width:2px
 ```
 
 ## Installing
