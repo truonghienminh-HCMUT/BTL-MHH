@@ -1,0 +1,72 @@
+
+    digraph BDD {
+        rankdir=TB;
+        nodesep=0.5;
+        ranksep=0.5;
+        splines=true;
+        node [shape=circle, fixedsize=true, width=0.6, fontsize=12, fontname="Helvetica"];
+        
+        {
+            node [shape=box, width=0.8, height=0.4];
+            T1 [label="1"];
+            T0 [label="0"];
+        }
+
+        N1 [label="P1"];
+        N2_L [label="P2"]; N2_R [label="P2"];
+        N3_L [label="P3"]; N3_M [label="P3"]; N3_R [label="P3"];
+        N4_L [label="P4"]; N4_M [label="P4"]; N4_R [label="P4"];
+        N5_L [label="P5"]; N5_M1 [label="P5"]; N5_M2 [label="P5"]; N5_R [label="P5"];
+        N6_R [label="P6"];
+
+        edge [style=solid]; N1 -> N2_L [label="1"];
+        edge [style=dashed]; N1 -> N2_R [label="0"];
+
+        edge [style=solid]; N2_L -> N3_L [label="1"];
+        edge [style=dashed]; N2_L -> N3_M [label="0"];
+
+        edge [style=solid]; N2_R -> N3_R [label="1"];
+        edge [style=dashed]; N2_R -> T1 [label="0"];
+
+        edge [style=solid]; N3_L -> N4_L [label="1"];
+        edge [style=dashed]; N3_L -> T1 [label="0"];
+
+        edge [style=solid]; N3_M -> T1 [label="1"];
+        edge [style=dashed]; N3_M -> N5_L [label="0"];
+
+        edge [style=solid]; N3_R -> N4_M [label="1"];
+        edge [style=dashed]; N3_R -> N4_R [label="0"];
+
+        edge [style=solid]; N4_L -> T1 [label="1"];
+        edge [style=dashed]; N4_L -> T1 [label="0"];
+
+        edge [style=solid]; N4_M -> T1 [label="1"];
+        edge [style=dashed]; N4_M -> N5_M1 [label="0"];
+
+        edge [style=solid]; N4_R -> N5_M2 [label="1"];
+        edge [style=dashed]; N4_R -> N5_R [label="0"];
+
+        edge [style=solid]; N5_L -> T1 [label="1"];
+        edge [style=dashed]; N5_L -> T1 [label="0"];
+
+        edge [style=solid]; N5_M1 -> T1 [label="1"];
+        edge [style=dashed]; N5_M1 -> N5_M2 [label="0"];
+
+        edge [style=solid]; N5_M2 -> T1 [label="1"];
+        edge [style=dashed]; N5_M2 -> T0 [label="0"];
+
+        edge [style=solid]; N5_R -> T1 [label="1"];
+        edge [style=dashed]; N5_R -> N6_R [label="0"];
+
+        edge [style=solid]; N6_R -> T1 [label="1"];
+        edge [style=dashed]; N6_R -> T0 [label="0"];
+
+        { rank=same; N1; }
+        { rank=same; N2_L; N2_R; }
+        { rank=same; N3_L; N3_M; N3_R; }
+        { rank=same; N4_L; N4_M; N4_R; }
+        { rank=same; N5_L; N5_M1; N5_M2; N5_R; }
+        { rank=same; N6_R; }
+        { rank=same; T0; T1; }
+    }
+    
