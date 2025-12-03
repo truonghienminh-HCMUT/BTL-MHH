@@ -1,6 +1,6 @@
 import numpy as np
 from PetriNet import PetriNet
-from BDD import bdd_reachable
+from src.BDD import bdd_reachable
 from pyeda.inter import *
 
 def test_001():

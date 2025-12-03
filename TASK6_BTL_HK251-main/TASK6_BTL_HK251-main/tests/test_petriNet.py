@@ -1,5 +1,5 @@
 import pytest
-from src.PetriNet import PetriNet
+from PetriNet import PetriNet
 from pathlib import Path
 
 def test_001():

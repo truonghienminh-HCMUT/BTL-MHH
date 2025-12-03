@@ -1,4 +1,4 @@
-from src.PetriNet import PetriNet
+from PetriNet import PetriNet
 from src.BDD import bdd_reachable
 from src.Optimization import max_reachable_marking
 from src.BFS import bfs_reachable
