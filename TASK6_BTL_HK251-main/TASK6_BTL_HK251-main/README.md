@@ -2,7 +2,7 @@
 
 ```mermaid
 flowchart TD
-    %% Nút Bắt đầu và Kết thúc (Hình elip)
+    %% Nút Bắt đầu và Kết thúc (Hình elip, màu xanh lá cây)
     START([START])
     END([END])
 
@@ -31,14 +31,14 @@ flowchart TD
     TASK4 --> END
     TASK5 --> END
 
-    %% Đặt lại màu sắc (Tùy chọn, cần Mermaid hỗ trợ styling)
-    style START fill:#c1e1c1, stroke:#468847, stroke-width:2px
+    %% Styling: Đổi màu nền (fill) và viền (stroke) theo màu sắc nổi bật
+    style START fill:#c1e1c1, stroke:#468847, stroke-width:2px 
     style END fill:#c1e1c1, stroke:#468847, stroke-width:2px
-    style TASK1 fill:#f2baba, stroke:#a94442, stroke-width:2px
-    style TASK2 fill:#d8bfd8, stroke:#800080, stroke-width:2px
-    style TASK3 fill:#add8e6, stroke:#31708f, stroke-width:2px
-    style TASK4 fill:#ffebcd, stroke:#ffc107, stroke-width:2px
-    style TASK5 fill:#00ced1, stroke:#008b8b, stroke-width:2px
+    style TASK1 fill:#f2baba, stroke:#a94442, stroke-width:2px 
+    style TASK2 fill:#e6c9e6, stroke:#800080, stroke-width:2px 
+    style TASK3 fill:#d0e6f0, stroke:#31708f, stroke-width:2px 
+    style TASK4 fill:#fff3d4, stroke:#ffc107, stroke-width:2px 
+    style TASK5 fill:#d1f7f7, stroke:#008b8b, stroke-width:2px
 ```
 
 ## Installing
