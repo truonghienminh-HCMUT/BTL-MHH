@@ -29,7 +29,7 @@ pip install -r requirements.txt
 
 ## Chạy kiểm thử
 ```powershell
-py -m pytest test_DeadlockILP.py -vv
+py -m pytest test_Deadlock.py -vv
 ```
 Dùng `-k <pattern>` hoặc tên test đầy đủ (ví dụ `py -m pytest test_DeadlockILP.py -vv -k deadlock`) để chạy case cụ thể.
 
