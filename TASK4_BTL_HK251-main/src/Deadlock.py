@@ -45,7 +45,6 @@ def _get_places_from_petrinet(pn: PetriNet) -> List[str]:
     m0 = getattr(pn, "M0", None) or getattr(pn, "initial_marking", None)
     if m0 is not None:
         num_places = int(np.array(m0, dtype=int).reshape(-1).shape[0])
-        # Thử quét các attribute dạng list/tuple để tìm tên
         for attr, val in vars(pn).items():
             if isinstance(val, (list, tuple)) and len(val) == num_places and val:
                 first = val[0]
@@ -58,13 +57,20 @@ def _get_places_from_petrinet(pn: PetriNet) -> List[str]:
     raise ValueError("Cannot infer places from PetriNet")
 
 
-def _get_pre_matrix(pn: PetriNet):
+def _get_io_info(pn: PetriNet):
     if hasattr(pn, "I"):
         I = np.array(getattr(pn, "I"), dtype=int)
     elif hasattr(pn, "pre"):
         I = np.array(getattr(pn, "pre"), dtype=int)
     else:
         raise AttributeError("PetriNet must have attribute I or pre")
+
+    if hasattr(pn, "O"):
+        O = np.array(getattr(pn, "O"), dtype=int)
+    elif hasattr(pn, "post"):
+        O = np.array(getattr(pn, "post"), dtype=int)
+    else:
+        raise AttributeError("PetriNet must have attribute O or post")
 
     if hasattr(pn, "M0"):
         M0 = np.array(getattr(pn, "M0"), dtype=int).reshape(-1)
@@ -74,8 +80,10 @@ def _get_pre_matrix(pn: PetriNet):
         raise AttributeError("PetriNet must have attribute M0 or initial_marking")
 
     num_places = M0.shape[0]
-    r, c = I.shape
+    if I.shape != O.shape:
+        raise ValueError("I and O must have the same shape")
 
+    r, c = I.shape
     if c == num_places:
         row_is_transition = True
         num_trans = r
@@ -83,36 +91,48 @@ def _get_pre_matrix(pn: PetriNet):
         row_is_transition = False
         num_trans = c
     else:
-        raise ValueError("Shape of pre matrix does not match number of places")
+        raise ValueError("Matrix shape mismatch with number of places")
 
-    return I, row_is_transition, num_trans, num_places
+    return I, O, M0, row_is_transition, num_trans, num_places
 
 
-def _pre_vec(I: np.ndarray, row_is_transition: bool, index_t: int) -> np.ndarray:
-    return I[index_t, :] if row_is_transition else I[:, index_t]
+def _pre_vec(matrix: np.ndarray, row_is_transition: bool, index_t: int) -> np.ndarray:
+    return matrix[index_t, :] if row_is_transition else matrix[:, index_t]
 
 
 def _build_deadlock_ilp_model(pn: PetriNet):
-    I, row_is_transition, num_trans, num_places = _get_pre_matrix(pn)
+    I, O, _, row_is_transition, num_trans, num_places = _get_io_info(pn)
 
     prob = pulp.LpProblem("DeadlockSearch", pulp.LpMinimize)
     x_vars = [
         pulp.LpVariable(f"x_{i}", lowBound=0, upBound=1, cat="Binary")
         for i in range(num_places)
     ]
-    prob += 0, "DummyObjective"
+    # Đặt mục tiêu nhỏ nhằm tránh biến rời rạc bị bỏ trống
+    prob += pulp.lpSum(x_vars), "MinimizeTokens"
 
     for t in range(num_trans):
         pre_t = _pre_vec(I, row_is_transition, t)
-        pre_indices = [i for i, val in enumerate(pre_t) if val > 0]
+        post_t = _pre_vec(O, row_is_transition, t)
 
-        if not pre_indices:
-            # Transition không có input -> luôn enabled => mạng không thể deadlock
+        pre_indices = [i for i, val in enumerate(pre_t) if val > 0]
+        block_indices = [
+            i for i, (pre_val, post_val) in enumerate(zip(pre_t, post_t))
+            if post_val > pre_val
+        ]
+
+        if not pre_indices and not block_indices:
+            # Transition vô điều kiện và không gây overflow => luôn enabled
             prob += 0 <= -1, f"no_deadlock_due_to_source_transition_{t}"
             continue
 
-        lhs = pulp.lpSum(x_vars[i] for i in pre_indices)
-        prob += lhs <= len(pre_indices) - 1, f"t{t}_not_enabled"
+        terms = []
+        for idx in pre_indices:
+            terms.append(1 - x_vars[idx])  # Thiếu token input
+        for idx in block_indices:
+            terms.append(x_vars[idx])  # Output cần chỗ trống nhưng place đang bận
+
+        prob += pulp.lpSum(terms) >= 1, f"t{t}_not_enabled"
 
     places = _get_places_from_petrinet(pn)
     return prob, x_vars, places
@@ -146,7 +166,14 @@ def _deadlock_reachable_marking_ilp(
         if status_str not in ("Optimal", "Feasible"):
             return None
 
-        marking = np.array([int(round(v.value())) for v in x_vars], dtype=int)
+        values = []
+        for v in x_vars:
+            val = v.value()
+            if val is None:
+                val = 0
+            values.append(int(round(val)))
+
+        marking = np.array(values, dtype=int)
 
         if _is_marking_in_bdd_expr(reach_expr, places, marking):
             return [int(x) for x in marking.tolist()]
@@ -159,48 +186,13 @@ def _deadlock_reachable_marking_bfs(
 ) -> Optional[List[int]]:
     """Giữ nguyên giải pháp BFS cũ như một phương án dự phòng."""
 
-    if hasattr(pn, "I"):
-        I = np.array(pn.I, dtype=int)
-    elif hasattr(pn, "pre"):
-        I = np.array(pn.pre, dtype=int)
-    else:
-        raise AttributeError("PetriNet object must have attribute I or pre")
-
-    if hasattr(pn, "O"):
-        O = np.array(pn.O, dtype=int)
-    elif hasattr(pn, "post"):
-        O = np.array(pn.post, dtype=int)
-    else:
-        raise AttributeError("PetriNet object must have attribute O or post")
-
-    if hasattr(pn, "M0"):
-        M0 = np.array(pn.M0, dtype=int)
-    elif hasattr(pn, "initial_marking"):
-        M0 = np.array(pn.initial_marking, dtype=int)
-    else:
-        raise AttributeError("PetriNet object must have attribute M0 or initial_marking")
-
-    M0 = M0.reshape(-1)
-    num_places = M0.shape[0]
-
-    if I.shape != O.shape:
-        raise ValueError("I and O must have the same shape")
-
-    r, c = I.shape
-    if c == num_places:
-        row_is_transition = True
-        num_trans = r
-    elif r == num_places:
-        row_is_transition = False
-        num_trans = c
-    else:
-        raise ValueError("Shape of I does not match number of places/transitions")
+    I, O, M0, row_is_transition, num_trans, num_places = _get_io_info(pn)
 
     def pre_vec(t_idx: int) -> np.ndarray:
-        return I[t_idx, :] if row_is_transition else I[:, t_idx]
+        return _pre_vec(I, row_is_transition, t_idx)
 
     def post_vec(t_idx: int) -> np.ndarray:
-        return O[t_idx, :] if row_is_transition else O[:, t_idx]
+        return _pre_vec(O, row_is_transition, t_idx)
 
     if hasattr(pn, "place_ids"):
         places = list(pn.place_ids)
