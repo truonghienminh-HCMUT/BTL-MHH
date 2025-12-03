@@ -51,12 +51,12 @@ class PetriNet:
         if page is None:
             page = net.find('.//page')
         if page is None:
-            page = net  # Some PNML files don't have page element
+            page = net  
         
         # Parse places
         place_ids = []
         place_names = []
-        place_map = {}  # Map place_id to index
+        place_map = {}  
         initial_marking = {}
         
         places = page.findall('.//pnml:place', ns)
@@ -93,7 +93,7 @@ class PetriNet:
         # Parse transitions
         trans_ids = []
         trans_names = []
-        trans_map = {}  # Map trans_id to index
+        trans_map = {}  
         
         transitions = page.findall('.//pnml:transition', ns)
         if not transitions:
@@ -148,7 +148,6 @@ class PetriNet:
                 except ValueError:
                     weight = 1
             
-            # Determine if arc is from place to transition (input) or transition to place (output)
             # Xác định hướng arc
             if source in place_map and target in trans_map:
                 # Place to Transition: input arc
