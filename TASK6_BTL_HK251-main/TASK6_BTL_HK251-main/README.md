@@ -2,34 +2,43 @@
 
 ```mermaid
 flowchart TD
+    %% Nút Bắt đầu và Kết thúc (Hình elip)
+    START([START])
+    END([END])
 
-    %% Places
-    P1(("TASK1"))
-    P2(("TASK2"))
-    P3(("TASK3"))
-    P4(("TASK4"))
-    P5(("TASK5"))
+    %% Các Task (Hình chữ nhật)
+    TASK1{TASK 1: PNML parsing}
+    TASK2{TASK 2: Explicit reachability}
+    TASK3{TASK 3: BDD-based reachability}
+    TASK4{TASK 4: ILP + BDD deadlock detection}
+    TASK5{TASK 5: Reachable optimization}
 
-    %% Transitions
-    T12([T1_to_T2])
-    T13([T1_to_T3])
-    T134([T1_T3_to_T4])
-    T135([T1_T3_to_T5])
+    %% Định nghĩa luồng công việc
+    START --> TASK1
 
-    %% Arcs
-    P1 --> T12
-    T12 --> P2
+    %% Từ TASK 1 chia thành 2 nhánh chính
+    TASK1 --> TASK2
+    TASK1 --> TASK3
 
-    P1 --> T13
-    T13 --> P3
+    %% TASK 2 kết thúc
+    TASK2 --> END
 
-    P1 --> T134
-    P3 --> T134
-    T134 --> P4
+    %% Từ TASK 3 chia thành 2 nhánh phụ
+    TASK3 --> TASK4
+    TASK3 --> TASK5
 
-    P1 --> T135
-    P3 --> T135
-    T135 --> P5
+    %% TASK 4 và TASK 5 kết thúc
+    TASK4 --> END
+    TASK5 --> END
+
+    %% Đặt lại màu sắc (Tùy chọn, cần Mermaid hỗ trợ styling)
+    style START fill:#c1e1c1, stroke:#468847, stroke-width:2px
+    style END fill:#c1e1c1, stroke:#468847, stroke-width:2px
+    style TASK1 fill:#f2baba, stroke:#a94442, stroke-width:2px
+    style TASK2 fill:#d8bfd8, stroke:#800080, stroke-width:2px
+    style TASK3 fill:#add8e6, stroke:#31708f, stroke-width:2px
+    style TASK4 fill:#ffebcd, stroke:#ffc107, stroke-width:2px
+    style TASK5 fill:#00ced1, stroke:#008b8b, stroke-width:2px
 ```
 
 ## Installing
