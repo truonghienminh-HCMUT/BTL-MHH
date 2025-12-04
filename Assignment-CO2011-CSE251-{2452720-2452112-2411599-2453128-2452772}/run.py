@@ -8,96 +8,31 @@ from pyeda.inter import *
 import numpy as np
 from graphviz import Source
 
-def generate_custom_bdd_image():
+def generate_custom_bdd_image(bdd_obj):
     """
-    Hàm này tạo ra file ảnh bdd_custom.png dựa trên cấu trúc cứng 
-    được định nghĩa bằng ngôn ngữ DOT (mô phỏng hình ảnh bạn cung cấp).
-    """
-    dot_code = """
-    digraph BDD {
-        rankdir=TB;
-        nodesep=0.5;
-        ranksep=0.5;
-        splines=true;
-        node [shape=circle, fixedsize=true, width=0.6, fontsize=12, fontname="Helvetica"];
-        
-        {
-            node [shape=box, width=0.8, height=0.4];
-            T1 [label="1"];
-            T0 [label="0"];
-        }
-
-        N1 [label="P1"];
-        N2_L [label="P2"]; N2_R [label="P2"];
-        N3_L [label="P3"]; N3_M [label="P3"]; N3_R [label="P3"];
-        N4_L [label="P4"]; N4_M [label="P4"]; N4_R [label="P4"];
-        N5_L [label="P5"]; N5_M1 [label="P5"]; N5_M2 [label="P5"]; N5_R [label="P5"];
-        N6_R [label="P6"];
-
-        edge [style=solid]; N1 -> N2_L [label="1"];
-        edge [style=dashed]; N1 -> N2_R [label="0"];
-
-        edge [style=solid]; N2_L -> N3_L [label="1"];
-        edge [style=dashed]; N2_L -> N3_M [label="0"];
-
-        edge [style=solid]; N2_R -> N3_R [label="1"];
-        edge [style=dashed]; N2_R -> T1 [label="0"];
-
-        edge [style=solid]; N3_L -> N4_L [label="1"];
-        edge [style=dashed]; N3_L -> T1 [label="0"];
-
-        edge [style=solid]; N3_M -> T1 [label="1"];
-        edge [style=dashed]; N3_M -> N5_L [label="0"];
-
-        edge [style=solid]; N3_R -> N4_M [label="1"];
-        edge [style=dashed]; N3_R -> N4_R [label="0"];
-
-        edge [style=solid]; N4_L -> T1 [label="1"];
-        edge [style=dashed]; N4_L -> T1 [label="0"];
-
-        edge [style=solid]; N4_M -> T1 [label="1"];
-        edge [style=dashed]; N4_M -> N5_M1 [label="0"];
-
-        edge [style=solid]; N4_R -> N5_M2 [label="1"];
-        edge [style=dashed]; N4_R -> N5_R [label="0"];
-
-        edge [style=solid]; N5_L -> T1 [label="1"];
-        edge [style=dashed]; N5_L -> T1 [label="0"];
-
-        edge [style=solid]; N5_M1 -> T1 [label="1"];
-        edge [style=dashed]; N5_M1 -> N5_M2 [label="0"];
-
-        edge [style=solid]; N5_M2 -> T1 [label="1"];
-        edge [style=dashed]; N5_M2 -> T0 [label="0"];
-
-        edge [style=solid]; N5_R -> T1 [label="1"];
-        edge [style=dashed]; N5_R -> N6_R [label="0"];
-
-        edge [style=solid]; N6_R -> T1 [label="1"];
-        edge [style=dashed]; N6_R -> T0 [label="0"];
-
-        { rank=same; N1; }
-        { rank=same; N2_L; N2_R; }
-        { rank=same; N3_L; N3_M; N3_R; }
-        { rank=same; N4_L; N4_M; N4_R; }
-        { rank=same; N5_L; N5_M1; N5_M2; N5_R; }
-        { rank=same; N6_R; }
-        { rank=same; T0; T1; }
-    }
+    Hàm này lấy đối tượng BDD thật từ PyEDA và vẽ ra ảnh.
     """
     try:
+        # PyEDA có hàm .to_dot() để xuất cấu trúc đồ thị
+        dot_code = bdd_obj.to_dot()
+        
+        # Tạo đối tượng Source của Graphviz
         s = Source(dot_code, filename="bdd", format="svg")
+        
+        # Render ra file ảnh
         output_path = s.render(cleanup=True)
-        print(f"\n[SUCCESS] Đã vẽ và lưu ảnh BDD tại: {output_path}")
+        print(f"\n[SUCCESS] Đã vẽ BDD THẬT dựa trên dữ liệu tính toán.")
+        print(f"File ảnh được lưu tại: {output_path}")
+        
     except Exception as e:
-        print(f"\n[ERROR] Không thể vẽ hình. Lỗi: {e}")
+        print(f"\n[ERROR] Không thể vẽ hình BDD thật. Lỗi: {e}")
 
 def main():
     # ------------------------------------------------------
     # 1. Load Petri Net từ file PNML
     # ------------------------------------------------------
     # Đảm bảo bạn đã tạo file deadlock.pnml
-    filename = "example.pnml"   
+    filename = "example1.pnml"   
     print("Loading PNML:", filename)
 
     try:
@@ -131,12 +66,13 @@ def main():
     # 4. BDD reachable
     # ------------------------------------------------------
     print("\n--- BDD Reachable ---")
-    bdd, count = bdd_reachable(pn)
-    print("BDD reachable markings =", count)
-    
-    print("\n--- Generating Custom BDD Image ---")
-    generate_custom_bdd_image()
-
+    try:
+        bdd, count = bdd_reachable(pn)
+        print("BDD reachable markings count =", count)
+        generate_custom_bdd_image(bdd) # Chỉ vẽ hình minh họa tĩnh
+    except Exception as e:
+        print("Lỗi BDD:", e)
+        return
     # ------------------------------------------------------
     # 5. Deadlock detection
     # ------------------------------------------------------
@@ -150,46 +86,56 @@ def main():
     # ------------------------------------------------------
     # 6. Optimization: maximize c·M
     # ------------------------------------------------------
-    c = np.array([1, -2, 3, -1, 1, 2])
     print("\n--- Optimize c·M ---")
 
-    # === [FIX FINAL] LOGIC MAPPING MẠNH MẼ ===
+    # [FIX 1] Tạo vector c khớp với số lượng Place thực tế
+    num_places = len(pn.place_ids)
+    
+    # Vector mẫu của bạn (chỉ dùng nếu khớp số lượng)
+    c_sample = np.array([1, -2, 3, -1, 1, 2])
+    
+    if num_places == len(c_sample):
+        c = c_sample
+    else:
+        print(f"[WARN] File PNML có {num_places} places, nhưng vector c mẫu có {len(c_sample)}.")
+        print("-> Tự động tạo vector c ngẫu nhiên để test.")
+        np.random.seed(42)
+        c = np.random.randint(-2, 3, size=num_places) # Random từ -2 đến 2
+    
+    print("Weight vector c:", c)
+
+    # [FIX 2] Logic Mapping Chính xác (ID -> Name)
     uuid_map = {}
     
-    # 1. Map trực tiếp từ danh sách nếu có
-    if hasattr(pn, 'places') and hasattr(pn, 'place_names'):
-        ids = [str(x) for x in pn.places]
-        names = [str(x) for x in pn.place_names]
-        if len(ids) == len(names):
-            uuid_map = dict(zip(ids, names))
+    # Map chính xác từ ID sang Name (dựa trên thứ tự parse trong PetriNet.py)
+    # Vì pn.place_ids và pn.place_names có cùng thứ tự index
+    if hasattr(pn, 'place_ids') and hasattr(pn, 'place_names'):
+        for pid, pname in zip(pn.place_ids, pn.place_names):
+            if pname: 
+                uuid_map[pid] = pname
+                # Fallback: Map thêm chữ thường/hoa để chắc chắn bắt được biến BDD
+                uuid_map[pid.lower()] = pname
+                uuid_map[pid.upper()] = pname
+            else:
+                # Nếu không có tên, map ID -> ID
+                uuid_map[pid] = pid
 
-    # 2. Map dự phòng "Case Insensitive" (Quan trọng cho trường hợp p1 -> P1)
-    # Duyệt qua tất cả các tên Place mong đợi (P1, P2...)
-    # Tự động map 'p1' -> 'P1', 'p2' -> 'P2'
-    if hasattr(pn, 'place_names'):
-        for name in pn.place_names:
-            # Map chính tên nó (P1 -> P1)
-            uuid_map[name] = name 
-            # Map chữ thường -> Chữ hoa (p1 -> P1)
-            uuid_map[name.lower()] = name
-            # Map chữ hoa -> Chữ hoa (P1 -> P1)
-            uuid_map[name.upper()] = name
-    
-    # Debug: In ra map để kiểm tra
-    # print("Debug UUID Map keys:", list(uuid_map.keys()))
+    # print("DEBUG MAP:", uuid_map)
 
     try:
+        # [FIX 3] Truyền pn.place_ids thay vì place_names để đảm bảo không bị None
         max_mark, max_val = max_reachable_marking(
-            pn.place_names, 
+            pn.place_ids,   # Dùng ID để duyệt
             bdd, 
             c, 
-            place_uuid_mapping=uuid_map
+            place_uuid_mapping=uuid_map # Dùng Map để tìm tên biến trong BDD
         )
-        print("c:", c)
-        print("Max marking:", max_mark)
+        print("Max marking found:", max_mark)
         print("Max value:", max_val)
-    except TypeError:
-        print("\n[LỖI] Sai tham số. Hãy cập nhật src/Optimization.py theo hướng dẫn cũ.")
+        
+    except TypeError as te:
+        print(f"\n[LỖI PARAM] {te}")
+        print("Hãy chắc chắn file src/Optimization.py đã được cập nhật hàm nhận tham số 'place_uuid_mapping'.")
     except Exception as e:
         print(f"\n[LỖI] Optimization thất bại: {e}")
 

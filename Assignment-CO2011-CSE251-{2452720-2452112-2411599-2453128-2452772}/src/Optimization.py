@@ -3,13 +3,16 @@ from typing import Tuple, List, Optional
 from pyeda.inter import *
 import numpy as np
 
+# [SỬA 1] Thêm tham số place_uuid_mapping=None vào định nghĩa hàm
 def max_reachable_marking(
     place_ids: List[str], 
     bdd: BinaryDecisionDiagram, 
-    c: np.ndarray
+    c: np.ndarray,
+    place_uuid_mapping: dict = None 
 ) -> Tuple[Optional[List[int]], Optional[int]]:
     """
     Tìm marking M trong tập reachable (biểu diễn bởi bdd) sao cho c^T * M là lớn nhất.
+    place_uuid_mapping: Dict ánh xạ từ ID (trong place_ids) sang Tên (trong BDD).
     """
     
     # 1. Kiểm tra BDD rỗng
@@ -18,23 +21,41 @@ def max_reachable_marking(
 
     n = len(place_ids)
     
-    # Mapping từ tên biến BDD sang index của vector trọng số c
+    # [SỬA 2] Cập nhật logic Mapping: Map cả ID và NAME vào index
+    # Ban đầu: Map ID -> Index (ví dụ: 'p1' -> 0)
     var_name_to_index = {name: i for i, name in enumerate(place_ids)}
     
+    # Mở rộng: Nếu có mapping, map thêm Name -> Index (ví dụ: 'P1' -> 0)
+    # Điều này giúp hàm get_var_index tìm được biến dù BDD đang lưu tên là 'P1' hay 'p1'
+    if place_uuid_mapping:
+        for pid, idx in list(var_name_to_index.items()):
+            # Nếu ID này có tên khác trong mapping
+            if pid in place_uuid_mapping:
+                pname = place_uuid_mapping[pid]
+                var_name_to_index[str(pname)] = idx
+                
+                # (Optional) Map luôn các biến thể thường/hoa để an toàn tuyệt đối
+                var_name_to_index[str(pname).lower()] = idx
+                var_name_to_index[str(pname).upper()] = idx
+
     # Memo: Key=Node, Value=(max_val, choice)
     memo = {}
 
     def get_var_index(node) -> int:
         """Helper để lấy index của biến tại node BDD."""
         # node.top trả về đối tượng biến (Variable). 
-        # str(node.top) sẽ trả về tên biến (ví dụ "p1" hoặc "x[0]")
         var_name = str(node.top)
         
         if var_name in var_name_to_index:
             return var_name_to_index[var_name]
         
-        # Trường hợp biến BDD không khớp tên trong place_ids
-        raise ValueError(f"Biến BDD '{var_name}' không tìm thấy trong place_ids: {place_ids}")
+        # Trường hợp biến BDD không khớp -> Thử tìm kiếm linh hoạt hơn trước khi báo lỗi
+        # Đôi khi thư viện pyeda trả về tên biến kèm dấu ngoặc hoặc định dạng lạ
+        for known_name, idx in var_name_to_index.items():
+            if str(known_name) == var_name:
+                return idx
+        
+        raise ValueError(f"Biến BDD '{var_name}' không tìm thấy trong mapping. (Place IDs: {place_ids})")
 
     def get_skipped_gain(start_idx: int, end_idx: int) -> int:
         """Tính tổng trọng số dương của các biến bị bỏ qua."""
@@ -64,13 +85,11 @@ def max_reachable_marking(
         curr_idx = get_var_index(node)
 
         # Nhánh LOW (x = 0)
-        # Sử dụng restrict để lấy node con tương ứng với gán x=0
         low_node = node.restrict({top_var: 0})
         low_val, _ = solve(low_node)
         
         total_low = float('-inf')
         if low_val != float('-inf'):
-            # Xác định index của node con để tính skip
             if low_node.is_one() or low_node.is_zero():
                 next_idx_low = n
             else:
@@ -80,20 +99,17 @@ def max_reachable_marking(
             total_low = low_val + skipped_gain
 
         # Nhánh HIGH (x = 1)
-        # Sử dụng restrict để lấy node con tương ứng với gán x=1
         high_node = node.restrict({top_var: 1})
         high_val, _ = solve(high_node)
         
         total_high = float('-inf')
         if high_val != float('-inf'):
-            # Xác định index node con
             if high_node.is_one() or high_node.is_zero():
                 next_idx_high = n
             else:
                 next_idx_high = get_var_index(high_node)
                 
             skipped_gain = get_skipped_gain(curr_idx + 1, next_idx_high)
-            # Cộng thêm trọng số của chính node hiện tại (vì chọn x=1)
             total_high = high_val + skipped_gain + c[curr_idx]
 
         # So sánh và lưu kết quả 
