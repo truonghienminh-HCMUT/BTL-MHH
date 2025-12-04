@@ -1,0 +1,21 @@
+Places: ['p_a1', 'p_a2', 'p_b1', 'p_b2']
+Place names: [None, None, None, None]
+
+Transitions: ['t_a1', 't_b1']
+Transition names: [None, None]
+
+I (input) matrix:
+[[1 0 0 0]
+ [0 0 1 0]]
+
+O (output) matrix:
+[[0 1 0 0]
+ [0 0 0 1]]
+
+Initial marking M0:
+[1 0 1 0]
+BFS reachable: 4
+DFS reachable: 4
+BDD reachable: 4
+Deadlock: [0, 1, 0, 1]
+Max value: 2

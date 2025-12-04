@@ -1,0 +1,29 @@
+Places: ['start', 'p_par1', 'p_par2', 'p_choice_in', 'p_choice_out', 'end', 'p_wait_join']
+Place names: [None, None, None, None, None, None, None]
+
+Transitions: ['t_split', 't_p1', 't_p2', 't_opt_a', 't_opt_b', 't_join']
+Transition names: [None, 'Task1', 'Task2', None, None, None]
+
+I (input) matrix:
+[[1 0 0 0 0 0 0]
+ [0 1 0 0 0 0 0]
+ [0 0 1 0 0 0 0]
+ [0 0 0 1 0 0 0]
+ [0 0 0 1 0 0 0]
+ [0 0 0 0 1 0 0]]
+
+O (output) matrix:
+[[0 1 1 0 0 0 0]
+ [0 0 0 1 0 0 0]
+ [0 0 0 0 1 0 0]
+ [0 0 0 0 1 0 1]
+ [0 0 0 0 1 0 1]
+ [0 0 0 0 0 0 0]]
+
+Initial marking M0:
+[1 0 0 0 0 0 0]
+BFS reachable: 11
+DFS reachable: 11
+BDD reachable: 11
+Deadlock: [0, 0, 0, 0, 0, 0, 1]
+Max value: 3

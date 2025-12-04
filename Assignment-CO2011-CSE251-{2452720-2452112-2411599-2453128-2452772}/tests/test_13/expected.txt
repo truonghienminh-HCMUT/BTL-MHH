@@ -1,0 +1,25 @@
+Places: ['r1', 'r2', 'a_start', 'a_hold_r1', 'a_done', 'b_start', 'b_hold_r2', 'b_done']
+Place names: [None, None, None, None, None, None, None, None]
+
+Transitions: ['t_a1', 't_a2', 't_b1', 't_b2']
+Transition names: [None, None, None, None]
+
+I (input) matrix:
+[[1 0 1 0 0 0 0 0]
+ [0 1 0 1 0 0 0 0]
+ [0 1 0 0 0 1 0 0]
+ [1 0 0 0 0 0 1 0]]
+
+O (output) matrix:
+[[0 0 0 1 0 0 0 0]
+ [1 1 0 0 1 0 0 0]
+ [0 0 0 0 0 0 1 0]
+ [1 1 0 0 0 0 0 1]]
+
+Initial marking M0:
+[1 1 1 0 0 1 0 0]
+BFS reachable: 9
+DFS reachable: 9
+BDD reachable: 9
+Deadlock: [0, 0, 0, 1, 0, 0, 1, 0]
+Max value: 4

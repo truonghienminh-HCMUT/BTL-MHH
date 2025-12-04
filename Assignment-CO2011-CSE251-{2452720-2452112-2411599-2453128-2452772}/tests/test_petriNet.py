@@ -3,7 +3,7 @@ from src.PetriNet import PetriNet
 from pathlib import Path
 
 def test_001():
-    base_dir = Path(__file__).parent / "test_1"
+    base_dir = Path(__file__).parent / "test_1_petriNet"
     
     pn = PetriNet.from_pnml(str(base_dir / "example.pnml"))
     with open(base_dir / "expected.txt", "r", encoding="utf-8") as f:
@@ -13,7 +13,7 @@ def test_001():
     assert actual_content == expected_content, "PetriNet.from_pnml output does not match expected"
 
 def test_002():
-    base_dir = Path(__file__).parent / "test_2"
+    base_dir = Path(__file__).parent / "test_2_petriNet"
 
     pn = PetriNet.from_pnml(str(base_dir / "example.pnml"))
     with open(base_dir / "expected.txt", "r", encoding="utf-8") as f:
@@ -23,7 +23,7 @@ def test_002():
     assert actual_content == expected_content, "PetriNet.from_pnml output does not match expected"
 
 def test_003():
-    base_dir = Path(__file__).parent / "test_3"
+    base_dir = Path(__file__).parent / "test_3_petriNet"
 
     pn = PetriNet.from_pnml(str(base_dir / "example.pnml"))
     with open(base_dir / "expected.txt", "r", encoding="utf-8") as f:
@@ -33,7 +33,7 @@ def test_003():
     assert actual_content == expected_content, "PetriNet.from_pnml output does not match expected"
 
 def test_004():
-    base_dir = Path(__file__).parent / "test_4"
+    base_dir = Path(__file__).parent / "test_4_petriNet"
 
     pn = PetriNet.from_pnml(str(base_dir / "example.pnml"))
     with open(base_dir / "expected.txt", "r", encoding="utf-8") as f:
@@ -43,7 +43,7 @@ def test_004():
     assert actual_content == expected_content, "PetriNet.from_pnml output does not match expected"
 
 def test_005():
-    base_dir = Path(__file__).parent / "test_5"
+    base_dir = Path(__file__).parent / "test_5_petriNet"
 
     pn = PetriNet.from_pnml(str(base_dir / "example.pnml"))
     with open(base_dir / "expected.txt", "r", encoding="utf-8") as f:
@@ -53,7 +53,7 @@ def test_005():
     assert actual_content == expected_content, "PetriNet.from_pnml output does not match expected"
 
 def test_006():
-    base_dir = Path(__file__).parent / "test_6"
+    base_dir = Path(__file__).parent / "test_6_petriNet"
 
     pn = PetriNet.from_pnml(str(base_dir / "example.pnml"))
     with open(base_dir / "expected.txt", "r", encoding="utf-8") as f:

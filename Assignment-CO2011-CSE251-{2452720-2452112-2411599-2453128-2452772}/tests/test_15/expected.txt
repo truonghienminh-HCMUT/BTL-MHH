@@ -1,0 +1,25 @@
+Places: ['mutex', 'p1_wait', 'p1_cs', 'p2_wait', 'p2_cs']
+Place names: [None, None, None, None, None]
+
+Transitions: ['t1_enter', 't1_exit', 't2_enter', 't2_exit']
+Transition names: [None, None, None, None]
+
+I (input) matrix:
+[[1 1 0 0 0]
+ [0 0 1 0 0]
+ [1 0 0 1 0]
+ [0 0 0 0 1]]
+
+O (output) matrix:
+[[0 0 1 0 0]
+ [1 1 0 0 0]
+ [0 0 0 0 1]
+ [1 0 0 1 0]]
+
+Initial marking M0:
+[1 1 0 1 0]
+BFS reachable: 3
+DFS reachable: 3
+BDD reachable: 3
+Deadlock: No deadlock
+Max value: 3
