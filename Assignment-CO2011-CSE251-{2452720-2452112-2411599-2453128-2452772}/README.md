@@ -84,6 +84,9 @@ README.md
   + Chạy thử: 
     ```sh
     py -m pytest tests/test_BFS.py -v
+    ```
+    &
+    ```sh
     py -m pytest tests/test_DFS.py -v
     ```
 
