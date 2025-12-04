@@ -57,10 +57,16 @@ https://gitlab.com/api/v4/projects/4207231/packages/generic/graphviz-releases/14
 
 ## Requirements
 
+- Cài đặt thư viện Pyeda
+```sh
+pip install pyeda
+```
+
 - Huỷ file venv cũ (nếu có)
 ```
 deactivate
 ```
+
 - Xoá file venv cũ (nếu có)
 ```
 Remove-Item -Recurse -Force venv
@@ -117,4 +123,10 @@ py -m pytest tests/test_petriNet.py -v
 
 ```sh
 py -m pytest tests/test_petriNet.py::test_001 -v
+```
+
+- Chạy testcase của các hàm nhỏ:
++ BDD:
+```sh
+py -m pytest tests/test_BDD.py -v
 ```
