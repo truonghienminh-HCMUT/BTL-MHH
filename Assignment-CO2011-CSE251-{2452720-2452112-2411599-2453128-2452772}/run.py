@@ -86,7 +86,7 @@ def get_test_cases():
 
 # Dòng này sẽ tự động tạo ra nhiều test case tương ứng với số folder tìm được
 @pytest.mark.parametrize("case_name, folder_path", get_test_cases())
-def test_run_folder(case_name, folder_path):
+def test(case_name, folder_path):
     """
     Pytest sẽ gọi hàm này với từng folder test tìm thấy.
     """
