@@ -10,7 +10,7 @@ from graphviz import Source
 
 def generate_custom_bdd_image(bdd_obj):
     """
-    Hàm này lấy đối tượng BDD thật từ PyEDA và vẽ ra ảnh.
+    Hàm này lấy đối tượng BDD từ PyEDA và vẽ ra ảnh.
     """
     try:
         # PyEDA có hàm .to_dot() để xuất cấu trúc đồ thị

@@ -6,8 +6,7 @@ from collections import deque
 import numpy as np
 import os
 
-# Thêm đường dẫn tới thư mục bin của Graphviz (Kiểm tra lại đường dẫn trên máy bạn cho chắc)
-# Lưu ý: Phải có chữ r phía trước đường dẫn
+# Đường dẫn đến thư viện graphviz để vẽ hình
 os.environ["PATH"] += os.pathsep + r'C:\Program Files\Graphviz\bin'
 
 # Lấy ma trận I (input), O (output) và marking ban đầu M0:
