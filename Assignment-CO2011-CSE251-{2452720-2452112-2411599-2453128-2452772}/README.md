@@ -125,8 +125,29 @@ py -m pytest tests/test_petriNet.py -v
 py -m pytest tests/test_petriNet.py::test_001 -v
 ```
 
-- Chạy testcase của các hàm nhỏ:
-+ BDD:
-```sh
-py -m pytest tests/test_BDD.py -v
-```
+- Chạy testcase cho từng hàm nhỏ:
+
+  + BDD:
+    ```sh
+    py -m pytest tests/test_BDD.py -v
+    ```
+
+  + BFS:
+    ```sh
+    py -m pytest tests/test_BFS.py -v
+    ```
+
+  + DFS:
+    ```sh
+    py -m pytest tests/test_DFS.py -v
+    ```
+
+  + Deadlock:
+    ```sh
+    py -m pytest tests/test_Deadlock.py -v
+    ```
+
+  + Optimization:
+    ```sh
+    py -m pytest tests/test_Optimization.py -v
+    ```
