@@ -1,143 +1,122 @@
-from PetriNet import PetriNet
-from src.BDD import bdd_reachable
-from src.Optimization import max_reachable_marking
+import os
+import sys
+import pytest
+import numpy as np
+
+# Import các module từ folder src
+from src.PetriNet import PetriNet
 from src.BFS import bfs_reachable
 from src.DFS import dfs_reachable
+from src.BDD import bdd_reachable
+from src.Optimization import max_reachable_marking
 from src.Deadlock import deadlock_reachable_marking
-from pyeda.inter import * 
-import numpy as np
-from graphviz import Source
 
-def generate_custom_bdd_image(bdd_obj):
+# -------------------------------------------------------------------------
+# 1. HÀM HỖ TRỢ (GIỮ NGUYÊN LOGIC CŨ)
+# -------------------------------------------------------------------------
+def run_solver(pnml_path):
     """
-    Hàm này lấy đối tượng BDD từ PyEDA và vẽ ra ảnh.
+    Hàm này chạy toàn bộ logic tính toán và trả về chuỗi kết quả (Actual).
     """
     try:
-        # PyEDA có hàm .to_dot() để xuất cấu trúc đồ thị
-        dot_code = bdd_obj.to_dot()
+        # Load Petri Net
+        pn = PetriNet.from_pnml(pnml_path)
+        pn_struct = str(pn) # Lấy cấu trúc để so sánh phần đầu
+
+        # Chạy thuật toán
+        bfs_res = len(bfs_reachable(pn))
+        dfs_res = len(dfs_reachable(pn))
+        bdd_node, bdd_res = bdd_reachable(pn)
         
-        # Tạo đối tượng Source của Graphviz
-        s = Source(dot_code, filename="bdd", format="svg")
+        deadlock_marking = deadlock_reachable_marking(pn, bdd_node)
+        deadlock_status = "No deadlock" if deadlock_marking is None else str(deadlock_marking)
+
+        # Optimization (Vector c cố định)
+        num_places = len(pn.place_ids)
+        c_sample = np.array([1, -2, 3, -1, 1, 2])
+        if num_places == len(c_sample):
+            c = c_sample
+        else:
+            c = np.ones(num_places, dtype=int)
+
+        # Map ID -> Name
+        uuid_map = {}
+        if hasattr(pn, 'place_ids') and hasattr(pn, 'place_names'):
+             for pid, pname in zip(pn.place_ids, pn.place_names):
+                uuid_map[pid] = pname if pname else pid
+
+        max_mark, max_val = max_reachable_marking(pn.place_ids, bdd_node, c, uuid_map)
+
+        # Tạo chuỗi kết quả
+        stats_lines = [
+            f"BFS reachable: {bfs_res}",
+            f"DFS reachable: {dfs_res}",
+            f"BDD reachable: {bdd_res}",
+            f"Deadlock: {deadlock_status}",
+            f"Max value: {max_val}"
+        ]
         
-        # Render ra file ảnh
-        output_path = s.render(cleanup=True)
-        print(f"\n[SUCCESS] Đã vẽ BDD THẬT dựa trên dữ liệu tính toán.")
-        print(f"File ảnh được lưu tại: {output_path}")
-        
+        # Kết hợp cấu trúc + thống kê
+        full_output = f"{pn_struct.strip()}\n" + "\n".join(stats_lines)
+        return full_output
     except Exception as e:
-        print(f"\n[ERROR] Không thể vẽ hình BDD thật. Lỗi: {e}")
+        return f"Error: {str(e)}"
 
-def main():
-    # ------------------------------------------------------
-    # 1. Load Petri Net từ file PNML
-    # ------------------------------------------------------
-    # Đảm bảo bạn đã tạo file deadlock.pnml
-    filename = "example1.pnml"   
-    print("Loading PNML:", filename)
-
-    try:
-        pn = PetriNet.from_pnml(filename)
-        print("\n--- Petri Net Loaded ---")
-        print(pn)
-    except FileNotFoundError:
-        print(f"\n[CRITICAL ERROR] Không tìm thấy file '{filename}'.")
-        print("Vui lòng tạo file deadlock.pnml theo hướng dẫn trước đó.")
-        return
-
-    # ------------------------------------------------------
-    # 2. BFS reachable
-    # ------------------------------------------------------
-    print("\n--- BFS Reachable Markings ---")
-    bfs_set = bfs_reachable(pn)
-    for m in bfs_set:
-        print(np.array(m))
-    print("Total BFS reachable =", len(bfs_set))
-
-    # ------------------------------------------------------
-    # 3. DFS reachable
-    # ------------------------------------------------------
-    print("\n--- DFS Reachable Markings ---")
-    dfs_set = dfs_reachable(pn)
-    for m in dfs_set:
-        print(np.array(m))
-    print("Total DFS reachable =", len(dfs_set))
-
-    # ------------------------------------------------------
-    # 4. BDD reachable
-    # ------------------------------------------------------
-    print("\n--- BDD Reachable ---")
-    try:
-        bdd, count = bdd_reachable(pn)
-        print("BDD reachable markings count =", count)
-        generate_custom_bdd_image(bdd) # Chỉ vẽ hình minh họa tĩnh
-    except Exception as e:
-        print("Lỗi BDD:", e)
-        return
-    # ------------------------------------------------------
-    # 5. Deadlock detection
-    # ------------------------------------------------------
-    print("\n--- Deadlock reachable marking ---")
-    dead = deadlock_reachable_marking(pn, bdd)
-    if dead is not None:
-        print("Deadlock marking:", dead)
-    else:
-        print("No deadlock reachable.")
-
-    # ------------------------------------------------------
-    # 6. Optimization: maximize c·M
-    # ------------------------------------------------------
-    print("\n--- Optimize c·M ---")
-
-    # [FIX 1] Tạo vector c khớp với số lượng Place thực tế
-    num_places = len(pn.place_ids)
+def get_test_cases():
+    """
+    Quét thư mục 'tests/' để tìm danh sách các folder test_X.
+    Trả về danh sách các tuple: [(tên_test, đường_dẫn), ...]
+    """
+    cases = []
+    tests_dir = "tests" # Folder chứa các test case
+    if os.path.exists(tests_dir):
+        for f in os.listdir(tests_dir):
+            path = os.path.join(tests_dir, f)
+            # Chỉ lấy các folder bắt đầu bằng "test_"
+            if os.path.isdir(path) and f.startswith("test_"):
+                cases.append((f, path))
     
-    # Vector mẫu của bạn (chỉ dùng nếu khớp số lượng)
-    c_sample = np.array([1, -2, 3, -1, 1, 2])
-    
-    if num_places == len(c_sample):
-        c = c_sample
-    else:
-        print(f"[WARN] File PNML có {num_places} places, nhưng vector c mẫu có {len(c_sample)}.")
-        print("-> Tự động tạo vector c ngẫu nhiên để test.")
-        np.random.seed(42)
-        c = np.random.randint(-2, 3, size=num_places) # Random từ -2 đến 2
-    
-    print("Weight vector c:", c)
+    # Sắp xếp theo tên (test_1, test_2...)
+    cases.sort(key=lambda x: x[0])
+    return cases
 
-    # [FIX 2] Logic Mapping Chính xác (ID -> Name)
-    uuid_map = {}
+# -------------------------------------------------------------------------
+# 2. HÀM TEST CHÍNH CỦA PYTEST
+# -------------------------------------------------------------------------
+
+# Dòng này sẽ tự động tạo ra nhiều test case tương ứng với số folder tìm được
+@pytest.mark.parametrize("case_name, folder_path", get_test_cases())
+def test_run_folder(case_name, folder_path):
+    """
+    Pytest sẽ gọi hàm này với từng folder test tìm thấy.
+    """
+    print(f"\nExample: Đang chạy {case_name}...")
     
-    # Map chính xác từ ID sang Name (dựa trên thứ tự parse trong PetriNet.py)
-    # Vì pn.place_ids và pn.place_names có cùng thứ tự index
-    if hasattr(pn, 'place_ids') and hasattr(pn, 'place_names'):
-        for pid, pname in zip(pn.place_ids, pn.place_names):
-            if pname: 
-                uuid_map[pid] = pname
-                # Fallback: Map thêm chữ thường/hoa để chắc chắn bắt được biến BDD
-                uuid_map[pid.lower()] = pname
-                uuid_map[pid.upper()] = pname
-            else:
-                # Nếu không có tên, map ID -> ID
-                uuid_map[pid] = pid
+    pnml_file = os.path.join(folder_path, "example.pnml")
+    expected_file = os.path.join(folder_path, "expected.txt")
 
-    # print("DEBUG MAP:", uuid_map)
+    # Kiểm tra file input
+    if not os.path.exists(pnml_file):
+        pytest.fail(f"Không tìm thấy file example.pnml trong {case_name}")
 
-    try:
-        # [FIX 3] Truyền pn.place_ids thay vì place_names để đảm bảo không bị None
-        max_mark, max_val = max_reachable_marking(
-            pn.place_ids,   # Dùng ID để duyệt
-            bdd, 
-            c, 
-            place_uuid_mapping=uuid_map # Dùng Map để tìm tên biến trong BDD
-        )
-        print("Max marking found:", max_mark)
-        print("Max value:", max_val)
-        
-    except TypeError as te:
-        print(f"\n[LỖI PARAM] {te}")
-        print("Hãy chắc chắn file src/Optimization.py đã được cập nhật hàm nhận tham số 'place_uuid_mapping'.")
-    except Exception as e:
-        print(f"\n[LỖI] Optimization thất bại: {e}")
+    # Chạy tính toán
+    actual_result = run_solver(pnml_file)
+
+    # Nếu chưa có file expected thì báo SKIPPED (Bỏ qua) thay vì FAILED
+    if not os.path.exists(expected_file):
+        pytest.skip(f"Chưa có file expected.txt. Kết quả chạy:\n{actual_result}")
+
+    # Đọc file expected
+    with open(expected_file, 'r', encoding='utf-8') as f:
+        expected_content = f.read().strip()
+
+    # Chuẩn hóa (xóa khoảng trắng thừa, xử lý dòng Windows/Linux)
+    actual_norm = actual_result.strip().replace('\r\n', '\n')
+    expected_norm = expected_content.replace('\r\n', '\n')
+
+    # So sánh (Assertion)
+    # Nếu sai, Pytest sẽ tự in ra bảng so sánh chi tiết
+    assert actual_norm == expected_norm, f"Kết quả không khớp ở {case_name}!"
 
 if __name__ == "__main__":
-    main()
+    sys.exit(pytest.main(["-v", __file__]))

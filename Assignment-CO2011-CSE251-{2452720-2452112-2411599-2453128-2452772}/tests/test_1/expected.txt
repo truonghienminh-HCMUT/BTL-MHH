@@ -16,3 +16,8 @@ O (output) matrix:
 
 Initial marking M0:
 [1 0 0]
+BFS reachable: 3
+DFS reachable: 3
+BDD reachable: 3
+Deadlock: No deadlock
+Max value: 1

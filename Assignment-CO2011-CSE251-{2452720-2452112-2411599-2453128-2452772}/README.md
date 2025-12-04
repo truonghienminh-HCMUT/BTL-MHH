@@ -57,6 +57,15 @@ https://gitlab.com/api/v4/projects/4207231/packages/generic/graphviz-releases/14
 
 ## Requirements
 
+- Huỷ file venv cũ (nếu có)
+```
+deactivae
+```
+- Xoá file venv cũ (nếu có)
+```
+Remove-Item -Recurse -Force venv
+```
+
 - Tạo môi trường ảo (virtual environment)
 ```sh
 python3 -m venv venv
