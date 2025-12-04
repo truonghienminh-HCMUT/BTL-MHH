@@ -4,6 +4,10 @@ from pyeda.inter import *
 from PetriNet import PetriNet
 from collections import deque
 import numpy as np
+import os
+
+# Đường dẫn đến thư viện graphviz để vẽ hình
+os.environ["PATH"] += os.pathsep + r'C:\Program Files\Graphviz\bin'
 
 # Lấy ma trận I (input), O (output) và marking ban đầu M0:
 def bdd_reachable(pn: PetriNet) -> Tuple[BinaryDecisionDiagram, int]:
