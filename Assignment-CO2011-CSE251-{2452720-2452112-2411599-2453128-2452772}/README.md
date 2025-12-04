@@ -40,6 +40,52 @@ flowchart TD
     style TASK4 stroke:#ffc107, stroke-width:2px 
     style TASK5 stroke:#008b8b, stroke-width:2px
 ```
+## Cấu trúc file:
+```sh
+src/
+│── PetriNet.py
+│── BFS.py
+│── DFS.py
+│── BDD.py
+│── Deadlock.py
+│── Optimization.py
+│
+tests/
+│── test_petriNet.py
+│── test_BFS.py
+│── test_DFS.py
+│── test_BDD.py
+│── test_Deadlock.py
+│── test_Optimization.py
+│
+run.py
+example.pnml
+requirements.txt
+README.md
+
+```
+## Mô tả file:
+- `PetriNet.py` – Phân tích PNML:
+  + Đọc file PNML chuẩn 2009 → tạo lớp `PetriNet`
+  + Trích xuất:
+    + Danh sách Place / Transition (ID + Tên)
+    + Ma trận Input I
+    + Ma trận Output O
+    + Marking khởi tạo M0
+  + Hỗ trợ namespace và trọng số arc.
+  + Xuất thông tin mạng bằng `__str__`.
+
+- `BFS & DFS Reachability`:
+  + BFS (`BFS.py`)
+    + Liệt kê toàn bộ reachable markings theo chiều rộng.
+    + Đảm bảo đầy đủ và tối thiểu.
+  + DFS (`DFS.py`):
+    + Kiểm tra lại không gian reachable theo chiều sâu.
+  + Chạy thử: 
+    ```sh
+    py -m pytest tests/test_BFS.py -v
+    py -m pytest tests/test_DFS.py -v
+    ```
 
 ## Installing
 
