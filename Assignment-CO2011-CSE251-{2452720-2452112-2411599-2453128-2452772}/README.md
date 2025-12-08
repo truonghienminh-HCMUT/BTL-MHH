@@ -14,7 +14,7 @@
 <div align="center">
   <img src="https://media.tenor.com/HuQ0k121gikAAAAM/evernight-hsr-honkai-star-rail.gif" alt="Demo Animation" width="100%">
   <br/>
-  <i>Minh họa mô phỏng hoạt động của hệ thống (Ảnh minh họa)</i>
+  <i>Minh họa mô phỏng hoạt động của hệ thống</i>
 </div>
 
 ```mermaid
