@@ -8,11 +8,11 @@
   ![License](https://img.shields.io/badge/License-MIT-brightgreen?style=for-the-badge)
   ![University](https://img.shields.io/badge/University-HCMUT-blue?style=for-the-badge&logo=google-scholar&logoColor=white)
 </div>
-![evernight-hsr](https://github.com/user-attachments/assets/ec73ecc2-7267-43a9-b3dd-93d41a2ead15)
+
 <br/>
 
 <div align="center">
-  
+  ![evernight-hsr](https://github.com/user-attachments/assets/ec73ecc2-7267-43a9-b3dd-93d41a2ead15)
   <br/>
   <i>Minh họa mô phỏng hoạt động của hệ thống</i>
 </div>
