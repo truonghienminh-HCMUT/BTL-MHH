@@ -1,0 +1,32 @@
+<!-- Khoảng 25 trạng thái -->
+<pnml xmlns="http://www.pnml.org/version-2009/grammar/pnml">
+  <net id="n_25" type="http://www.pnml.org/version-2009/grammar/ptnet">
+    <page id="p_25">
+      <!-- Start -->
+      <place id="p_start"><initialMarking><text>1</text></initialMarking></place>
+      <transition id="t_split"/>
+      <arc id="a0" source="p_start" target="t_split"/>
+
+      <!-- Branch 1 (Length 4: p1->p2->p3->p4) -->
+      <place id="p1_1"/><place id="p1_2"/><place id="p1_3"/><place id="p1_4"/>
+      <transition id="t1_1"/><transition id="t1_2"/><transition id="t1_3"/>
+      
+      <arc id="a1" source="t_split" target="p1_1"/>
+      <arc id="a2" source="p1_1" target="t1_1"/><arc id="a3" source="t1_1" target="p1_2"/>
+      <arc id="a4" source="p1_2" target="t1_2"/><arc id="a5" source="t1_2" target="p1_3"/>
+      <arc id="a6" source="p1_3" target="t1_3"/><arc id="a7" source="t1_3" target="p1_4"/>
+
+      <!-- Branch 2 (Length 6: p2_1...p2_6) -->
+      <place id="p2_1"/><place id="p2_2"/><place id="p2_3"/>
+      <place id="p2_4"/><place id="p2_5"/><place id="p2_6"/>
+      <transition id="t2_1"/><transition id="t2_2"/><transition id="t2_3"/><transition id="t2_4"/><transition id="t2_5"/>
+
+      <arc id="a8" source="t_split" target="p2_1"/>
+      <arc id="a9" source="p2_1" target="t2_1"/><arc id="a10" source="t2_1" target="p2_2"/>
+      <arc id="a11" source="p2_2" target="t2_2"/><arc id="a12" source="t2_2" target="p2_3"/>
+      <arc id="a13" source="p2_3" target="t2_3"/><arc id="a14" source="t2_3" target="p2_4"/>
+      <arc id="a15" source="p2_4" target="t2_4"/><arc id="a16" source="t2_4" target="p2_5"/>
+      <arc id="a17" source="p2_5" target="t2_5"/><arc id="a18" source="t2_5" target="p2_6"/>
+    </page>
+  </net>
+</pnml>

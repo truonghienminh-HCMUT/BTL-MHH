@@ -1,0 +1,48 @@
+<!-- Một Place bắt đầu tách ra 3 nhánh song song và gộp lại ở cuối. Tổng cộng khoảng 27 phần tử. -->
+<pnml xmlns="http://www.pnml.org/version-2009/grammar/pnml">
+  <net id="n_par" type="http://www.pnml.org/version-2009/grammar/ptnet">
+    <page id="page_par">
+      <!-- Places -->
+      <place id="p_start"><name><text>Start</text></name><initialMarking><text>1</text></initialMarking></place>
+      <place id="p_b1_1"><name><text>Branch1_Step1</text></name></place>
+      <place id="p_b1_2"><name><text>Branch1_Step2</text></name></place>
+      <place id="p_b2_1"><name><text>Branch2_Step1</text></name></place>
+      <place id="p_b2_2"><name><text>Branch2_Step2</text></name></place>
+      <place id="p_b3_1"><name><text>Branch3_Step1</text></name></place>
+      <place id="p_b3_2"><name><text>Branch3_Step2</text></name></place>
+      <place id="p_end"><name><text>End</text></name></place>
+
+      <!-- Transitions -->
+      <transition id="t_split"><name><text>Split</text></name></transition>
+      <transition id="t_b1"><name><text>Process_B1</text></name></transition>
+      <transition id="t_b2"><name><text>Process_B2</text></name></transition>
+      <transition id="t_b3"><name><text>Process_B3</text></name></transition>
+      <transition id="t_join"><name><text>Join</text></name></transition>
+
+      <!-- Arcs -->
+      <!-- Split -->
+      <arc id="a1" source="p_start" target="t_split"/>
+      <arc id="a2" source="t_split" target="p_b1_1"/>
+      <arc id="a3" source="t_split" target="p_b2_1"/>
+      <arc id="a4" source="t_split" target="p_b3_1"/>
+      
+      <!-- Branch 1 -->
+      <arc id="a5" source="p_b1_1" target="t_b1"/>
+      <arc id="a6" source="t_b1" target="p_b1_2"/>
+      
+      <!-- Branch 2 -->
+      <arc id="a7" source="p_b2_1" target="t_b2"/>
+      <arc id="a8" source="t_b2" target="p_b2_2"/>
+
+      <!-- Branch 3 -->
+      <arc id="a9" source="p_b3_1" target="t_b3"/>
+      <arc id="a10" source="t_b3" target="p_b3_2"/>
+
+      <!-- Join -->
+      <arc id="a11" source="p_b1_2" target="t_join"/>
+      <arc id="a12" source="p_b2_2" target="t_join"/>
+      <arc id="a13" source="p_b3_2" target="t_join"/>
+      <arc id="a14" source="t_join" target="p_end"/>
+    </page>
+  </net>
+</pnml>
