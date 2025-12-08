@@ -253,7 +253,7 @@ py -m pytest tests/test_petriNet.py::test_001 -v
 
 Dự án này là Bài tập lớn môn Mô hình toán hóa học, được thực hiện bởi nhóm sinh viên trường Đại học Bách Khoa - ĐHQG TP.HCM.
 
-** Repository:** [https://github.com/truonghienminh-HCMUT/BTL-MHH](https://github.com/truonghienminh-HCMUT/BTL-MHH/tree/main)
+* Repository: [https://github.com/truonghienminh-HCMUT/BTL-MHH](https://github.com/truonghienminh-HCMUT/BTL-MHH/tree/main)
 
 ### Danh sách thành viên:
 
