@@ -12,7 +12,7 @@
 <br/>
 
 <div align="center">
-  ![evernight-hsr](https://github.com/user-attachments/assets/ec73ecc2-7267-43a9-b3dd-93d41a2ead15)
+  <img src="https://github.com/user-attachments/assets/ec73ecc2-7267-43a9-b3dd-93d41a2ead15" alt="Demo Animation" width="100%">
   <br/>
   <i>Minh họa mô phỏng hoạt động của hệ thống</i>
 </div>
