@@ -92,6 +92,8 @@ README.md
 * **Test:**
   ```sh
   py -m pytest tests/test_BFS.py -v
+  ```
+  ```sh
   py -m pytest tests/test_DFS.py -v
   ```
 
@@ -153,12 +155,13 @@ Tải graphviz để tạo hình ảnh (phiên bản 14.0.5 cho window 64bit).
 
 ### Thiết lập môi trường
 
-**1. Làm sạch môi trường cũ (nếu có)**
+**1. Nếu có môi trường cũ**
+> Nếu đang trong venv
 ```sh
-# Nếu đang trong venv
 deactivate 
-
-# Xóa thư mục venv cũ
+```
+> Xóa thư mục venv cũ
+```sh
 Remove-Item -Recurse -Force venv
 ```
 
