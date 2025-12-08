@@ -259,10 +259,10 @@ Dự án này là Bài tập lớn môn Mô hình toán hóa học, được th�
 
 | STT | Họ và Tên | MSSV | Email Liên Hệ |
 |:---:|-----------|:----:|---------------|
-| 1 | [Khoa Lỏ] | [2411599] | [khoa.leanh0404@hcmut.edu.vn] |
-| 2 | [Trần Ngọc Phương Mai] | [2452720] | [mai.tranngocphuongmai2452720@hcmut.edu.vn] |
-| 3 | [Nguyễn Võ Hoàng Sơn] | [2453128] | [son.nguyenhoang24@hcmut.edu.vn] |
-| 4 | [Phạm Nguyễn Thiên Ân] | [2452112] | [an.pham2452112kon@hcmut.edu.vn] |
-| 5 | [Trương Hiển Minh] | [2452771] | [minh.truonghien@hcmut.edu.vn] |
+| 1 | Khoa Lỏ | 2411599 | khoa.leanh0404@hcmut.edu.vn |
+| 2 | Trần Ngọc Phương Mai | 2452720 | mai.tranngocphuongmai2452720@hcmut.edu.vn |
+| 3 | Nguyễn Võ Hoàng Sơn | 2453128 | son.nguyenhoang24@hcmut.edu.vn |
+| 4 | Phạm Nguyễn Thiên Ân | 2452112 | an.pham2452112kon@hcmut.edu.vn |
+| 5 | Trương Hiển Minh | 2452771 | minh.truonghien@hcmut.edu.vn |
 
 Mọi đóng góp, báo lỗi hoặc thắc mắc về dự án, vui lòng tạo [Issue](https://github.com/truonghienminh-HCMUT/BTL-MHH/issues) trên GitHub hoặc liên hệ trực tiếp qua các email ở trên.
