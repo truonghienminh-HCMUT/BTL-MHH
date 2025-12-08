@@ -32,7 +32,8 @@ flowchart TD
     style TASK4 stroke:#ffc107, stroke-width:2px 
     style TASK5 stroke:#008b8b, stroke-width:2px
 ```
-## Giới thiệu dự án
+
+## 📖 Giới thiệu dự án
 
 Dự án này là một bộ công cụ dùng để mô hình hóa và phân tích **Mạng Petri (Petri Nets)**, đặc biệt tập trung vào mạng **1-safe**. Mục tiêu chính của dự án là giải quyết bài toán bùng nổ không gian trạng thái thông qua các kỹ thuật suy diễn đại số và ký hiệu.
 
@@ -45,7 +46,8 @@ Hệ thống được thiết kế để đọc dữ liệu từ định dạng 
 * **Phát hiện Deadlock:** Tìm kiếm các trạng thái "chết" nơi hệ thống bị dừng hoạt động hoàn toàn, kết hợp giữa BDD và kiểm tra điều kiện kích hoạt.
 * **Tối ưu hóa:** Tìm kiếm trạng thái đạt tới thỏa mãn hàm mục tiêu lớn nhất ($c^T \cdot M$) bằng thuật toán quy hoạch động trên cấu trúc BDD.
 
-## Cấu trúc thư mục:
+## 📂 Cấu trúc thư mục
+
 ```sh
 src/
 │── PetriNet.py
@@ -67,102 +69,100 @@ run.py
 example.pnml
 requirements.txt
 README.md
-
-```
-## Mô tả:
-- `PetriNet.py` - Phân tích PNML:
-  + Đọc file PNML chuẩn 2009 → tạo lớp `PetriNet`
-  + Trích xuất:
-    + Danh sách Place / Transition (ID + Tên)
-    + Ma trận Input I
-    + Ma trận Output O
-    + Marking khởi tạo M0
-  + Hỗ trợ namespace và trọng số arc.
-  + Xuất thông tin mạng bằng `__str__`.
-  + Chạy thử:
-    ```sh
-    py -m pytest tests/test_petriNet.py -v
-    ```
-
-- `BFS & DFS Reachability`:
-  + BFS (`BFS.py`)
-    + Liệt kê toàn bộ reachable markings theo chiều rộng.
-    + Đảm bảo đầy đủ và tối thiểu.
-  + DFS (`DFS.py`):
-    + Kiểm tra lại không gian reachable theo chiều sâu.
-  + Chạy thử: 
-    ```sh
-    py -m pytest tests/test_BFS.py -v
-    ```
-    &
-    ```sh
-    py -m pytest tests/test_DFS.py -v
-    ```
-
-- `BDD.py` - Biểu diễn Ký hiệu (Symbolic):
-  + Sử dụng thư viện `pyeda` để xây dựng Binary Decision Diagram (BDD).
-  + Chuyển đổi tập Reachable Markings (từ BFS) thành biểu thức logic Boolean nén.
-  + Cơ chế mã hóa: 
-    + Mỗi Place tương ứng với một biến Boolean.
-    + Mỗi Marking là một tích logic.
-    + BDD tổng hợp là tổng logic của các trạng thái.
-  + Trả về đối tượng BDD và tổng số lượng trạng thái đếm được.
-  + Chạy thử:
-    ```sh
-    py -m pytest tests/test_BDD.py -v
-    ```
-
-- `Deadlock.py` - Phát hiện deadlock:
-  + Tìm kiếm một trạng thái Deadlock (nơi hệ thống dừng, không transition nào enabled).
-  + Kiểm tra kết hợp các điều kiện:
-    + Trạng thái phải thuộc tập Reachable (check qua BDD).
-    + Tuân thủ tính chất 1-safe.
-    + Không có transition nào thỏa mãn điều kiện fire.
-  + Chạy thử:
-    ```sh
-    py -m pytest tests/test_Deadlock.py -v
-    ```
-
-- `Optimization.py` - Tối ưu hóa trọng số:
-  + Giải quyết bài toán tìm Marking $M$ sao cho tổng trọng số $c^T \cdot M$ là lớn nhất.
-  + Áp dụng thuật toán Quy hoạch động (Dynamic Programming) trực tiếp trên cấu trúc cây BDD.
-  + Quy trình:
-    + Bước 1 (Bottom-up): Tính giá trị lợi nhuận cực đại tại mỗi node.
-    + Bước 2 (Top-down): Truy vết đường đi để dựng lại Marking tối ưu.
-  + Xử lý chính xác các biến bị lược bỏ trong BDD.
-  + Chạy thử:
-    ```sh
-    py -m pytest tests/test_Optimization.py -v
-    ```
-
-## Tải phần mềm cần thiết
-
-- Tải python phiên bản 3.11 (hoặc 3.10) cho window 64 bit
-> Lưu ý: nhớ tích chọn thêm PATH cho python khi cài đặt
-```
-https://www.python.org/ftp/python/3.11.9/python-3.11.9-amd64.exe
 ```
 
-- Tải graphviz để tạo hình ảnh (phiên bản 14.0.5 cho window 64bit)
-> Lưu ý: nhớ tích chọn thêm PATH cho graphviz khi cài đặt
-```
-https://gitlab.com/api/v4/projects/4207231/packages/generic/graphviz-releases/14.0.5/windows_10_cmake_Release_graphviz-install-14.0.5-win64.exe
+## 📝 Mô tả chi tiết
+
+### 1. `PetriNet.py` - Phân tích PNML
+* Đọc file PNML chuẩn 2009 → tạo lớp `PetriNet`.
+* Trích xuất:
+  * Danh sách Place / Transition (ID + Tên).
+  * Ma trận Input I, Output O.
+  * Marking khởi tạo M0.
+* Hỗ trợ namespace và trọng số arc.
+* Xuất thông tin mạng bằng `__str__`.
+* **Test:**
+  ```sh
+  py -m pytest tests/test_petriNet.py -v
+  ```
+
+### 2. `BFS & DFS Reachability`
+* **BFS (`BFS.py`):** Liệt kê toàn bộ reachable markings theo chiều rộng. Đảm bảo đầy đủ và tối thiểu.
+* **DFS (`DFS.py`):** Kiểm tra lại không gian reachable theo chiều sâu.
+* **Test:**
+  ```sh
+  py -m pytest tests/test_BFS.py -v
+  py -m pytest tests/test_DFS.py -v
+  ```
+
+### 3. `BDD.py` - Biểu diễn Ký hiệu (Symbolic)
+* Sử dụng thư viện `pyeda` để xây dựng Binary Decision Diagram (BDD).
+* Chuyển đổi tập Reachable Markings (từ BFS) thành biểu thức logic Boolean nén.
+* **Cơ chế mã hóa:**
+  * Mỗi Place tương ứng với một biến Boolean.
+  * Mỗi Marking là một tích logic.
+  * BDD tổng hợp là tổng logic của các trạng thái.
+* Trả về đối tượng BDD và tổng số lượng trạng thái đếm được.
+* **Test:**
+  ```sh
+  py -m pytest tests/test_BDD.py -v
+  ```
+
+### 4. `Deadlock.py` - Phát hiện Deadlock
+* Tìm kiếm một trạng thái Deadlock (nơi hệ thống dừng, không transition nào enabled).
+* Kiểm tra kết hợp các điều kiện:
+  * Trạng thái phải thuộc tập Reachable (check qua BDD).
+  * Tuân thủ tính chất 1-safe.
+  * Không có transition nào thỏa mãn điều kiện fire.
+* **Test:**
+  ```sh
+  py -m pytest tests/test_Deadlock.py -v
+  ```
+
+### 5. `Optimization.py` - Tối ưu hóa trọng số
+* Giải quyết bài toán tìm Marking $M$ sao cho tổng trọng số $c^T \cdot M$ là lớn nhất.
+* Áp dụng thuật toán Quy hoạch động (Dynamic Programming) trực tiếp trên cấu trúc cây BDD.
+* **Quy trình:**
+  * Bước 1 (Bottom-up): Tính giá trị lợi nhuận cực đại tại mỗi node.
+  * Bước 2 (Top-down): Truy vết đường đi để dựng lại Marking tối ưu.
+* Xử lý chính xác các biến bị lược bỏ trong BDD.
+* **Test:**
+  ```sh
+  py -m pytest tests/test_Optimization.py -v
+  ```
+
+---
+
+## 🛠 Tải phần mềm cần thiết
+
+### 1. Python
+Tải python phiên bản 3.11 (hoặc 3.10) cho window 64 bit.
+> **Lưu ý:** Nhớ tích chọn **Add Python to PATH** khi cài đặt.
+```text
+[https://www.python.org/ftp/python/3.11.9/python-3.11.9-amd64.exe](https://www.python.org/ftp/python/3.11.9/python-3.11.9-amd64.exe)
 ```
 
-## Sử dụng chương trình
-### Trước khi chạy
+### 2. Graphviz
+Tải graphviz để tạo hình ảnh (phiên bản 14.0.5 cho window 64bit).
+> **Lưu ý:** Nhớ tích chọn **Add Graphviz to PATH** khi cài đặt.
+```text
+[https://gitlab.com/api/v4/projects/4207231/packages/generic/graphviz-releases/14.0.5/windows_10_cmake_Release_graphviz-install-14.0.5-win64.exe](https://gitlab.com/api/v4/projects/4207231/packages/generic/graphviz-releases/14.0.5/windows_10_cmake_Release_graphviz-install-14.0.5-win64.exe)
+```
 
-- Huỷ file venv cũ (nếu có)
-```
-deactivate
-```
+## 🚀 Sử dụng chương trình
 
-- Xoá file venv cũ (nếu có)
-```
+### Thiết lập môi trường
+
+**1. Làm sạch môi trường cũ (nếu có)**
+```sh
+# Nếu đang trong venv
+deactivate 
+
+# Xóa thư mục venv cũ
 Remove-Item -Recurse -Force venv
 ```
 
-- Tạo môi trường ảo (virtual environment)
+**2. Tạo môi trường ảo (virtual environment)**
 > Nếu sử dụng python từ Microsoft Store, chạy lệnh sau: 
 ```sh
 python3 -m venv venv
@@ -176,7 +176,7 @@ py -m venv venv
 py -3.11 -m venv venv
 ```
 
-- Kích hoạt môi trường ảo
+**3. Kích hoạt môi trường ảo**
 ```sh
 # Windows
 venv\Scripts\Activate.ps1
@@ -185,7 +185,7 @@ venv\Scripts\Activate.ps1
 source venv/bin/activate
 ```
 
-- Cài đặt các thư viện từ `requirements.txt`
+**4. Cài đặt thư viện**
 ```sh
 pip install -r requirements.txt
 ```
@@ -196,60 +196,56 @@ pip install pyeda
 ```
 
 ### Chạy Code
-
+Để chạy chương trình chính:
 ```sh
 py run.py
 ```
 
-###  Chạy các tests
-> Tất cả các testcases cần thiết cho từng phần của chương trình đã được cài đặt sẵn
+###  Chạy tests
+Tất cả các testcases cần thiết cho từng phần của chương trình đã được cài đặt sẵn
 
+* **Chạy toàn bộ test:**
+  ```sh
+  py -m pytest tests/ -v
+  ```
 
-- Chạy tất cả các tests
-```sh
-py -m pytest tests/ -v
-```
+* **Chạy test module cụ thể:**
+  ```sh
+  py -m pytest tests/test_petriNet.py -v
+  ```
 
-- Chạy một file test
+* **Chạy một testcase cụ thể:**
+  ```sh
+  py -m pytest tests/test_petriNet.py::test_001 -v
+  ```
 
-```sh
-py -m pytest tests/test_petriNet.py -v
-```
-
-- Chạy một testcase
-
-```sh
-py -m pytest tests/test_petriNet.py::test_001 -v
-```
-
-- Chạy testcase cho từng hàm nhỏ:
-
-  + BDD:
+* **Chạy testcase cho từng hàm nhỏ:**
+  * BDD:
     ```sh
     py -m pytest tests/test_BDD.py -v
     ```
 
-  + BFS:
+  * BFS:
     ```sh
     py -m pytest tests/test_BFS.py -v
     ```
 
-  + DFS:
+  * DFS:
     ```sh
     py -m pytest tests/test_DFS.py -v
     ```
 
-  + Deadlock:
+  * Deadlock:
     ```sh
     py -m pytest tests/test_Deadlock.py -v
     ```
 
-  + Optimization:
+  * Optimization:
     ```sh
     py -m pytest tests/test_Optimization.py -v
     ```
 
-## Đội ngũ phát triển
+## 👥 Nhóm thực hiện dự án
 
 Dự án này là Bài tập lớn môn Mô hình hóa toán học, được thực hiện bởi nhóm sinh viên Trường Đại học Bách khoa - ĐHQG-HCM.
 
