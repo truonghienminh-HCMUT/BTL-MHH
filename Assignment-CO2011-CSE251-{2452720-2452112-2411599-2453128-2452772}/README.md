@@ -1,7 +1,17 @@
+<div align="center">
+  <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/de/HCMUT_official_logo.png/120px-HCMUT_official_logo.png" alt="Logo HCMUT" width="100">
+  
+  # Symbolic and Algebraic Reasoning in Petri Nets
+
+  ![Python](https://img.shields.io/badge/Python-3.11-blue?style=for-the-badge&logo=python&logoColor=white)
+  ![Status](https://img.shields.io/badge/Status-Completed-success?style=for-the-badge)
+  ![License](https://img.shields.io/badge/License-MIT-green?style=for-the-badge)
+  ![University](https://img.shields.io/badge/HCMUT-BachKhoa-red?style=for-the-badge&logo=google-scholar&logoColor=white)
+</div>
+
+<br/>
+
 # Symbolic and Algebraic Reasoning in Petri Nets
-![Python](https://img.shields.io/badge/Python-3.11-blue?style=for-the-badge&logo=python&logoColor=white)
-![Status](https://img.shields.io/badge/Status-Completed-success?style=for-the-badge)
-![University](https://img.shields.io/badge/HCMUT-BachKhoa-red?style=for-the-badge&logo=google-scholar&logoColor=white)
 
 ```mermaid
 flowchart TD
