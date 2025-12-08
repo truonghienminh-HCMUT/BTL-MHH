@@ -2,36 +2,28 @@
 
 ```mermaid
 flowchart TD
-    %% Nút Bắt đầu và Kết thúc (Hình elip, màu xanh lá cây)
     START([START])
     END([END])
 
-    %% Các Task (Hình chữ nhật)
     TASK1{TASK 1: PNML parsing}
     TASK2{TASK 2: Explicit reachability}
     TASK3{TASK 3: BDD-based reachability}
     TASK4{TASK 4: ILP + BDD deadlock detection}
     TASK5{TASK 5: Reachable optimization}
 
-    %% Định nghĩa luồng công việc
     START --> TASK1
 
-    %% Từ TASK 1 chia thành 2 nhánh chính
     TASK1 --> TASK2
     TASK1 --> TASK3
 
-    %% TASK 2 kết thúc
     TASK2 --> END
 
-    %% Từ TASK 3 chia thành 2 nhánh phụ
     TASK3 --> TASK4
     TASK3 --> TASK5
 
-    %% TASK 4 và TASK 5 kết thúc
     TASK4 --> END
     TASK5 --> END
 
-    %% Styling: Đổi màu nền (fill) và viền (stroke) theo màu sắc nổi bật
     style START stroke:#468847, stroke-width:2px 
     style END stroke:#468847, stroke-width:2px
     style TASK1 stroke:#a94442, stroke-width:2px 
@@ -40,7 +32,20 @@ flowchart TD
     style TASK4 stroke:#ffc107, stroke-width:2px 
     style TASK5 stroke:#008b8b, stroke-width:2px
 ```
-## Cấu trúc file:
+## Giới thiệu dự án
+
+Dự án này là một bộ công cụ dùng để mô hình hóa và phân tích **Mạng Petri (Petri Nets)**, đặc biệt tập trung vào mạng **1-safe**. Mục tiêu chính của dự án là giải quyết bài toán bùng nổ không gian trạng thái thông qua các kỹ thuật suy diễn đại số và ký hiệu.
+
+Hệ thống được thiết kế để đọc dữ liệu từ định dạng **PNML** và xử lí theo hai hướng phân tích song song:
+1.  **Phương pháp Liệt kê (Explicit approach):** Sử dụng các thuật toán duyệt đồ thị BFS và DFS để khám phá toàn bộ không gian trạng thái.
+2.  **Phương pháp Ký hiệu (Symbolic approach):** Sử dụng **Binary Decision Diagrams (BDD)** thông qua thư viện `PyEDA` để biểu diễn và xử lý không gian trạng thái lớn một cách hiệu quả.
+
+### Các bài toán được giải quyết:
+* **Phân tích Reachability:** Xác định tất cả các trạng thái mà hệ thống có thể đạt được từ trạng thái ban đầu.
+* **Phát hiện Deadlock:** Tìm kiếm các trạng thái "chết" nơi hệ thống bị dừng hoạt động hoàn toàn, kết hợp giữa BDD và kiểm tra điều kiện kích hoạt.
+* **Tối ưu hóa:** Tìm kiếm trạng thái đạt tới thỏa mãn hàm mục tiêu lớn nhất ($c^T \cdot M$) bằng thuật toán quy hoạch động trên cấu trúc BDD.
+
+## Cấu trúc thư mục:
 ```sh
 src/
 │── PetriNet.py
@@ -64,8 +69,8 @@ requirements.txt
 README.md
 
 ```
-## Mô tả file:
-- `PetriNet.py` – Phân tích PNML:
+## Mô tả:
+- `PetriNet.py` - Phân tích PNML:
   + Đọc file PNML chuẩn 2009 → tạo lớp `PetriNet`
   + Trích xuất:
     + Danh sách Place / Transition (ID + Tên)
@@ -74,6 +79,10 @@ README.md
     + Marking khởi tạo M0
   + Hỗ trợ namespace và trọng số arc.
   + Xuất thông tin mạng bằng `__str__`.
+  + Chạy thử:
+    ```sh
+    py -m pytest tests/test_petriNet.py -v
+
 
 - `BFS & DFS Reachability`:
   + BFS (`BFS.py`)
@@ -90,7 +99,43 @@ README.md
     py -m pytest tests/test_DFS.py -v
     ```
 
-## Installing
+- `BDD.py` - Biểu diễn Ký hiệu (Symbolic):
+  + Sử dụng thư viện `pyeda` để xây dựng Binary Decision Diagram (BDD).
+  + Chuyển đổi tập Reachable Markings (từ BFS) thành biểu thức logic Boolean nén.
+  + Cơ chế mã hóa: 
+    + Mỗi Place tương ứng với một biến Boolean.
+    + Mỗi Marking là một tích logic.
+    + BDD tổng hợp là tổng logic của các trạng thái.
+  + Trả về đối tượng BDD và tổng số lượng trạng thái đếm được.
+  + Chạy thử:
+    ```sh
+    py -m pytest tests/test_BDD.py -v
+    ```
+
+- `Deadlock.py` - Phát hiện deadlock:
+  + Tìm kiếm một trạng thái Deadlock (nơi hệ thống dừng, không transition nào enabled).
+  + Kiểm tra kết hợp các điều kiện:
+    + Trạng thái phải thuộc tập Reachable (check qua BDD).
+    + Tuân thủ tính chất 1-safe.
+    + Không có transition nào thỏa mãn điều kiện fire.
+  + Chạy thử:
+    ```sh
+    py -m pytest tests/test_Deadlock.py -v
+    ```
+
+- `Optimization.py` - Tối ưu hóa trọng số:
+  + Giải quyết bài toán tìm Marking $M$ sao cho tổng trọng số $c^T \cdot M$ là lớn nhất.
+  + Áp dụng thuật toán Quy hoạch động (Dynamic Programming) trực tiếp trên cấu trúc cây BDD.
+  + Quy trình:
+    + Bước 1 (Bottom-up): Tính giá trị lợi nhuận cực đại tại mỗi node.
+    + Bước 2 (Top-down): Truy vết đường đi để dựng lại Marking tối ưu.
+  + Xử lý chính xác các biến bị lược bỏ trong BDD.
+  + Chạy thử:
+    ```sh
+    py -m pytest tests/test_Optimization.py -v
+    ```
+
+## Tải phần mềm cần thiết
 
 - Tải python phiên bản 3.11 (hoặc 3.10) cho window 64 bit
 > Lưu ý: nhớ tích chọn thêm PATH cho python khi cài đặt
@@ -104,12 +149,8 @@ https://www.python.org/ftp/python/3.11.9/python-3.11.9-amd64.exe
 https://gitlab.com/api/v4/projects/4207231/packages/generic/graphviz-releases/14.0.5/windows_10_cmake_Release_graphviz-install-14.0.5-win64.exe
 ```
 
-## Requirements
-
-- Cài đặt thư viện Pyeda
-```sh
-pip install pyeda
-```
+## Sử dụng chương trình
+### Trước khi chạy
 
 - Huỷ file venv cũ (nếu có)
 ```
@@ -122,18 +163,18 @@ Remove-Item -Recurse -Force venv
 ```
 
 - Tạo môi trường ảo (virtual environment)
+> Nếu sử dụng python từ Microsoft Store, chạy lệnh sau: 
 ```sh
 python3 -m venv venv
 ```
-> Nếu không chạy được thì chạy lệnh sau
+> Nếu lệnh trên không chạy được thì chạy lệnh sau:
 ```sh
 py -m venv venv
 ```
-> Nếu máy có nhiều phiên bản python, chạy lệnh
+> Nếu máy có nhiều phiên bản python, chạy lệnh sau:
 ```sh
 py -3.11 -m venv venv
 ```
-
 
 - Kích hoạt môi trường ảo
 ```sh
@@ -149,13 +190,18 @@ source venv/bin/activate
 pip install -r requirements.txt
 ```
 
-## Chạy Code
+- Cài đặt thư viện Pyeda (trong trường hợp bị lỗi khi cài trong file requirements)
+```sh
+pip install pyeda
+```
+
+### Chạy Code
 
 ```sh
 py run.py
 ```
 
-##  Chạy tests
+###  Chạy các tests
 
 - Chạy tất cả các tests
 ```sh
