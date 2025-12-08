@@ -1,8 +1,7 @@
 # Symbolic and Algebraic Reasoning in Petri Nets
 ![Python](https://img.shields.io/badge/Python-3.11-blue?style=for-the-badge&logo=python&logoColor=white)
 ![Status](https://img.shields.io/badge/Status-Completed-success?style=for-the-badge)
-![License](https://img.shields.io/badge/License-MIT-green?style=for-the-badge)
-![University](https://img.shields.io/badge/HCMUT-BachKhoa-red?style=for-the-badge)
+![University](https://img.shields.io/badge/HCMUT-BachKhoa-red?style=for-the-badge&logo=google-scholar&logoColor=white)
 
 ```mermaid
 flowchart TD
