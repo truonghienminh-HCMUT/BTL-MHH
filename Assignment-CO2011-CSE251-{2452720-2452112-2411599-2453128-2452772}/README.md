@@ -316,4 +316,6 @@ Dự án này là Bài tập lớn môn Mô hình hóa toán học, được th�
 
 Mọi đóng góp, báo lỗi hoặc thắc mắc về dự án, vui lòng tạo [Issue](https://github.com/truonghienminh-HCMUT/BTL-MHH/issues) trên GitHub hoặc liên hệ trực tiếp qua các email ở trên.
 
-<div class="tenor-gif-embed" data-postid="9937244127154755576" data-share-method="host" data-aspect-ratio="1.08163" data-width="100%"><a href="https://tenor.com/view/evernight-hsr-honkai-star-rail-star-rail-dance-gif-9937244127154755576">Evernight Hsr GIF</a>from <a href="https://tenor.com/search/evernight-gifs">Evernight GIFs</a></div> <script type="text/javascript" async src="https://tenor.com/embed.js"></script>
+<div align="center">
+  <img src="https://tenor.com/view/evernight-hsr-honkai-star-rail-star-rail-dance-gif-9937244127154755576" alt="Demo App" width="80%">
+</div>
