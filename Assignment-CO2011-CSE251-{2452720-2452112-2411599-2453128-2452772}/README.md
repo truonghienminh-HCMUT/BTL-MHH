@@ -11,6 +11,12 @@
 
 <br/>
 
+<div align="center">
+  <img src="https://media.tenor.com/HuQ0k121gikAAAAM/evernight-hsr-honkai-star-rail.gif" alt="Demo Animation" width="100%">
+  <br/>
+  <i>Minh họa mô phỏng hoạt động của hệ thống (Ảnh minh họa)</i>
+</div>
+
 ```mermaid
 flowchart TD
     START([START])
@@ -315,7 +321,3 @@ Dự án này là Bài tập lớn môn Mô hình hóa toán học, được th�
 | 5 | Trương Hiển Minh | 2452771 | minh.truonghien@hcmut.edu.vn |
 
 Mọi đóng góp, báo lỗi hoặc thắc mắc về dự án, vui lòng tạo [Issue](https://github.com/truonghienminh-HCMUT/BTL-MHH/issues) trên GitHub hoặc liên hệ trực tiếp qua các email ở trên.
-
-<div align="center">
-  <img src="https://tenor.com/view/evernight-hsr-honkai-star-rail-star-rail-dance-gif-9937244127154755576" alt="Demo App" width="80%">
-</div>
