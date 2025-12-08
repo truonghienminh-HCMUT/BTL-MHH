@@ -156,12 +156,11 @@ Tải graphviz để tạo hình ảnh (phiên bản 14.0.5 cho window 64bit).
 ### Thiết lập môi trường
 
 **1. Nếu có môi trường cũ**
-> Nếu đang trong venv
 ```sh
+# Nếu đang trong venv
 deactivate 
-```
-> Xóa thư mục venv cũ
-```sh
+
+# Xóa thư mục venv cũ
 Remove-Item -Recurse -Force venv
 ```
 
@@ -183,7 +182,8 @@ py -3.11 -m venv venv
 ```sh
 # Windows
 venv\Scripts\Activate.ps1
-
+```
+```sh
 # Linux / macOS:
 source venv/bin/activate
 ```
