@@ -82,7 +82,7 @@ README.md
   + Chạy thử:
     ```sh
     py -m pytest tests/test_petriNet.py -v
-
+    ```
 
 - `BFS & DFS Reachability`:
   + BFS (`BFS.py`)
@@ -202,6 +202,8 @@ py run.py
 ```
 
 ###  Chạy các tests
+> Tất cả các testcases cần thiết cho từng phần của chương trình đã được cài đặt sẵn
+
 
 - Chạy tất cả các tests
 ```sh
@@ -246,3 +248,21 @@ py -m pytest tests/test_petriNet.py::test_001 -v
     ```sh
     py -m pytest tests/test_Optimization.py -v
     ```
+
+## Đội ngũ phát triển
+
+Dự án này là Bài tập lớn môn Mô hình toán hóa học, được thực hiện bởi nhóm sinh viên trường Đại học Bách Khoa - ĐHQG TP.HCM.
+
+** Repository:** [https://github.com/truonghienminh-HCMUT/BTL-MHH](https://github.com/truonghienminh-HCMUT/BTL-MHH/tree/main)
+
+### Danh sách thành viên:
+
+| STT | Họ và Tên | MSSV | Email Liên Hệ |
+|:---:|-----------|:----:|---------------|
+| 1 | [Khoa Lỏ] | [2411599] | [khoa.leanh0404@hcmut.edu.vn] |
+| 2 | [Trần Ngọc Phương Mai] | [2452720] | [mai.tranngocphuongmai2452720@hcmut.edu.vn] |
+| 3 | [Nguyễn Võ Hoàng Sơn] | [2453128] | [son.nguyenhoang24@hcmut.edu.vn] |
+| 4 | [Phạm Nguyễn Thiên Ân] | [2452112] | [an.pham2452112kon@hcmut.edu.vn] |
+| 5 | [Trương Hiển Minh] | [2452771] | [minh.truonghien@hcmut.edu.vn] |
+
+Mọi đóng góp, báo lỗi hoặc thắc mắc về dự án, vui lòng tạo [Issue](https://github.com/truonghienminh-HCMUT/BTL-MHH/issues) trên GitHub hoặc liên hệ trực tiếp qua các email ở trên.
