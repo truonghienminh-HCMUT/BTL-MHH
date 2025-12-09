@@ -42,7 +42,7 @@ def bdd_reachable(pn: PetriNet) -> Tuple[BinaryDecisionDiagram, int]:
     if O.shape != I.shape:
         raise ValueError("I and O must have the same shape")
 
-    r, c = I.shape
+    r, c = I.shape  
     
 # I có dạng (num_trans, num_places) -> mỗi hàng là 1 transition:
     if c == num_places:
