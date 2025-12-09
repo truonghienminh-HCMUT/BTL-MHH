@@ -87,6 +87,7 @@ tests/
 run.py
 example.pnml
 requirements.txt
+PetriNet.py
 README.md
 ```
 
