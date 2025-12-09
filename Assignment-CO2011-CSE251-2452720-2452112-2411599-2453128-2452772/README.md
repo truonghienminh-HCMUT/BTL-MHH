@@ -55,7 +55,7 @@ Hệ thống được thiết kế để đọc dữ liệu từ định dạng 
 * **Phát hiện Deadlock:** Tìm kiếm các trạng thái "chết" nơi hệ thống bị dừng hoạt động hoàn toàn, kết hợp giữa BDD và kiểm tra điều kiện kích hoạt.
 * **Tối ưu hóa:** Tìm kiếm trạng thái đạt tới thỏa mãn hàm mục tiêu lớn nhất ($c^T \cdot M$) bằng thuật toán quy hoạch động trên cấu trúc BDD.
 
-### ⚡ Tại sao dùng BDD? (Performance Comparison) (cái này để màu mè)
+### ⚡ Tại sao dùng BDD?
 
 Bảng so sánh hiệu quả giữa phương pháp duyệt truyền thống (BFS/DFS) và phương pháp ký hiệu (BDD) trên các testcase lớn:
 
