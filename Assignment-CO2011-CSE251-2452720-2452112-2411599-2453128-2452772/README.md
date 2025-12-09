@@ -269,13 +269,13 @@ Tất cả các testcases cần thiết cho từng phần của chương trình 
 
 ## 👥 Nhóm thực hiện dự án
 
-Dự án này là Bài tập lớn môn Mô hình hóa toán học, được thực hiện bởi nhóm sinh viên Trường Đại học Bách khoa - ĐHQG-HCM.
+Dự án này là Bài tập lớn môn Mô hình hóa Toán học (CO2011), được thực hiện bởi nhóm sinh viên Trường Đại học Bách khoa - ĐHQG-HCM.
 
 * Repository: [https://github.com/truonghienminh-HCMUT/BTL-MHH](https://github.com/truonghienminh-HCMUT/BTL-MHH/tree/main)
 
 ### Danh sách thành viên:
 
-| STT | Họ và Tên | MSSV | Email Liên Hệ |
+| STT | Họ và Tên | MSSV | Email Liên hệ |
 |:---:|-----------|:----:|---------------|
 | 1 | Trần Ngọc Phương Mai | 2452720 | mai.tranngocphuongmai2452720@hcmut.edu.vn |
 | 2 | Phạm Nguyễn Thiên Ân | 2452112 | an.pham2452112kon@hcmut.edu.vn |
