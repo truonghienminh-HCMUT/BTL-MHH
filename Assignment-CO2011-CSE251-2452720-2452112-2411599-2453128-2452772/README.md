@@ -9,14 +9,6 @@
   ![University](https://img.shields.io/badge/University-HCMUT-blue?style=for-the-badge&logo=google-scholar&logoColor=white)
 </div>
 
-<br/>
-
-<div align="center">
-  <img src="https://github.com/user-attachments/assets/ec73ecc2-7267-43a9-b3dd-93d41a2ead15" alt="Demo Animation" width="100%">
-  <br/>
-  <i>Minh họa mô phỏng hoạt động của hệ thống</i>
-</div>
-
 ```mermaid
 flowchart TD
     START([START])
@@ -274,60 +266,6 @@ Tất cả các testcases cần thiết cho từng phần của chương trình 
     ```sh
     py -m pytest tests/test_Optimization.py -v
     ```
-
-## 📊 Minh họa kết quả (Để mai chạy rồi add ảnh vào sau)
-
-```text
-py run.py
-Loading PNML: example.pnml
-
---- Petri Net Loaded ---
-Places: ['4ae95f47-c1c9-4986-bbb7-ea16bb88aee6', 'c5ddb613-d239-46ca-8099-107851dde7c8', '8d0d229f-3e8c-417a-ba59-8e28335a1c1b']   
-Place names: ['P1', 'P2', 'P3']
-
-Transitions: ['afda5df1-6c84-4912-9eea-1131537be8ce', '452b6aa7-fbfd-4074-b3a1-b6a5db305a55', 'bb0149e2-3e85-4e40-a540-94269d5e1a3d']
-Transition names: ['T1', 'T2', 'T3']
-
-I (input) matrix:
-[[1 0 0]
- [0 1 0]
- [0 0 1]]
-
-O (output) matrix:
-[[0 1 0]
- [0 0 1]
- [1 0 0]]
-
-Initial marking M0:
-[1 0 0]
-
---- BFS Reachable Markings ---
-[1 0 0]
-[0 0 1]
-[0 1 0]
-Total BFS reachable = 3
-
---- DFS Reachable Markings ---
-[1 0 0]
-[0 0 1]
-[0 1 0]
-Total DFS reachable = 3
-
---- BDD Reachable ---
-BDD reachable markings = 3
-
---- Generating Custom BDD Image (static DOT) ---
-
-[SUCCESS] Đã vẽ và lưu ảnh BDD tại: bdd.svg
-
---- Deadlock reachable marking ---
-No deadlock reachable.
-
---- Optimize c·M ---
-c: [1 1 1]
-Max value: 1
-Max marking (by place names): [P1:1, P2:0, P3:0]
-```
 
 ## 👥 Nhóm thực hiện dự án
 
