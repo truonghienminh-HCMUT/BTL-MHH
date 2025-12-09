@@ -8,6 +8,7 @@ from pyeda.inter import *
 import numpy as np
 import time
 from graphviz import Source
+import sys
 
 def generate_custom_bdd_image(bdd_obj):
     """
@@ -22,13 +23,15 @@ def generate_custom_bdd_image(bdd_obj):
         
         # Render ra file ảnh
         output_path = s.render(cleanup=True)
-        print(f"\n[SUCCESS] Đã vẽ BDD THẬT dựa trên dữ liệu tính toán.")
+        print(f"\n[SUCCESS] Đã vẽ BDD dựa trên dữ liệu tính toán.")
         print(f"File ảnh được lưu tại: {output_path}")
         
     except Exception as e:
         print(f"\n[ERROR] Không thể vẽ hình BDD thật. Lỗi: {e}")
 
 def main():
+    np.set_printoptions(threshold=sys.maxsize, linewidth=np.inf)
+    
     # Bắt đầu tính tổng thời gian chạy chương trình
     total_start_time = time.time()
     # ------------------------------------------------------

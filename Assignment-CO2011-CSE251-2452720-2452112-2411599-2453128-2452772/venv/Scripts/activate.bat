@@ -8,7 +8,7 @@ if defined _OLD_CODEPAGE (
     "%SystemRoot%\System32\chcp.com" 65001 > nul
 )
 
-set VIRTUAL_ENV=C:\Users\hp\AppData\Local\GitHubDesktop\app-3.4.19\BTL-MHH\BTL-MHH\Assignment-CO2011-CSE251-{2452720-2452112-2411599-2453128-2452772}\venv
+set VIRTUAL_ENV=C:\Users\hp\AppData\Local\GitHubDesktop\app-3.4.19\BTL-MHH\BTL-MHH\Assignment-CO2011-CSE251-2452720-2452112-2411599-2453128-2452772\venv
 
 if not defined PROMPT set PROMPT=$P$G
 

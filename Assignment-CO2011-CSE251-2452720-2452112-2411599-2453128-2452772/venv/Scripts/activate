@@ -35,7 +35,7 @@ deactivate () {
 # unset irrelevant variables
 deactivate nondestructive
 
-VIRTUAL_ENV="C:\Users\hp\AppData\Local\GitHubDesktop\app-3.4.19\BTL-MHH\BTL-MHH\Assignment-CO2011-CSE251-{2452720-2452112-2411599-2453128-2452772}\venv"
+VIRTUAL_ENV="C:\Users\hp\AppData\Local\GitHubDesktop\app-3.4.19\BTL-MHH\BTL-MHH\Assignment-CO2011-CSE251-2452720-2452112-2411599-2453128-2452772\venv"
 export VIRTUAL_ENV
 
 _OLD_VIRTUAL_PATH="$PATH"
