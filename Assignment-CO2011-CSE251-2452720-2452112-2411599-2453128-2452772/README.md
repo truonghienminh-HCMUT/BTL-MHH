@@ -61,7 +61,7 @@ Bảng so sánh hiệu quả giữa phương pháp duyệt truyền thống (BFS
 
 | Kích thước Mạng | Số trạng thái | Thời gian (BFS/DFS) | Thời gian (BDD) | Bộ nhớ (BDD) |
 |:---:|:---:|:---:|:---:|:---:|
-| Nhỏ (< 20 nodes) | 100+ | ~0.01s | ~0.02s | Thấp |
+| Nhỏ (< 20 nodes) | 100+ | ~0.01s | **~0.02s** | Thấp |
 | Trung bình | 10,000+ | ~5.2s | **0.15s** | Thấp |
 | Lớn (Complex) | 1,000,000+ | *Timeout / Out of Memory* | **1.4s** | Tối ưu |
 
