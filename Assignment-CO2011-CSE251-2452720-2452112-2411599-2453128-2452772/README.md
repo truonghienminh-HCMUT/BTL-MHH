@@ -278,30 +278,55 @@ Tất cả các testcases cần thiết cho từng phần của chương trình 
 ## 📊 Minh họa kết quả (Để mai chạy rồi add ảnh vào sau)
 
 ```text
-> py run.py
+py run.py
+Loading PNML: example.pnml
 
-[INFO] Loading Petri Net from: test_cases/example.pnml
-[INFO] Parsed: 10 Places, 8 Transitions.
+--- Petri Net Loaded ---
+Places: ['4ae95f47-c1c9-4986-bbb7-ea16bb88aee6', 'c5ddb613-d239-46ca-8099-107851dde7c8', '8d0d229f-3e8c-417a-ba59-8e28335a1c1b']   
+Place names: ['P1', 'P2', 'P3']
 
---- ANALYSIS REPORT ---
+Transitions: ['afda5df1-6c84-4912-9eea-1131537be8ce', '452b6aa7-fbfd-4074-b3a1-b6a5db305a55', 'bb0149e2-3e85-4e40-a540-94269d5e1a3d']
+Transition names: ['T1', 'T2', 'T3']
 
-1. Reachability (Explicit - BFS):
-   - Total states found: 154
-   - Execution time: 0.05s
+I (input) matrix:
+[[1 0 0]
+ [0 1 0]
+ [0 0 1]]
 
-2. Reachability (Symbolic - BDD):
-   - BDD Nodes: 42
-   - Total states represented: 154
-   - Execution time: 0.01s  <-- (Nhanh hơn đáng kể)
+O (output) matrix:
+[[0 1 0]
+ [0 0 1]
+ [1 0 0]]
 
-3. Deadlock Detection:
-   - Status: FOUND
-   - Deadlock Marking: (p3=1, p5=1, p7=0...)
-   - Trace: M0 -> t1 -> M1 -> t4 -> Deadlock
+Initial marking M0:
+[1 0 0]
 
-4. Optimization (Max Weight):
-   - Max Value: 50.0
-   - Optimal Marking: (p1=0, p2=1, p3=1...)
+--- BFS Reachable Markings ---
+[1 0 0]
+[0 0 1]
+[0 1 0]
+Total BFS reachable = 3
+
+--- DFS Reachable Markings ---
+[1 0 0]
+[0 0 1]
+[0 1 0]
+Total DFS reachable = 3
+
+--- BDD Reachable ---
+BDD reachable markings = 3
+
+--- Generating Custom BDD Image (static DOT) ---
+
+[SUCCESS] Đã vẽ và lưu ảnh BDD tại: bdd.svg
+
+--- Deadlock reachable marking ---
+No deadlock reachable.
+
+--- Optimize c·M ---
+c: [1 1 1]
+Max value: 1
+Max marking (by place names): [P1:1, P2:0, P3:0]
 ```
 
 ## 👥 Nhóm thực hiện dự án
