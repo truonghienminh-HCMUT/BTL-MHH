@@ -87,7 +87,10 @@ tests/
 run.py
 example.pnml
 requirements.txt
+<<<<<<< HEAD
 PetriNet.py
+=======
+>>>>>>> a43d616c87a9884d106f746d7036e08f4f763b13
 README.md
 ```
 
