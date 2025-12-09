@@ -1,17 +1,72 @@
+<!-- 40 phần tử -->
 <pnml xmlns="http://www.pnml.org/version-2009/grammar/pnml">
-  <net id="n8" type="http://www.pnml.org/version-2009/grammar/ptnet">
+  <net id="net_medium2" type="http://www.pnml.org/version-2009/grammar/ptnet">
     <page id="page1">
-      <place id="p1"><initialMarking><text>1</text></initialMarking></place>
-      <place id="p2"><initialMarking><text>0</text></initialMarking></place>
-      <transition id="t1"></transition>
-      <arc id="a1" source="p1" target="t1"/>
-      <arc id="a2" source="t1" target="p2"/>
+      <!-- Loop: P1->T1->P2->T2...->P20->T20->P1 -->
+      <!-- Generating 20 Places and 20 Transitions -->
+      <place id="p1"><name><text>P1</text></name><initialMarking><text>1</text></initialMarking></place>
+      <place id="p2"><name><text>P2</text></name><initialMarking><text>0</text></initialMarking></place>
+      <place id="p3"><name><text>P3</text></name><initialMarking><text>0</text></initialMarking></place>
+      <place id="p4"><name><text>P4</text></name><initialMarking><text>0</text></initialMarking></place>
+      <place id="p5"><name><text>P5</text></name><initialMarking><text>0</text></initialMarking></place>
+      <place id="p6"><name><text>P6</text></name><initialMarking><text>0</text></initialMarking></place>
+      <place id="p7"><name><text>P7</text></name><initialMarking><text>0</text></initialMarking></place>
+      <place id="p8"><name><text>P8</text></name><initialMarking><text>0</text></initialMarking></place>
+      <place id="p9"><name><text>P9</text></name><initialMarking><text>0</text></initialMarking></place>
+      <place id="p10"><name><text>P10</text></name><initialMarking><text>0</text></initialMarking></place>
+      <place id="p11"><name><text>P11</text></name><initialMarking><text>0</text></initialMarking></place>
+      <place id="p12"><name><text>P12</text></name><initialMarking><text>0</text></initialMarking></place>
+      <place id="p13"><name><text>P13</text></name><initialMarking><text>0</text></initialMarking></place>
+      <place id="p14"><name><text>P14</text></name><initialMarking><text>0</text></initialMarking></place>
+      <place id="p15"><name><text>P15</text></name><initialMarking><text>0</text></initialMarking></place>
+      <place id="p16"><name><text>P16</text></name><initialMarking><text>0</text></initialMarking></place>
+      <place id="p17"><name><text>P17</text></name><initialMarking><text>0</text></initialMarking></place>
+      <place id="p18"><name><text>P18</text></name><initialMarking><text>0</text></initialMarking></place>
+      <place id="p19"><name><text>P19</text></name><initialMarking><text>0</text></initialMarking></place>
+      <place id="p20"><name><text>P20</text></name><initialMarking><text>0</text></initialMarking></place>
 
-      <place id="p_1"><initialMarking><text>0</text></initialMarking></place>
-      <place id="p_2"><initialMarking><text>0</text></initialMarking></place>
-      <transition id="t"></transition>
-      <arc id="a3" source="p_1" target="t"/>
-      <arc id="a4" source="t" target="p_2"/>
+      <transition id="t1"><name><text>T1</text></name></transition>
+      <transition id="t2"><name><text>T2</text></name></transition>
+      <transition id="t3"><name><text>T3</text></name></transition>
+      <transition id="t4"><name><text>T4</text></name></transition>
+      <transition id="t5"><name><text>T5</text></name></transition>
+      <transition id="t6"><name><text>T6</text></name></transition>
+      <transition id="t7"><name><text>T7</text></name></transition>
+      <transition id="t8"><name><text>T8</text></name></transition>
+      <transition id="t9"><name><text>T9</text></name></transition>
+      <transition id="t10"><name><text>T10</text></name></transition>
+      <transition id="t11"><name><text>T11</text></name></transition>
+      <transition id="t12"><name><text>T12</text></name></transition>
+      <transition id="t13"><name><text>T13</text></name></transition>
+      <transition id="t14"><name><text>T14</text></name></transition>
+      <transition id="t15"><name><text>T15</text></name></transition>
+      <transition id="t16"><name><text>T16</text></name></transition>
+      <transition id="t17"><name><text>T17</text></name></transition>
+      <transition id="t18"><name><text>T18</text></name></transition>
+      <transition id="t19"><name><text>T19</text></name></transition>
+      <transition id="t20"><name><text>T20</text></name></transition>
+
+      <!-- Connections -->
+      <arc id="a1" source="p1" target="t1"/><arc id="a2" source="t1" target="p2"/>
+      <arc id="a3" source="p2" target="t2"/><arc id="a4" source="t2" target="p3"/>
+      <arc id="a5" source="p3" target="t3"/><arc id="a6" source="t3" target="p4"/>
+      <arc id="a7" source="p4" target="t4"/><arc id="a8" source="t4" target="p5"/>
+      <arc id="a9" source="p5" target="t5"/><arc id="a10" source="t5" target="p6"/>
+      <arc id="a11" source="p6" target="t6"/><arc id="a12" source="t6" target="p7"/>
+      <arc id="a13" source="p7" target="t7"/><arc id="a14" source="t7" target="p8"/>
+      <arc id="a15" source="p8" target="t8"/><arc id="a16" source="t8" target="p9"/>
+      <arc id="a17" source="p9" target="t9"/><arc id="a18" source="t9" target="p10"/>
+      <arc id="a19" source="p10" target="t10"/><arc id="a20" source="t10" target="p11"/>
+      <arc id="a21" source="p11" target="t11"/><arc id="a22" source="t11" target="p12"/>
+      <arc id="a23" source="p12" target="t12"/><arc id="a24" source="t12" target="p13"/>
+      <arc id="a25" source="p13" target="t13"/><arc id="a26" source="t13" target="p14"/>
+      <arc id="a27" source="p14" target="t14"/><arc id="a28" source="t14" target="p15"/>
+      <arc id="a29" source="p15" target="t15"/><arc id="a30" source="t15" target="p16"/>
+      <arc id="a31" source="p16" target="t16"/><arc id="a32" source="t16" target="p17"/>
+      <arc id="a33" source="p17" target="t17"/><arc id="a34" source="t17" target="p18"/>
+      <arc id="a35" source="p18" target="t18"/><arc id="a36" source="t18" target="p19"/>
+      <arc id="a37" source="p19" target="t19"/><arc id="a38" source="t19" target="p20"/>
+      <arc id="a39" source="p20" target="t20"/><arc id="a40" source="t20" target="p1"/>
     </page>
   </net>
 </pnml>

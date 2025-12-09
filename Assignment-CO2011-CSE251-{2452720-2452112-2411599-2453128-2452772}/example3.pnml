@@ -1,15 +1,69 @@
+<!-- Dự kiến 21 markings -->
 <pnml xmlns="http://www.pnml.org/version-2009/grammar/pnml">
-  <net id="n3" type="http://www.pnml.org/version-2009/grammar/ptnet">
+  <net id="net3" type="http://www.pnml.org/version-2009/grammar/ptnet">
     <page id="page1">
-      <place id="p1"><initialMarking><text>1</text></initialMarking></place>
-      <place id="p2"><initialMarking><text>0</text></initialMarking></place>
-      <place id="p3"><initialMarking><text>0</text></initialMarking></place>
-      <transition id="t1"></transition>
-      <transition id="t2"></transition>
-      <arc id="a1" source="p1" target="t1"/>
-      <arc id="a2" source="t1" target="p2"/>
-      <arc id="a3" source="p1" target="t2"/>
-      <arc id="a4" source="t2" target="p3"/>
+      <!-- Mutex Resource -->
+      <place id="mutex"><name><text>Mutex</text></name><initialMarking><text>1</text></initialMarking></place>
+
+      <!-- Process 1 -->
+      <place id="p1_1"><name><text>Idle1_A</text></name><initialMarking><text>1</text></initialMarking></place>
+      <place id="p1_2"><name><text>Idle2_A</text></name><initialMarking><text>0</text></initialMarking></place>
+      <place id="p1_3"><name><text>Wait_A</text></name><initialMarking><text>0</text></initialMarking></place>
+      <place id="p1_4"><name><text>Crit1_A</text></name><initialMarking><text>0</text></initialMarking></place>
+      <place id="p1_5"><name><text>Crit2_A</text></name><initialMarking><text>0</text></initialMarking></place>
+
+      <transition id="t1_1"><name><text>StepA1</text></name></transition>
+      <transition id="t1_2"><name><text>RequestA</text></name></transition>
+      <transition id="t1_3"><name><text>EnterA</text></name></transition> <!-- Consumes Mutex -->
+      <transition id="t1_4"><name><text>WorkA</text></name></transition>
+      <transition id="t1_5"><name><text>ReleaseA</text></name></transition> <!-- Returns Mutex -->
+
+      <arc id="a1" source="p1_1" target="t1_1"/>
+      <arc id="a2" source="t1_1" target="p1_2"/>
+      <arc id="a3" source="p1_2" target="t1_2"/>
+      <arc id="a4" source="t1_2" target="p1_3"/>
+      
+      <!-- Critical Section Logic A -->
+      <arc id="a5" source="p1_3" target="t1_3"/>
+      <arc id="a6" source="mutex" target="t1_3"/> <!-- Take Mutex -->
+      <arc id="a7" source="t1_3" target="p1_4"/>
+      
+      <arc id="a8" source="p1_4" target="t1_4"/>
+      <arc id="a9" source="t1_4" target="p1_5"/>
+      
+      <arc id="a10" source="p1_5" target="t1_5"/>
+      <arc id="a11" source="t1_5" target="mutex"/> <!-- Return Mutex -->
+      <arc id="a12" source="t1_5" target="p1_1"/> <!-- Loop back -->
+
+      <!-- Process 2 -->
+      <place id="p2_1"><name><text>Idle1_B</text></name><initialMarking><text>1</text></initialMarking></place>
+      <place id="p2_2"><name><text>Idle2_B</text></name><initialMarking><text>0</text></initialMarking></place>
+      <place id="p2_3"><name><text>Wait_B</text></name><initialMarking><text>0</text></initialMarking></place>
+      <place id="p2_4"><name><text>Crit1_B</text></name><initialMarking><text>0</text></initialMarking></place>
+      <place id="p2_5"><name><text>Crit2_B</text></name><initialMarking><text>0</text></initialMarking></place>
+
+      <transition id="t2_1"><name><text>StepB1</text></name></transition>
+      <transition id="t2_2"><name><text>RequestB</text></name></transition>
+      <transition id="t2_3"><name><text>EnterB</text></name></transition> <!-- Consumes Mutex -->
+      <transition id="t2_4"><name><text>WorkB</text></name></transition>
+      <transition id="t2_5"><name><text>ReleaseB</text></name></transition> <!-- Returns Mutex -->
+
+      <arc id="b1" source="p2_1" target="t2_1"/>
+      <arc id="b2" source="t2_1" target="p2_2"/>
+      <arc id="b3" source="p2_2" target="t2_2"/>
+      <arc id="b4" source="t2_2" target="p2_3"/>
+      
+      <!-- Critical Section Logic B -->
+      <arc id="b5" source="p2_3" target="t2_3"/>
+      <arc id="b6" source="mutex" target="t2_3"/> <!-- Take Mutex -->
+      <arc id="b7" source="t2_3" target="p2_4"/>
+      
+      <arc id="b8" source="p2_4" target="t2_4"/>
+      <arc id="b9" source="t2_4" target="p2_5"/>
+      
+      <arc id="b10" source="p2_5" target="t2_5"/>
+      <arc id="b11" source="t2_5" target="mutex"/> <!-- Return Mutex -->
+      <arc id="b12" source="t2_5" target="p2_1"/> <!-- Loop back -->
     </page>
   </net>
 </pnml>
