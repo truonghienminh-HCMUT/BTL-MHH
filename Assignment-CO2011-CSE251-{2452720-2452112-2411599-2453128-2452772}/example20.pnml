@@ -1,0 +1,30 @@
+<!-- 50 trạng thái -->
+<pnml xmlns="http://www.pnml.org/version-2009/grammar/pnml">
+  <net id="n_50c" type="http://www.pnml.org/version-2009/grammar/ptnet">
+    <page id="p_50c">
+      <!-- Component A: 2 states (P_A1 -> P_A2) -->
+      <place id="pa1"><initialMarking><text>1</text></initialMarking></place>
+      <place id="pa2"/>
+      <transition id="ta1"/>
+      <arc id="aa1" source="pa1" target="ta1"/><arc id="aa2" source="ta1" target="pa2"/>
+
+      <!-- Component B: 5 states (P_B1 -> ... -> P_B5) -->
+      <place id="pb1"><initialMarking><text>1</text></initialMarking></place>
+      <place id="pb2"/><place id="pb3"/><place id="pb4"/><place id="pb5"/>
+      <transition id="tb1"/><transition id="tb2"/><transition id="tb3"/><transition id="tb4"/>
+      <arc id="ab1" source="pb1" target="tb1"/><arc id="ab2" source="tb1" target="pb2"/>
+      <arc id="ab3" source="pb2" target="tb2"/><arc id="ab4" source="tb2" target="pb3"/>
+      <arc id="ab5" source="pb3" target="tb3"/><arc id="ab6" source="tb3" target="pb4"/>
+      <arc id="ab7" source="pb4" target="tb4"/><arc id="ab8" source="tb4" target="pb5"/>
+
+      <!-- Component C: 5 states (P_C1 -> ... -> P_C5) -->
+      <place id="pc1"><initialMarking><text>1</text></initialMarking></place>
+      <place id="pc2"/><place id="pc3"/><place id="pc4"/><place id="pc5"/>
+      <transition id="tc1"/><transition id="tc2"/><transition id="tc3"/><transition id="tc4"/>
+      <arc id="ac1" source="pc1" target="tc1"/><arc id="ac2" source="tc1" target="pc2"/>
+      <arc id="ac3" source="pc2" target="tc2"/><arc id="ac4" source="tc2" target="pc3"/>
+      <arc id="ac5" source="pc3" target="tc3"/><arc id="ac6" source="tc3" target="pc4"/>
+      <arc id="ac7" source="pc4" target="tc4"/><arc id="ac8" source="tc4" target="pc5"/>
+    </page>
+  </net>
+</pnml>
