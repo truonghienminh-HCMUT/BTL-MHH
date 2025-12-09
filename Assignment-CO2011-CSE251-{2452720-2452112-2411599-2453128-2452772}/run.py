@@ -6,6 +6,7 @@ from src.DFS import dfs_reachable
 from src.Deadlock import deadlock_reachable_marking
 from pyeda.inter import * 
 import numpy as np
+import time
 from graphviz import Source
 
 def generate_custom_bdd_image(bdd_obj):
@@ -28,17 +29,20 @@ def generate_custom_bdd_image(bdd_obj):
         print(f"\n[ERROR] Không thể vẽ hình BDD thật. Lỗi: {e}")
 
 def main():
+    # Bắt đầu tính tổng thời gian chạy chương trình
+    total_start_time = time.time()
     # ------------------------------------------------------
     # 1. Load Petri Net từ file PNML
     # ------------------------------------------------------
     # Đảm bảo bạn đã tạo file deadlock.pnml
-    filename = "example8.pnml"   
+    filename = "example10.pnml"   
     print("Loading PNML:", filename)
 
     try:
         pn = PetriNet.from_pnml(filename)
-        print("\n--- Petri Net Loaded ---")
+        print("\n--- TASK 1: PNML PARSING ---")
         print(pn)
+        print("\nTASK 1: [SUCCESS]")
     except FileNotFoundError:
         print(f"\n[CRITICAL ERROR] Không tìm thấy file '{filename}'.")
         print("Vui lòng tạo file deadlock.pnml theo hướng dẫn trước đó.")
@@ -47,7 +51,8 @@ def main():
     # ------------------------------------------------------
     # 2. BFS reachable
     # ------------------------------------------------------
-    print("\n--- BFS Reachable Markings ---")
+    print("\n--- TASK 2: EXPLICIT REACHABILITY ---")
+    print("\n---     BFS Reachable Markings    ---")
     bfs_set = bfs_reachable(pn)
     for m in bfs_set:
         print(np.array(m))
@@ -56,37 +61,40 @@ def main():
     # ------------------------------------------------------
     # 3. DFS reachable
     # ------------------------------------------------------
-    print("\n--- DFS Reachable Markings ---")
+    print("\n---     DFS Reachable Markings    ---")
     dfs_set = dfs_reachable(pn)
     for m in dfs_set:
         print(np.array(m))
     print("Total DFS reachable =", len(dfs_set))
+    print("\nTASK 2: [SUCCESS]")
 
     # ------------------------------------------------------
     # 4. BDD reachable
     # ------------------------------------------------------
-    print("\n--- BDD Reachable ---")
+    print("\n--- TASK 3: BDD-BASED REACHABILITY ---")
     try:
         bdd, count = bdd_reachable(pn)
-        print("BDD reachable markings count =", count)
+        print("BDD reachable markings count =", count) 
         generate_custom_bdd_image(bdd) # Chỉ vẽ hình minh họa tĩnh
+        print("\nTASK 3: [SUCCESS]")
     except Exception as e:
         print("Lỗi BDD:", e)
         return
     # ------------------------------------------------------
     # 5. Deadlock detection
     # ------------------------------------------------------
-    print("\n--- Deadlock reachable marking ---")
+    print("\n--- TASK 4: ILP + BDD DEADLOCK DETECTION ---")
     dead = deadlock_reachable_marking(pn, bdd)
     if dead is not None:
         print("Deadlock marking:", dead)
+        print("\nTASK 4: [SUCCESS]")
     else:
         print("No deadlock reachable.")
 
     # ------------------------------------------------------
     # 6. Optimization: maximize c·M
     # ------------------------------------------------------
-    print("\n--- Optimize c·M ---")
+    print("\n--- TASK 5: REACHABLE OPTIMIZATION ---")
 
     # [FIX 1] Tạo vector c khớp với số lượng Place thực tế
     num_places = len(pn.place_ids)
@@ -138,6 +146,11 @@ def main():
         print("Hãy chắc chắn file src/Optimization.py đã được cập nhật hàm nhận tham số 'place_uuid_mapping'.")
     except Exception as e:
         print(f"\n[LỖI] Optimization thất bại: {e}")
+
+    # Tổng kết toàn bộ thời gian chạy
+    total_duration = time.time() - total_start_time
+    print("-" * 30)
+    print(f"PROGRAM FINISHED IN: {total_duration:.4f} seconds")
 
 if __name__ == "__main__":
     main()

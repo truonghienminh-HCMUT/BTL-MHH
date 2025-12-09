@@ -1,17 +1,73 @@
+<!-- Dự kiến 75 markings -->
 <pnml xmlns="http://www.pnml.org/version-2009/grammar/pnml">
-  <net id="n5" type="http://www.pnml.org/version-2009/grammar/ptnet">
+  <net id="net5" type="http://www.pnml.org/version-2009/grammar/ptnet">
     <page id="page1">
-      <place id="p_a1"><initialMarking><text>1</text></initialMarking></place>
-      <place id="p_a2"><initialMarking><text>0</text></initialMarking></place>
-      <transition id="t_a1"></transition>
-      <arc id="a1" source="p_a1" target="t_a1"/>
-      <arc id="a2" source="t_a1" target="p_a2"/>
-      
-      <place id="p_b1"><initialMarking><text>1</text></initialMarking></place>
-      <place id="p_b2"><initialMarking><text>0</text></initialMarking></place>
-      <transition id="t_b1"></transition>
-      <arc id="a3" source="p_b1" target="t_b1"/>
-      <arc id="a4" source="t_b1" target="p_b2"/>
+      <!-- Loop Process (5 states: L1->L2->L3->L4->L5->L1) -->
+      <place id="l1"><name><text>Loop1</text></name><initialMarking><text>1</text></initialMarking></place>
+      <place id="l2"><name><text>Loop2</text></name><initialMarking><text>0</text></initialMarking></place>
+      <place id="l3"><name><text>Loop3</text></name><initialMarking><text>0</text></initialMarking></place>
+      <place id="l4"><name><text>Loop4</text></name><initialMarking><text>0</text></initialMarking></place>
+      <place id="l5"><name><text>Loop5</text></name><initialMarking><text>0</text></initialMarking></place>
+
+      <transition id="tl1"><name><text>TL1</text></name></transition>
+      <transition id="tl2"><name><text>TL2</text></name></transition>
+      <transition id="tl3"><name><text>TL3</text></name></transition>
+      <transition id="tl4"><name><text>TL4</text></name></transition>
+      <transition id="tl5"><name><text>TL5</text></name></transition>
+
+      <arc id="al1" source="l1" target="tl1"/><arc id="al2" source="tl1" target="l2"/>
+      <arc id="al3" source="l2" target="tl2"/><arc id="al4" source="tl2" target="l3"/>
+      <arc id="al5" source="l3" target="tl3"/><arc id="al6" source="tl3" target="l4"/>
+      <arc id="al7" source="l4" target="tl4"/><arc id="al8" source="tl4" target="l5"/>
+      <arc id="al9" source="l5" target="tl5"/><arc id="al10" source="tl5" target="l1"/>
+
+      <!-- Long Task Process (15 states: T1...T15) -->
+      <!-- Generates 15 steps. Simple chain. -->
+      <place id="t1"><name><text>Task1</text></name><initialMarking><text>1</text></initialMarking></place>
+      <place id="t2"><name><text>Task2</text></name><initialMarking><text>0</text></initialMarking></place>
+      <place id="t3"><name><text>Task3</text></name><initialMarking><text>0</text></initialMarking></place>
+      <place id="t4"><name><text>Task4</text></name><initialMarking><text>0</text></initialMarking></place>
+      <place id="t5"><name><text>Task5</text></name><initialMarking><text>0</text></initialMarking></place>
+      <place id="t6"><name><text>Task6</text></name><initialMarking><text>0</text></initialMarking></place>
+      <place id="t7"><name><text>Task7</text></name><initialMarking><text>0</text></initialMarking></place>
+      <place id="t8"><name><text>Task8</text></name><initialMarking><text>0</text></initialMarking></place>
+      <place id="t9"><name><text>Task9</text></name><initialMarking><text>0</text></initialMarking></place>
+      <place id="t10"><name><text>Task10</text></name><initialMarking><text>0</text></initialMarking></place>
+      <place id="t11"><name><text>Task11</text></name><initialMarking><text>0</text></initialMarking></place>
+      <place id="t12"><name><text>Task12</text></name><initialMarking><text>0</text></initialMarking></place>
+      <place id="t13"><name><text>Task13</text></name><initialMarking><text>0</text></initialMarking></place>
+      <place id="t14"><name><text>Task14</text></name><initialMarking><text>0</text></initialMarking></place>
+      <place id="t15"><name><text>Task15</text></name><initialMarking><text>0</text></initialMarking></place>
+
+      <transition id="tt1"><name><text>Do1</text></name></transition>
+      <transition id="tt2"><name><text>Do2</text></name></transition>
+      <transition id="tt3"><name><text>Do3</text></name></transition>
+      <transition id="tt4"><name><text>Do4</text></name></transition>
+      <transition id="tt5"><name><text>Do5</text></name></transition>
+      <transition id="tt6"><name><text>Do6</text></name></transition>
+      <transition id="tt7"><name><text>Do7</text></name></transition>
+      <transition id="tt8"><name><text>Do8</text></name></transition>
+      <transition id="tt9"><name><text>Do9</text></name></transition>
+      <transition id="tt10"><name><text>Do10</text></name></transition>
+      <transition id="tt11"><name><text>Do11</text></name></transition>
+      <transition id="tt12"><name><text>Do12</text></name></transition>
+      <transition id="tt13"><name><text>Do13</text></name></transition>
+      <transition id="tt14"><name><text>Do14</text></name></transition>
+
+      <arc id="at1" source="t1" target="tt1"/><arc id="at2" source="tt1" target="t2"/>
+      <arc id="at3" source="t2" target="tt2"/><arc id="at4" source="tt2" target="t3"/>
+      <arc id="at5" source="t3" target="tt3"/><arc id="at6" source="tt3" target="t4"/>
+      <arc id="at7" source="t4" target="tt4"/><arc id="at8" source="tt4" target="t5"/>
+      <arc id="at9" source="t5" target="tt5"/><arc id="at10" source="tt5" target="t6"/>
+      <arc id="at11" source="t6" target="tt6"/><arc id="at12" source="tt6" target="t7"/>
+      <arc id="at13" source="t7" target="tt7"/><arc id="at14" source="tt7" target="t8"/>
+      <arc id="at15" source="t8" target="tt8"/><arc id="at16" source="tt8" target="t9"/>
+      <arc id="at17" source="t9" target="tt9"/><arc id="at18" source="tt9" target="t10"/>
+      <arc id="at19" source="t10" target="tt10"/><arc id="at20" source="tt10" target="t11"/>
+      <arc id="at21" source="t11" target="tt11"/><arc id="at22" source="tt11" target="t12"/>
+      <arc id="at23" source="t12" target="tt12"/><arc id="at24" source="tt12" target="t13"/>
+      <arc id="at25" source="t13" target="tt13"/><arc id="at26" source="tt13" target="t14"/>
+      <arc id="at27" source="t14" target="tt14"/><arc id="at28" source="tt14" target="t15"/>
     </page>
   </net>
 </pnml>

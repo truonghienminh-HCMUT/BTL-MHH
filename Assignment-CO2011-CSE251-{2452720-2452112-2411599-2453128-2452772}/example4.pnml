@@ -1,18 +1,54 @@
+<!-- Dự kiến 64 markings -->
 <pnml xmlns="http://www.pnml.org/version-2009/grammar/pnml">
-  <net id="n4" type="http://www.pnml.org/version-2009/grammar/ptnet">
+  <net id="net4" type="http://www.pnml.org/version-2009/grammar/ptnet">
     <page id="page1">
-      <place id="p1"><initialMarking><text>1</text></initialMarking></place>
-      <place id="p2"><initialMarking><text>0</text></initialMarking></place>
-      <place id="p3"><initialMarking><text>0</text></initialMarking></place>
-      <place id="p4"><initialMarking><text>0</text></initialMarking></place>
-      <transition id="t1"></transition>
-      <transition id="t2"></transition>
-      <arc id="a1" source="p1" target="t1"/>
-      <arc id="a2" source="t1" target="p2"/>
-      <arc id="a3" source="t1" target="p3"/>
-      <arc id="a4" source="p2" target="t2"/>
-      <arc id="a5" source="p3" target="t2"/>
-      <arc id="a6" source="t2" target="p4"/>
+      <!-- Pair 1 -->
+      <place id="p1_off"><name><text>Bit1_0</text></name><initialMarking><text>1</text></initialMarking></place>
+      <place id="p1_on"><name><text>Bit1_1</text></name><initialMarking><text>0</text></initialMarking></place>
+      <transition id="t1_on"><name><text>T1+</text></name></transition>
+      <transition id="t1_off"><name><text>T1-</text></name></transition>
+      <arc id="a1" source="p1_off" target="t1_on"/><arc id="a2" source="t1_on" target="p1_on"/>
+      <arc id="a3" source="p1_on" target="t1_off"/><arc id="a4" source="t1_off" target="p1_off"/>
+
+      <!-- Pair 2 -->
+      <place id="p2_off"><name><text>Bit2_0</text></name><initialMarking><text>1</text></initialMarking></place>
+      <place id="p2_on"><name><text>Bit2_1</text></name><initialMarking><text>0</text></initialMarking></place>
+      <transition id="t2_on"><name><text>T2+</text></name></transition>
+      <transition id="t2_off"><name><text>T2-</text></name></transition>
+      <arc id="b1" source="p2_off" target="t2_on"/><arc id="b2" source="t2_on" target="p2_on"/>
+      <arc id="b3" source="p2_on" target="t2_off"/><arc id="b4" source="t2_off" target="p2_off"/>
+
+      <!-- Pair 3 -->
+      <place id="p3_off"><name><text>Bit3_0</text></name><initialMarking><text>1</text></initialMarking></place>
+      <place id="p3_on"><name><text>Bit3_1</text></name><initialMarking><text>0</text></initialMarking></place>
+      <transition id="t3_on"><name><text>T3+</text></name></transition>
+      <transition id="t3_off"><name><text>T3-</text></name></transition>
+      <arc id="c1" source="p3_off" target="t3_on"/><arc id="c2" source="t3_on" target="p3_on"/>
+      <arc id="c3" source="p3_on" target="t3_off"/><arc id="c4" source="t3_off" target="p3_off"/>
+
+      <!-- Pair 4 -->
+      <place id="p4_off"><name><text>Bit4_0</text></name><initialMarking><text>1</text></initialMarking></place>
+      <place id="p4_on"><name><text>Bit4_1</text></name><initialMarking><text>0</text></initialMarking></place>
+      <transition id="t4_on"><name><text>T4+</text></name></transition>
+      <transition id="t4_off"><name><text>T4-</text></name></transition>
+      <arc id="d1" source="p4_off" target="t4_on"/><arc id="d2" source="t4_on" target="p4_on"/>
+      <arc id="d3" source="p4_on" target="t4_off"/><arc id="d4" source="t4_off" target="p4_off"/>
+
+      <!-- Pair 5 -->
+      <place id="p5_off"><name><text>Bit5_0</text></name><initialMarking><text>1</text></initialMarking></place>
+      <place id="p5_on"><name><text>Bit5_1</text></name><initialMarking><text>0</text></initialMarking></place>
+      <transition id="t5_on"><name><text>T5+</text></name></transition>
+      <transition id="t5_off"><name><text>T5-</text></name></transition>
+      <arc id="e1" source="p5_off" target="t5_on"/><arc id="e2" source="t5_on" target="p5_on"/>
+      <arc id="e3" source="p5_on" target="t5_off"/><arc id="e4" source="t5_off" target="p5_off"/>
+
+      <!-- Pair 6 -->
+      <place id="p6_off"><name><text>Bit6_0</text></name><initialMarking><text>1</text></initialMarking></place>
+      <place id="p6_on"><name><text>Bit6_1</text></name><initialMarking><text>0</text></initialMarking></place>
+      <transition id="t6_on"><name><text>T6+</text></name></transition>
+      <transition id="t6_off"><name><text>T6-</text></name></transition>
+      <arc id="f1" source="p6_off" target="t6_on"/><arc id="f2" source="t6_on" target="p6_on"/>
+      <arc id="f3" source="p6_on" target="t6_off"/><arc id="f4" source="t6_off" target="p6_off"/>
     </page>
   </net>
 </pnml>

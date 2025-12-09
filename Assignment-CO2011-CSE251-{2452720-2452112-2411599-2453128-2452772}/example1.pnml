@@ -1,15 +1,32 @@
+<!-- Dự kiến 12 trạng thái -->
 <pnml xmlns="http://www.pnml.org/version-2009/grammar/pnml">
-  <net id="n1" type="http://www.pnml.org/version-2009/grammar/ptnet">
+  <net id="net1" type="http://www.pnml.org/version-2009/grammar/ptnet">
     <page id="page1">
-      <place id="p1"><name><text>P1</text></name><initialMarking><text>1</text></initialMarking></place>
-      <place id="p2"><name><text>P2</text></name><initialMarking><text>0</text></initialMarking></place>
-      <place id="p3"><name><text>P3</text></name><initialMarking><text>0</text></initialMarking></place>
-      <transition id="t1"><name><text>T1</text></name></transition>
-      <transition id="t2"><name><text>T2</text></name></transition>
+      <!-- Branch A: 3 states -->
+      <place id="p1"><name><text>A1</text></name><initialMarking><text>1</text></initialMarking></place>
+      <place id="p2"><name><text>A2</text></name><initialMarking><text>0</text></initialMarking></place>
+      <place id="p3"><name><text>A3</text></name><initialMarking><text>0</text></initialMarking></place>
+      <transition id="t1"><name><text>TA1</text></name></transition>
+      <transition id="t2"><name><text>TA2</text></name></transition>
       <arc id="a1" source="p1" target="t1"/>
       <arc id="a2" source="t1" target="p2"/>
       <arc id="a3" source="p2" target="t2"/>
       <arc id="a4" source="t2" target="p3"/>
+
+      <!-- Branch B: 4 states -->
+      <place id="p4"><name><text>B1</text></name><initialMarking><text>1</text></initialMarking></place>
+      <place id="p5"><name><text>B2</text></name><initialMarking><text>0</text></initialMarking></place>
+      <place id="p6"><name><text>B3</text></name><initialMarking><text>0</text></initialMarking></place>
+      <place id="p7"><name><text>B4</text></name><initialMarking><text>0</text></initialMarking></place>
+      <transition id="t3"><name><text>TB1</text></name></transition>
+      <transition id="t4"><name><text>TB2</text></name></transition>
+      <transition id="t5"><name><text>TB3</text></name></transition>
+      <arc id="a5" source="p4" target="t3"/>
+      <arc id="a6" source="t3" target="p5"/>
+      <arc id="a7" source="p5" target="t4"/>
+      <arc id="a8" source="t4" target="p6"/>
+      <arc id="a9" source="p6" target="t5"/>
+      <arc id="a10" source="t5" target="p7"/>
     </page>
   </net>
 </pnml>
