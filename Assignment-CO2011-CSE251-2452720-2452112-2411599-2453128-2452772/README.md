@@ -105,7 +105,7 @@ README.md
   py -m pytest tests/test_petriNet.py -v
   ```
 
-### 2. `BFS & DFS Reachability`
+### 2. `BFS.py' & 'DFS.py' Reachability
 * **BFS (`BFS.py`):** Liệt kê toàn bộ reachable markings theo chiều rộng. Đảm bảo đầy đủ và tối thiểu.
 * **DFS (`DFS.py`):** Kiểm tra lại không gian reachable theo chiều sâu.
 * **Test:**
