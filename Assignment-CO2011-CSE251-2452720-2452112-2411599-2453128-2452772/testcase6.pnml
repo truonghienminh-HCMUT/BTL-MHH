@@ -1,0 +1,149 @@
+<!-- 20 triết gia, ~15,127 trạng thái -->
+<pnml xmlns="http://www.pnml.org/version-2009/grammar/pnml">
+ <net id="n_philo_20" type="http://www.pnml.org/version-2009/grammar/ptnet">
+  <page id="page1">
+   <name><text>Dining Philosophers N=20</text></name>
+   <place id="f0"><name><text>Fork0</text></name><initialMarking><text>1</text></initialMarking></place>
+   <place id="f1"><name><text>Fork1</text></name><initialMarking><text>1</text></initialMarking></place>
+   <place id="f2"><name><text>Fork2</text></name><initialMarking><text>1</text></initialMarking></place>
+   <place id="f3"><name><text>Fork3</text></name><initialMarking><text>1</text></initialMarking></place>
+   <place id="f4"><name><text>Fork4</text></name><initialMarking><text>1</text></initialMarking></place>
+   <place id="f5"><name><text>Fork5</text></name><initialMarking><text>1</text></initialMarking></place>
+   <place id="f6"><name><text>Fork6</text></name><initialMarking><text>1</text></initialMarking></place>
+   <place id="f7"><name><text>Fork7</text></name><initialMarking><text>1</text></initialMarking></place>
+   <place id="f8"><name><text>Fork8</text></name><initialMarking><text>1</text></initialMarking></place>
+   <place id="f9"><name><text>Fork9</text></name><initialMarking><text>1</text></initialMarking></place>
+   <place id="f10"><name><text>Fork10</text></name><initialMarking><text>1</text></initialMarking></place>
+   <place id="f11"><name><text>Fork11</text></name><initialMarking><text>1</text></initialMarking></place>
+   <place id="f12"><name><text>Fork12</text></name><initialMarking><text>1</text></initialMarking></place>
+   <place id="f13"><name><text>Fork13</text></name><initialMarking><text>1</text></initialMarking></place>
+   <place id="f14"><name><text>Fork14</text></name><initialMarking><text>1</text></initialMarking></place>
+   <place id="f15"><name><text>Fork15</text></name><initialMarking><text>1</text></initialMarking></place>
+   <place id="f16"><name><text>Fork16</text></name><initialMarking><text>1</text></initialMarking></place>
+   <place id="f17"><name><text>Fork17</text></name><initialMarking><text>1</text></initialMarking></place>
+   <place id="f18"><name><text>Fork18</text></name><initialMarking><text>1</text></initialMarking></place>
+   <place id="f19"><name><text>Fork19</text></name><initialMarking><text>1</text></initialMarking></place>
+
+   <place id="p0_think"><initialMarking><text>1</text></initialMarking></place><place id="p0_eat"/>
+   <transition id="t0_take"/><transition id="t0_put"/>
+   <arc id="a0_1" source="p0_think" target="t0_take"/><arc id="a0_2" source="f0" target="t0_take"/><arc id="a0_3" source="f1" target="t0_take"/>
+   <arc id="a0_4" source="t0_take" target="p0_eat"/><arc id="a0_5" source="p0_eat" target="t0_put"/>
+   <arc id="a0_6" source="t0_put" target="p0_think"/><arc id="a0_7" source="t0_put" target="f0"/><arc id="a0_8" source="t0_put" target="f1"/>
+
+   <place id="p1_think"><initialMarking><text>1</text></initialMarking></place><place id="p1_eat"/>
+   <transition id="t1_take"/><transition id="t1_put"/>
+   <arc id="a1_1" source="p1_think" target="t1_take"/><arc id="a1_2" source="f1" target="t1_take"/><arc id="a1_3" source="f2" target="t1_take"/>
+   <arc id="a1_4" source="t1_take" target="p1_eat"/><arc id="a1_5" source="p1_eat" target="t1_put"/>
+   <arc id="a1_6" source="t1_put" target="p1_think"/><arc id="a1_7" source="t1_put" target="f1"/><arc id="a1_8" source="t1_put" target="f2"/>
+
+   <place id="p2_think"><initialMarking><text>1</text></initialMarking></place><place id="p2_eat"/>
+   <transition id="t2_take"/><transition id="t2_put"/>
+   <arc id="a2_1" source="p2_think" target="t2_take"/><arc id="a2_2" source="f2" target="t2_take"/><arc id="a2_3" source="f3" target="t2_take"/>
+   <arc id="a2_4" source="t2_take" target="p2_eat"/><arc id="a2_5" source="p2_eat" target="t2_put"/>
+   <arc id="a2_6" source="t2_put" target="p2_think"/><arc id="a2_7" source="t2_put" target="f2"/><arc id="a2_8" source="t2_put" target="f3"/>
+
+   <place id="p3_think"><initialMarking><text>1</text></initialMarking></place><place id="p3_eat"/>
+   <transition id="t3_take"/><transition id="t3_put"/>
+   <arc id="a3_1" source="p3_think" target="t3_take"/><arc id="a3_2" source="f3" target="t3_take"/><arc id="a3_3" source="f4" target="t3_take"/>
+   <arc id="a3_4" source="t3_take" target="p3_eat"/><arc id="a3_5" source="p3_eat" target="t3_put"/>
+   <arc id="a3_6" source="t3_put" target="p3_think"/><arc id="a3_7" source="t3_put" target="f3"/><arc id="a3_8" source="t3_put" target="f4"/>
+
+   <place id="p4_think"><initialMarking><text>1</text></initialMarking></place><place id="p4_eat"/>
+   <transition id="t4_take"/><transition id="t4_put"/>
+   <arc id="a4_1" source="p4_think" target="t4_take"/><arc id="a4_2" source="f4" target="t4_take"/><arc id="a4_3" source="f5" target="t4_take"/>
+   <arc id="a4_4" source="t4_take" target="p4_eat"/><arc id="a4_5" source="p4_eat" target="t4_put"/>
+   <arc id="a4_6" source="t4_put" target="p4_think"/><arc id="a4_7" source="t4_put" target="f4"/><arc id="a4_8" source="t4_put" target="f5"/>
+
+   <place id="p5_think"><initialMarking><text>1</text></initialMarking></place><place id="p5_eat"/>
+   <transition id="t5_take"/><transition id="t5_put"/>
+   <arc id="a5_1" source="p5_think" target="t5_take"/><arc id="a5_2" source="f5" target="t5_take"/><arc id="a5_3" source="f6" target="t5_take"/>
+   <arc id="a5_4" source="t5_take" target="p5_eat"/><arc id="a5_5" source="p5_eat" target="t5_put"/>
+   <arc id="a5_6" source="t5_put" target="p5_think"/><arc id="a5_7" source="t5_put" target="f5"/><arc id="a5_8" source="t5_put" target="f6"/>
+
+   <place id="p6_think"><initialMarking><text>1</text></initialMarking></place><place id="p6_eat"/>
+   <transition id="t6_take"/><transition id="t6_put"/>
+   <arc id="a6_1" source="p6_think" target="t6_take"/><arc id="a6_2" source="f6" target="t6_take"/><arc id="a6_3" source="f7" target="t6_take"/>
+   <arc id="a6_4" source="t6_take" target="p6_eat"/><arc id="a6_5" source="p6_eat" target="t6_put"/>
+   <arc id="a6_6" source="t6_put" target="p6_think"/><arc id="a6_7" source="t6_put" target="f6"/><arc id="a6_8" source="t6_put" target="f7"/>
+
+   <place id="p7_think"><initialMarking><text>1</text></initialMarking></place><place id="p7_eat"/>
+   <transition id="t7_take"/><transition id="t7_put"/>
+   <arc id="a7_1" source="p7_think" target="t7_take"/><arc id="a7_2" source="f7" target="t7_take"/><arc id="a7_3" source="f8" target="t7_take"/>
+   <arc id="a7_4" source="t7_take" target="p7_eat"/><arc id="a7_5" source="p7_eat" target="t7_put"/>
+   <arc id="a7_6" source="t7_put" target="p7_think"/><arc id="a7_7" source="t7_put" target="f7"/><arc id="a7_8" source="t7_put" target="f8"/>
+
+   <place id="p8_think"><initialMarking><text>1</text></initialMarking></place><place id="p8_eat"/>
+   <transition id="t8_take"/><transition id="t8_put"/>
+   <arc id="a8_1" source="p8_think" target="t8_take"/><arc id="a8_2" source="f8" target="t8_take"/><arc id="a8_3" source="f9" target="t8_take"/>
+   <arc id="a8_4" source="t8_take" target="p8_eat"/><arc id="a8_5" source="p8_eat" target="t8_put"/>
+   <arc id="a8_6" source="t8_put" target="p8_think"/><arc id="a8_7" source="t8_put" target="f8"/><arc id="a8_8" source="t8_put" target="f9"/>
+
+   <place id="p9_think"><initialMarking><text>1</text></initialMarking></place><place id="p9_eat"/>
+   <transition id="t9_take"/><transition id="t9_put"/>
+   <arc id="a9_1" source="p9_think" target="t9_take"/><arc id="a9_2" source="f9" target="t9_take"/><arc id="a9_3" source="f10" target="t9_take"/>
+   <arc id="a9_4" source="t9_take" target="p9_eat"/><arc id="a9_5" source="p9_eat" target="t9_put"/>
+   <arc id="a9_6" source="t9_put" target="p9_think"/><arc id="a9_7" source="t9_put" target="f9"/><arc id="a9_8" source="t9_put" target="f10"/>
+
+   <place id="p10_think"><initialMarking><text>1</text></initialMarking></place><place id="p10_eat"/>
+   <transition id="t10_take"/><transition id="t10_put"/>
+   <arc id="a10_1" source="p10_think" target="t10_take"/><arc id="a10_2" source="f10" target="t10_take"/><arc id="a10_3" source="f11" target="t10_take"/>
+   <arc id="a10_4" source="t10_take" target="p10_eat"/><arc id="a10_5" source="p10_eat" target="t10_put"/>
+   <arc id="a10_6" source="t10_put" target="p10_think"/><arc id="a10_7" source="t10_put" target="f10"/><arc id="a10_8" source="t10_put" target="f11"/>
+
+   <place id="p11_think"><initialMarking><text>1</text></initialMarking></place><place id="p11_eat"/>
+   <transition id="t11_take"/><transition id="t11_put"/>
+   <arc id="a11_1" source="p11_think" target="t11_take"/><arc id="a11_2" source="f11" target="t11_take"/><arc id="a11_3" source="f12" target="t11_take"/>
+   <arc id="a11_4" source="t11_take" target="p11_eat"/><arc id="a11_5" source="p11_eat" target="t11_put"/>
+   <arc id="a11_6" source="t11_put" target="p11_think"/><arc id="a11_7" source="t11_put" target="f11"/><arc id="a11_8" source="t11_put" target="f12"/>
+
+   <place id="p12_think"><initialMarking><text>1</text></initialMarking></place><place id="p12_eat"/>
+   <transition id="t12_take"/><transition id="t12_put"/>
+   <arc id="a12_1" source="p12_think" target="t12_take"/><arc id="a12_2" source="f12" target="t12_take"/><arc id="a12_3" source="f13" target="t12_take"/>
+   <arc id="a12_4" source="t12_take" target="p12_eat"/><arc id="a12_5" source="p12_eat" target="t12_put"/>
+   <arc id="a12_6" source="t12_put" target="p12_think"/><arc id="a12_7" source="t12_put" target="f12"/><arc id="a12_8" source="t12_put" target="f13"/>
+
+   <place id="p13_think"><initialMarking><text>1</text></initialMarking></place><place id="p13_eat"/>
+   <transition id="t13_take"/><transition id="t13_put"/>
+   <arc id="a13_1" source="p13_think" target="t13_take"/><arc id="a13_2" source="f13" target="t13_take"/><arc id="a13_3" source="f14" target="t13_take"/>
+   <arc id="a13_4" source="t13_take" target="p13_eat"/><arc id="a13_5" source="p13_eat" target="t13_put"/>
+   <arc id="a13_6" source="t13_put" target="p13_think"/><arc id="a13_7" source="t13_put" target="f13"/><arc id="a13_8" source="t13_put" target="f14"/>
+
+   <place id="p14_think"><initialMarking><text>1</text></initialMarking></place><place id="p14_eat"/>
+   <transition id="t14_take"/><transition id="t14_put"/>
+   <arc id="a14_1" source="p14_think" target="t14_take"/><arc id="a14_2" source="f14" target="t14_take"/><arc id="a14_3" source="f15" target="t14_take"/>
+   <arc id="a14_4" source="t14_take" target="p14_eat"/><arc id="a14_5" source="p14_eat" target="t14_put"/>
+   <arc id="a14_6" source="t14_put" target="p14_think"/><arc id="a14_7" source="t14_put" target="f14"/><arc id="a14_8" source="t14_put" target="f15"/>
+
+   <place id="p15_think"><initialMarking><text>1</text></initialMarking></place><place id="p15_eat"/>
+   <transition id="t15_take"/><transition id="t15_put"/>
+   <arc id="a15_1" source="p15_think" target="t15_take"/><arc id="a15_2" source="f15" target="t15_take"/><arc id="a15_3" source="f16" target="t15_take"/>
+   <arc id="a15_4" source="t15_take" target="p15_eat"/><arc id="a15_5" source="p15_eat" target="t15_put"/>
+   <arc id="a15_6" source="t15_put" target="p15_think"/><arc id="a15_7" source="t15_put" target="f15"/><arc id="a15_8" source="t15_put" target="f16"/>
+
+   <place id="p16_think"><initialMarking><text>1</text></initialMarking></place><place id="p16_eat"/>
+   <transition id="t16_take"/><transition id="t16_put"/>
+   <arc id="a16_1" source="p16_think" target="t16_take"/><arc id="a16_2" source="f16" target="t16_take"/><arc id="a16_3" source="f17" target="t16_take"/>
+   <arc id="a16_4" source="t16_take" target="p16_eat"/><arc id="a16_5" source="p16_eat" target="t16_put"/>
+   <arc id="a16_6" source="t16_put" target="p16_think"/><arc id="a16_7" source="t16_put" target="f16"/><arc id="a16_8" source="t16_put" target="f17"/>
+
+   <place id="p17_think"><initialMarking><text>1</text></initialMarking></place><place id="p17_eat"/>
+   <transition id="t17_take"/><transition id="t17_put"/>
+   <arc id="a17_1" source="p17_think" target="t17_take"/><arc id="a17_2" source="f17" target="t17_take"/><arc id="a17_3" source="f18" target="t17_take"/>
+   <arc id="a17_4" source="t17_take" target="p17_eat"/><arc id="a17_5" source="p17_eat" target="t17_put"/>
+   <arc id="a17_6" source="t17_put" target="p17_think"/><arc id="a17_7" source="t17_put" target="f17"/><arc id="a17_8" source="t17_put" target="f18"/>
+
+   <place id="p18_think"><initialMarking><text>1</text></initialMarking></place><place id="p18_eat"/>
+   <transition id="t18_take"/><transition id="t18_put"/>
+   <arc id="a18_1" source="p18_think" target="t18_take"/><arc id="a18_2" source="f18" target="t18_take"/><arc id="a18_3" source="f19" target="t18_take"/>
+   <arc id="a18_4" source="t18_take" target="p18_eat"/><arc id="a18_5" source="p18_eat" target="t18_put"/>
+   <arc id="a18_6" source="t18_put" target="p18_think"/><arc id="a18_7" source="t18_put" target="f18"/><arc id="a18_8" source="t18_put" target="f19"/>
+
+   <place id="p19_think"><initialMarking><text>1</text></initialMarking></place><place id="p19_eat"/>
+   <transition id="t19_take"/><transition id="t19_put"/>
+   <arc id="a19_1" source="p19_think" target="t19_take"/><arc id="a19_2" source="f19" target="t19_take"/><arc id="a19_3" source="f0" target="t19_take"/>
+   <arc id="a19_4" source="t19_take" target="p19_eat"/><arc id="a19_5" source="p19_eat" target="t19_put"/>
+   <arc id="a19_6" source="t19_put" target="p19_think"/><arc id="a19_7" source="t19_put" target="f19"/><arc id="a19_8" source="t19_put" target="f0"/>
+
+  </page>
+ </net>
+</pnml>

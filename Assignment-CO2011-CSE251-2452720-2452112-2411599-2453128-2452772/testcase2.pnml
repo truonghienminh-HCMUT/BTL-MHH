@@ -1,0 +1,57 @@
+<!-- Mô tả: Quy trình xử lý song song (Concurrency). 1 luồng tách thành 3 nhánh con chạy song song, sau đó hợp lại. -->
+<!--Số lượng: 11 Places, 8 Transitions (Tổng: 19 nút). -->
+<!--Mục đích: Kiểm tra khả năng xử lý song song (Task 3 - BDD sẽ bắt đầu nhanh hơn BFS ở đây). -->
+
+<pnml xmlns="http://www.pnml.org/version-2009/grammar/pnml">
+  <net id="n2" type="http://www.pnml.org/version-2009/grammar/ptnet">
+    <page id="pg2">
+      <name><text>Medium Fork Join (3 Branches)</text></name>
+      
+      <place id="start"><name><text>Start</text></name><initialMarking><text>1</text></initialMarking></place>
+      <place id="end"><name><text>End</text></name></place>
+      
+      <place id="b1_1"><name><text>B1_Ready</text></name></place>
+      <place id="b1_2"><name><text>B1_Done</text></name></place>
+      
+      <place id="b2_1"><name><text>B2_Ready</text></name></place>
+      <place id="b2_2"><name><text>B2_Process</text></name></place>
+      <place id="b2_3"><name><text>B2_Done</text></name></place>
+
+      <place id="b3_1"><name><text>B3_Ready</text></name></place>
+      <place id="b3_2"><name><text>B3_Verify</text></name></place>
+      <place id="b3_3"><name><text>B3_Sign</text></name></place>
+      <place id="b3_4"><name><text>B3_Done</text></name></place>
+
+      <transition id="t_split"><name><text>Split</text></name></transition>
+      <transition id="t_join"><name><text>Join</text></name></transition>
+
+      <transition id="t1_1"><name><text>Do_B1</text></name></transition>
+
+      <transition id="t2_1"><name><text>Start_B2</text></name></transition>
+      <transition id="t2_2"><name><text>End_B2</text></name></transition>
+
+      <transition id="t3_1"><name><text>Start_B3</text></name></transition>
+      <transition id="t3_2"><name><text>Check_B3</text></name></transition>
+      <transition id="t3_3"><name><text>End_B3</text></name></transition>
+
+      <arc id="a1" source="start" target="t_split"/>
+      <arc id="a2" source="t_split" target="b1_1"/>
+      <arc id="a3" source="t_split" target="b2_1"/>
+      <arc id="a4" source="t_split" target="b3_1"/>
+
+      <arc id="a5" source="b1_1" target="t1_1"/> <arc id="a6" source="t1_1" target="b1_2"/>
+
+      <arc id="a7" source="b2_1" target="t2_1"/> <arc id="a8" source="t2_1" target="b2_2"/>
+      <arc id="a9" source="b2_2" target="t2_2"/> <arc id="a10" source="t2_2" target="b2_3"/>
+
+      <arc id="a11" source="b3_1" target="t3_1"/> <arc id="a12" source="t3_1" target="b3_2"/>
+      <arc id="a13" source="b3_2" target="t3_2"/> <arc id="a14" source="t3_2" target="b3_3"/>
+      <arc id="a15" source="b3_3" target="t3_3"/> <arc id="a16" source="t3_3" target="b3_4"/>
+
+      <arc id="a17" source="b1_2" target="t_join"/>
+      <arc id="a18" source="b2_3" target="t_join"/>
+      <arc id="a19" source="b3_4" target="t_join"/>
+      <arc id="a20" source="t_join" target="end"/>
+    </page>
+  </net>
+</pnml>

@@ -1,0 +1,97 @@
+<!-- Mô tả: Bài toán triết gia ăn tối với 12 triết gia. -->
+<!-- Số lượng: 36 Places, 24 Transitions (Tổng: 60 nút). -->
+<!-- Mục đích: Gây bùng nổ không gian trạng thái (State Space Explosion) để so sánh hiệu năng. -->
+
+<pnml xmlns="http://www.pnml.org/version-2009/grammar/pnml">
+  <net id="n4" type="http://www.pnml.org/version-2009/grammar/ptnet">
+    <page id="pg4">
+      <name><text>Dining Philosophers N=12</text></name>
+      
+      <place id="f0"><name><text>F0</text></name><initialMarking><text>1</text></initialMarking></place>
+      <place id="f1"><name><text>F1</text></name><initialMarking><text>1</text></initialMarking></place>
+      <place id="f2"><name><text>F2</text></name><initialMarking><text>1</text></initialMarking></place>
+      <place id="f3"><name><text>F3</text></name><initialMarking><text>1</text></initialMarking></place>
+      <place id="f4"><name><text>F4</text></name><initialMarking><text>1</text></initialMarking></place>
+      <place id="f5"><name><text>F5</text></name><initialMarking><text>1</text></initialMarking></place>
+      <place id="f6"><name><text>F6</text></name><initialMarking><text>1</text></initialMarking></place>
+      <place id="f7"><name><text>F7</text></name><initialMarking><text>1</text></initialMarking></place>
+      <place id="f8"><name><text>F8</text></name><initialMarking><text>1</text></initialMarking></place>
+      <place id="f9"><name><text>F9</text></name><initialMarking><text>1</text></initialMarking></place>
+      <place id="f10"><name><text>F10</text></name><initialMarking><text>1</text></initialMarking></place>
+      <place id="f11"><name><text>F11</text></name><initialMarking><text>1</text></initialMarking></place>
+
+      <place id="p0_think"><initialMarking><text>1</text></initialMarking></place> <place id="p0_eat"/>
+      <transition id="t0_in"/> <transition id="t0_out"/>
+      <arc source="p0_think" target="t0_in"/> <arc source="f0" target="t0_in"/> <arc source="f1" target="t0_in"/>
+      <arc source="t0_in" target="p0_eat"/> <arc source="p0_eat" target="t0_out"/> 
+      <arc source="t0_out" target="p0_think"/> <arc source="t0_out" target="f0"/> <arc source="t0_out" target="f1"/>
+
+      <place id="p1_think"><initialMarking><text>1</text></initialMarking></place> <place id="p1_eat"/>
+      <transition id="t1_in"/> <transition id="t1_out"/>
+      <arc source="p1_think" target="t1_in"/> <arc source="f1" target="t1_in"/> <arc source="f2" target="t1_in"/>
+      <arc source="t1_in" target="p1_eat"/> <arc source="p1_eat" target="t1_out"/> 
+      <arc source="t1_out" target="p1_think"/> <arc source="t1_out" target="f1"/> <arc source="t1_out" target="f2"/>
+
+      <place id="p2_think"><initialMarking><text>1</text></initialMarking></place> <place id="p2_eat"/>
+      <transition id="t2_in"/> <transition id="t2_out"/>
+      <arc source="p2_think" target="t2_in"/> <arc source="f2" target="t2_in"/> <arc source="f3" target="t2_in"/>
+      <arc source="t2_in" target="p2_eat"/> <arc source="p2_eat" target="t2_out"/> 
+      <arc source="t2_out" target="p2_think"/> <arc source="t2_out" target="f2"/> <arc source="t2_out" target="f3"/>
+
+      <place id="p3_think"><initialMarking><text>1</text></initialMarking></place> <place id="p3_eat"/>
+      <transition id="t3_in"/> <transition id="t3_out"/>
+      <arc source="p3_think" target="t3_in"/> <arc source="f3" target="t3_in"/> <arc source="f4" target="t3_in"/>
+      <arc source="t3_in" target="p3_eat"/> <arc source="p3_eat" target="t3_out"/> 
+      <arc source="t3_out" target="p3_think"/> <arc source="t3_out" target="f3"/> <arc source="t3_out" target="f4"/>
+
+      <place id="p4_think"><initialMarking><text>1</text></initialMarking></place> <place id="p4_eat"/>
+      <transition id="t4_in"/> <transition id="t4_out"/>
+      <arc source="p4_think" target="t4_in"/> <arc source="f4" target="t4_in"/> <arc source="f5" target="t4_in"/>
+      <arc source="t4_in" target="p4_eat"/> <arc source="p4_eat" target="t4_out"/> 
+      <arc source="t4_out" target="p4_think"/> <arc source="t4_out" target="f4"/> <arc source="t4_out" target="f5"/>
+
+      <place id="p5_think"><initialMarking><text>1</text></initialMarking></place> <place id="p5_eat"/>
+      <transition id="t5_in"/> <transition id="t5_out"/>
+      <arc source="p5_think" target="t5_in"/> <arc source="f5" target="t5_in"/> <arc source="f6" target="t5_in"/>
+      <arc source="t5_in" target="p5_eat"/> <arc source="p5_eat" target="t5_out"/> 
+      <arc source="t5_out" target="p5_think"/> <arc source="t5_out" target="f5"/> <arc source="t5_out" target="f6"/>
+
+      <place id="p6_think"><initialMarking><text>1</text></initialMarking></place> <place id="p6_eat"/>
+      <transition id="t6_in"/> <transition id="t6_out"/>
+      <arc source="p6_think" target="t6_in"/> <arc source="f6" target="t6_in"/> <arc source="f7" target="t6_in"/>
+      <arc source="t6_in" target="p6_eat"/> <arc source="p6_eat" target="t6_out"/> 
+      <arc source="t6_out" target="p6_think"/> <arc source="t6_out" target="f6"/> <arc source="t6_out" target="f7"/>
+
+      <place id="p7_think"><initialMarking><text>1</text></initialMarking></place> <place id="p7_eat"/>
+      <transition id="t7_in"/> <transition id="t7_out"/>
+      <arc source="p7_think" target="t7_in"/> <arc source="f7" target="t7_in"/> <arc source="f8" target="t7_in"/>
+      <arc source="t7_in" target="p7_eat"/> <arc source="p7_eat" target="t7_out"/> 
+      <arc source="t7_out" target="p7_think"/> <arc source="t7_out" target="f7"/> <arc source="t7_out" target="f8"/>
+
+      <place id="p8_think"><initialMarking><text>1</text></initialMarking></place> <place id="p8_eat"/>
+      <transition id="t8_in"/> <transition id="t8_out"/>
+      <arc source="p8_think" target="t8_in"/> <arc source="f8" target="t8_in"/> <arc source="f9" target="t8_in"/>
+      <arc source="t8_in" target="p8_eat"/> <arc source="p8_eat" target="t8_out"/> 
+      <arc source="t8_out" target="p8_think"/> <arc source="t8_out" target="f8"/> <arc source="t8_out" target="f9"/>
+
+      <place id="p9_think"><initialMarking><text>1</text></initialMarking></place> <place id="p9_eat"/>
+      <transition id="t9_in"/> <transition id="t9_out"/>
+      <arc source="p9_think" target="t9_in"/> <arc source="f9" target="t9_in"/> <arc source="f10" target="t9_in"/>
+      <arc source="t9_in" target="p9_eat"/> <arc source="p9_eat" target="t9_out"/> 
+      <arc source="t9_out" target="p9_think"/> <arc source="t9_out" target="f9"/> <arc source="t9_out" target="f10"/>
+
+      <place id="p10_think"><initialMarking><text>1</text></initialMarking></place> <place id="p10_eat"/>
+      <transition id="t10_in"/> <transition id="t10_out"/>
+      <arc source="p10_think" target="t10_in"/> <arc source="f10" target="t10_in"/> <arc source="f11" target="t10_in"/>
+      <arc source="t10_in" target="p10_eat"/> <arc source="p10_eat" target="t10_out"/> 
+      <arc source="t10_out" target="p10_think"/> <arc source="t10_out" target="f10"/> <arc source="t10_out" target="f11"/>
+
+      <place id="p11_think"><initialMarking><text>1</text></initialMarking></place> <place id="p11_eat"/>
+      <transition id="t11_in"/> <transition id="t11_out"/>
+      <arc source="p11_think" target="t11_in"/> <arc source="f11" target="t11_in"/> <arc source="f0" target="t11_in"/>
+      <arc source="t11_in" target="p11_eat"/> <arc source="p11_eat" target="t11_out"/> 
+      <arc source="t11_out" target="p11_think"/> <arc source="t11_out" target="f11"/> <arc source="t11_out" target="f0"/>
+
+    </page>
+  </net>
+</pnml>

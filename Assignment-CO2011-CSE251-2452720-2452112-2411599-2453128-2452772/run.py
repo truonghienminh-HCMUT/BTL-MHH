@@ -31,14 +31,14 @@ def generate_custom_bdd_image(bdd_obj):
 
 def main():
     np.set_printoptions(threshold=sys.maxsize, linewidth=np.inf)
-    
+
     # Bắt đầu tính tổng thời gian chạy chương trình
     total_start_time = time.time()
     # ------------------------------------------------------
     # 1. Load Petri Net từ file PNML
     # ------------------------------------------------------
     # Đảm bảo bạn đã tạo file deadlock.pnml
-    filename = "example10.pnml"   
+    filename = "testcase6.pnml"   
     print("Loading PNML:", filename)
 
     try:
@@ -56,7 +56,12 @@ def main():
     # ------------------------------------------------------
     print("\n--- TASK 2: EXPLICIT REACHABILITY ---")
     print("\n---     BFS Reachable Markings    ---")
+
+    start_bfs = time.perf_counter()  # [THÊM] Bắt đầu bấm giờ
     bfs_set = bfs_reachable(pn)
+    end_bfs = time.perf_counter()    # [THÊM] Kết thúc bấm giờ
+    
+    bfs_time = end_bfs - start_bfs # Tính khoảng thời gian
     for m in bfs_set:
         print(np.array(m))
     print("Total BFS reachable =", len(bfs_set))
@@ -76,7 +81,12 @@ def main():
     # ------------------------------------------------------
     print("\n--- TASK 3: BDD-BASED REACHABILITY ---")
     try:
+        start_bdd = time.perf_counter()  # [THÊM] Bắt đầu bấm giờ
         bdd, count = bdd_reachable(pn)
+        end_bdd = time.perf_counter()    # [THÊM] Kết thúc bấm giờ
+        
+        bdd_time = end_bdd - start_bdd # Tính khoảng thời gian
+
         print("BDD reachable markings count =", count) 
         generate_custom_bdd_image(bdd) # Chỉ vẽ hình minh họa tĩnh
         print("\nTASK 3: [SUCCESS]")
@@ -154,6 +164,15 @@ def main():
     total_duration = time.time() - total_start_time
     print("-" * 30)
     print(f"PROGRAM FINISHED IN: {total_duration:.4f} seconds")
+
+    print(f"Thời gian chạy BFS: {bfs_time:.6f} giây") # In ra kết quả
+
+    print(f"Thời gian chạy BDD: {bdd_time:.6f} giây") # In ra kết quả
+
+    # So sánh nhanh
+    if bfs_time > 0:
+        diff = bfs_time / bdd_time if bdd_time > 0 else 0
+        print(f"=> BDD nhanh hơn BFS khoảng {diff:.2f} lần" if diff > 1 else f"=> BFS nhanh hơn BDD khoảng {1/diff:.2f} lần")
 
 if __name__ == "__main__":
     main()

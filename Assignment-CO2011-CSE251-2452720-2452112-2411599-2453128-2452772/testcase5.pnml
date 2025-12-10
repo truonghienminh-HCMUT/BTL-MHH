@@ -1,0 +1,60 @@
+<!-- Mô tả: Mạng vòng tròn 15 node. Node i giữ Resource i và chờ Resource i+1. -->
+<!-- Số lượng: 45 Places, 30 Transitions (Tổng: 60 nút).Mục đích: Kiểm thử Deadlock Detection (Task 4) trên quy mô lớn. -->
+<!-- Khi chạy, tất cả các transition sẽ bắn được 1 lần, sau đó toàn bộ hệ thống sẽ deadlock. -->
+
+<pnml xmlns="http://www.pnml.org/version-2009/grammar/pnml">
+  <net id="n5" type="http://www.pnml.org/version-2009/grammar/ptnet">
+    <page id="pg5">
+      <name><text>Circular Deadlock Chain N=15</text></name>
+      
+      <place id="r0"><initialMarking><text>1</text></initialMarking></place>
+      <place id="r1"><initialMarking><text>1</text></initialMarking></place>
+      <place id="r2"><initialMarking><text>1</text></initialMarking></place>
+      <place id="r3"><initialMarking><text>1</text></initialMarking></place>
+      <place id="r4"><initialMarking><text>1</text></initialMarking></place>
+      <place id="r5"><initialMarking><text>1</text></initialMarking></place>
+      <place id="r6"><initialMarking><text>1</text></initialMarking></place>
+      <place id="r7"><initialMarking><text>1</text></initialMarking></place>
+      <place id="r8"><initialMarking><text>1</text></initialMarking></place>
+      <place id="r9"><initialMarking><text>1</text></initialMarking></place>
+      <place id="r10"><initialMarking><text>1</text></initialMarking></place>
+      <place id="r11"><initialMarking><text>1</text></initialMarking></place>
+      <place id="r12"><initialMarking><text>1</text></initialMarking></place>
+      <place id="r13"><initialMarking><text>1</text></initialMarking></place>
+      <place id="r14"><initialMarking><text>1</text></initialMarking></place>
+
+      <place id="p0"><initialMarking><text>1</text></initialMarking></place> <place id="h0"/> <transition id="t0_1"/> <transition id="t0_2"/>
+      <place id="p1"><initialMarking><text>1</text></initialMarking></place> <place id="h1"/> <transition id="t1_1"/> <transition id="t1_2"/>
+      <place id="p2"><initialMarking><text>1</text></initialMarking></place> <place id="h2"/> <transition id="t2_1"/> <transition id="t2_2"/>
+      <place id="p3"><initialMarking><text>1</text></initialMarking></place> <place id="h3"/> <transition id="t3_1"/> <transition id="t3_2"/>
+      <place id="p4"><initialMarking><text>1</text></initialMarking></place> <place id="h4"/> <transition id="t4_1"/> <transition id="t4_2"/>
+      <place id="p5"><initialMarking><text>1</text></initialMarking></place> <place id="h5"/> <transition id="t5_1"/> <transition id="t5_2"/>
+      <place id="p6"><initialMarking><text>1</text></initialMarking></place> <place id="h6"/> <transition id="t6_1"/> <transition id="t6_2"/>
+      <place id="p7"><initialMarking><text>1</text></initialMarking></place> <place id="h7"/> <transition id="t7_1"/> <transition id="t7_2"/>
+      <place id="p8"><initialMarking><text>1</text></initialMarking></place> <place id="h8"/> <transition id="t8_1"/> <transition id="t8_2"/>
+      <place id="p9"><initialMarking><text>1</text></initialMarking></place> <place id="h9"/> <transition id="t9_1"/> <transition id="t9_2"/>
+      <place id="p10"><initialMarking><text>1</text></initialMarking></place> <place id="h10"/> <transition id="t10_1"/> <transition id="t10_2"/>
+      <place id="p11"><initialMarking><text>1</text></initialMarking></place> <place id="h11"/> <transition id="t11_1"/> <transition id="t11_2"/>
+      <place id="p12"><initialMarking><text>1</text></initialMarking></place> <place id="h12"/> <transition id="t12_1"/> <transition id="t12_2"/>
+      <place id="p13"><initialMarking><text>1</text></initialMarking></place> <place id="h13"/> <transition id="t13_1"/> <transition id="t13_2"/>
+      <place id="p14"><initialMarking><text>1</text></initialMarking></place> <place id="h14"/> <transition id="t14_1"/> <transition id="t14_2"/>
+      
+      <arc source="p0" target="t0_1"/> <arc source="r0" target="t0_1"/> <arc source="t0_1" target="h0"/> <arc source="h0" target="t0_2"/> <arc source="r1" target="t0_2"/>
+      <arc source="p1" target="t1_1"/> <arc source="r1" target="t1_1"/> <arc source="t1_1" target="h1"/> <arc source="h1" target="t1_2"/> <arc source="r2" target="t1_2"/>
+      <arc source="p2" target="t2_1"/> <arc source="r2" target="t2_1"/> <arc source="t2_1" target="h2"/> <arc source="h2" target="t2_2"/> <arc source="r3" target="t2_2"/>
+      <arc source="p3" target="t3_1"/> <arc source="r3" target="t3_1"/> <arc source="t3_1" target="h3"/> <arc source="h3" target="t3_2"/> <arc source="r4" target="t3_2"/>
+      <arc source="p4" target="t4_1"/> <arc source="r4" target="t4_1"/> <arc source="t4_1" target="h4"/> <arc source="h4" target="t4_2"/> <arc source="r5" target="t4_2"/>
+      <arc source="p5" target="t5_1"/> <arc source="r5" target="t5_1"/> <arc source="t5_1" target="h5"/> <arc source="h5" target="t5_2"/> <arc source="r6" target="t5_2"/>
+      <arc source="p6" target="t6_1"/> <arc source="r6" target="t6_1"/> <arc source="t6_1" target="h6"/> <arc source="h6" target="t6_2"/> <arc source="r7" target="t6_2"/>
+      <arc source="p7" target="t7_1"/> <arc source="r7" target="t7_1"/> <arc source="t7_1" target="h7"/> <arc source="h7" target="t7_2"/> <arc source="r8" target="t7_2"/>
+      <arc source="p8" target="t8_1"/> <arc source="r8" target="t8_1"/> <arc source="t8_1" target="h8"/> <arc source="h8" target="t8_2"/> <arc source="r9" target="t8_2"/>
+      <arc source="p9" target="t9_1"/> <arc source="r9" target="t9_1"/> <arc source="t9_1" target="h9"/> <arc source="h9" target="t9_2"/> <arc source="r10" target="t9_2"/>
+      <arc source="p10" target="t10_1"/> <arc source="r10" target="t10_1"/> <arc source="t10_1" target="h10"/> <arc source="h10" target="t10_2"/> <arc source="r11" target="t10_2"/>
+      <arc source="p11" target="t11_1"/> <arc source="r11" target="t11_1"/> <arc source="t11_1" target="h11"/> <arc source="h11" target="t11_2"/> <arc source="r12" target="t11_2"/>
+      <arc source="p12" target="t12_1"/> <arc source="r12" target="t12_1"/> <arc source="t12_1" target="h12"/> <arc source="h12" target="t12_2"/> <arc source="r13" target="t12_2"/>
+      <arc source="p13" target="t13_1"/> <arc source="r13" target="t13_1"/> <arc source="t13_1" target="h13"/> <arc source="h13" target="t13_2"/> <arc source="r14" target="t13_2"/>
+      <arc source="p14" target="t14_1"/> <arc source="r14" target="t14_1"/> <arc source="t14_1" target="h14"/> <arc source="h14" target="t14_2"/> <arc source="r0" target="t14_2"/>
+
+    </page>
+  </net>
+</pnml>

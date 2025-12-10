@@ -1,0 +1,67 @@
+<!-- Mô tả: 4 Tiến trình (Process) cùng tranh chấp 2 Tài nguyên (Resource). -->
+<!-- Số lượng: 14 Places, 12 Transitions (Tổng: 24 nút). -->
+<!-- Mục đích: Kiểm tra tính chất 1-safe và logic loại trừ lẫn nhau (Mutual Exclusion). -->
+
+<pnml xmlns="http://www.pnml.org/version-2009/grammar/pnml">
+  <net id="n3" type="http://www.pnml.org/version-2009/grammar/ptnet">
+    <page id="pg3">
+      <name><text>4 Processes sharing 2 Resources</text></name>
+      
+      <place id="ResA"><name><text>Resource_A</text></name><initialMarking><text>1</text></initialMarking></place>
+      <place id="ResB"><name><text>Resource_B</text></name><initialMarking><text>1</text></initialMarking></place>
+
+      <place id="p1_wait"><name><text>P1_Wait</text></name><initialMarking><text>1</text></initialMarking></place>
+      <place id="p1_crit"><name><text>P1_Critical</text></name></place>
+      <place id="p1_done"><name><text>P1_Done</text></name></place>
+      <transition id="t1_get"><name><text>P1_GetA</text></name></transition>
+      <transition id="t1_rel"><name><text>P1_RelA</text></name></transition>
+      <transition id="t1_rst"><name><text>P1_Reset</text></name></transition>
+      
+      <arc source="p1_wait" target="t1_get"/> <arc source="ResA" target="t1_get"/>
+      <arc source="t1_get" target="p1_crit"/>
+      <arc source="p1_crit" target="t1_rel"/>
+      <arc source="t1_rel" target="p1_done"/> <arc source="t1_rel" target="ResA"/>
+      <arc source="p1_done" target="t1_rst"/> <arc source="t1_rst" target="p1_wait"/>
+
+      <place id="p2_wait"><name><text>P2_Wait</text></name><initialMarking><text>1</text></initialMarking></place>
+      <place id="p2_crit"><name><text>P2_Critical</text></name></place>
+      <place id="p2_done"><name><text>P2_Done</text></name></place>
+      <transition id="t2_get"><name><text>P2_GetA</text></name></transition>
+      <transition id="t2_rel"><name><text>P2_RelA</text></name></transition>
+      <transition id="t2_rst"><name><text>P2_Reset</text></name></transition>
+
+      <arc source="p2_wait" target="t2_get"/> <arc source="ResA" target="t2_get"/>
+      <arc source="t2_get" target="p2_crit"/>
+      <arc source="p2_crit" target="t2_rel"/>
+      <arc source="t2_rel" target="p2_done"/> <arc source="t2_rel" target="ResA"/>
+      <arc source="p2_done" target="t2_rst"/> <arc source="t2_rst" target="p2_wait"/>
+
+      <place id="p3_wait"><name><text>P3_Wait</text></name><initialMarking><text>1</text></initialMarking></place>
+      <place id="p3_crit"><name><text>P3_Critical</text></name></place>
+      <place id="p3_done"><name><text>P3_Done</text></name></place>
+      <transition id="t3_get"><name><text>P3_GetB</text></name></transition>
+      <transition id="t3_rel"><name><text>P3_RelB</text></name></transition>
+      <transition id="t3_rst"><name><text>P3_Reset</text></name></transition>
+
+      <arc source="p3_wait" target="t3_get"/> <arc source="ResB" target="t3_get"/>
+      <arc source="t3_get" target="p3_crit"/>
+      <arc source="p3_crit" target="t3_rel"/>
+      <arc source="t3_rel" target="p3_done"/> <arc source="t3_rel" target="ResB"/>
+      <arc source="p3_done" target="t3_rst"/> <arc source="t3_rst" target="p3_wait"/>
+
+      <place id="p4_wait"><name><text>P4_Wait</text></name><initialMarking><text>1</text></initialMarking></place>
+      <place id="p4_crit"><name><text>P4_Critical</text></name></place>
+      <place id="p4_done"><name><text>P4_Done</text></name></place>
+      <transition id="t4_get"><name><text>P4_GetB</text></name></transition>
+      <transition id="t4_rel"><name><text>P4_RelB</text></name></transition>
+      <transition id="t4_rst"><name><text>P4_Reset</text></name></transition>
+
+      <arc source="p4_wait" target="t4_get"/> <arc source="ResB" target="t4_get"/>
+      <arc source="t4_get" target="p4_crit"/>
+      <arc source="p4_crit" target="t4_rel"/>
+      <arc source="t4_rel" target="p4_done"/> <arc source="t4_rel" target="ResB"/>
+      <arc source="p4_done" target="t4_rst"/> <arc source="t4_rst" target="p4_wait"/>
+
+    </page>
+  </net>
+</pnml>

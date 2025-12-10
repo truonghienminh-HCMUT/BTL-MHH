@@ -1,0 +1,145 @@
+<! 30 triết gia, ~1,860,498 trạng thái>
+<pnml xmlns="http://www.pnml.org/version-2009/grammar/pnml">
+ <net id="n_philo_30" type="http://www.pnml.org/version-2009/grammar/ptnet">
+  <page id="page1">
+   <name><text>Dining Philosophers N=30</text></name>
+   
+   <place id="f0"><initialMarking><text>1</text></initialMarking></place><place id="f1"><initialMarking><text>1</text></initialMarking></place>
+   <place id="f2"><initialMarking><text>1</text></initialMarking></place><place id="f3"><initialMarking><text>1</text></initialMarking></place>
+   <place id="f4"><initialMarking><text>1</text></initialMarking></place><place id="f5"><initialMarking><text>1</text></initialMarking></place>
+   <place id="f6"><initialMarking><text>1</text></initialMarking></place><place id="f7"><initialMarking><text>1</text></initialMarking></place>
+   <place id="f8"><initialMarking><text>1</text></initialMarking></place><place id="f9"><initialMarking><text>1</text></initialMarking></place>
+   <place id="f10"><initialMarking><text>1</text></initialMarking></place><place id="f11"><initialMarking><text>1</text></initialMarking></place>
+   <place id="f12"><initialMarking><text>1</text></initialMarking></place><place id="f13"><initialMarking><text>1</text></initialMarking></place>
+   <place id="f14"><initialMarking><text>1</text></initialMarking></place><place id="f15"><initialMarking><text>1</text></initialMarking></place>
+   <place id="f16"><initialMarking><text>1</text></initialMarking></place><place id="f17"><initialMarking><text>1</text></initialMarking></place>
+   <place id="f18"><initialMarking><text>1</text></initialMarking></place><place id="f19"><initialMarking><text>1</text></initialMarking></place>
+   <place id="f20"><initialMarking><text>1</text></initialMarking></place><place id="f21"><initialMarking><text>1</text></initialMarking></place>
+   <place id="f22"><initialMarking><text>1</text></initialMarking></place><place id="f23"><initialMarking><text>1</text></initialMarking></place>
+   <place id="f24"><initialMarking><text>1</text></initialMarking></place><place id="f25"><initialMarking><text>1</text></initialMarking></place>
+   <place id="f26"><initialMarking><text>1</text></initialMarking></place><place id="f27"><initialMarking><text>1</text></initialMarking></place>
+   <place id="f28"><initialMarking><text>1</text></initialMarking></place><place id="f29"><initialMarking><text>1</text></initialMarking></place>
+
+   <place id="p0_t"><initialMarking><text>1</text></initialMarking></place><place id="p0_e"/><transition id="t0_tk"/><transition id="t0_pt"/>
+   <arc source="p0_t" target="t0_tk"/><arc source="f0" target="t0_tk"/><arc source="f1" target="t0_tk"/><arc source="t0_tk" target="p0_e"/>
+   <arc source="p0_e" target="t0_pt"/><arc source="t0_pt" target="p0_t"/><arc source="t0_pt" target="f0"/><arc source="t0_pt" target="f1"/>
+
+   <place id="p1_t"><initialMarking><text>1</text></initialMarking></place><place id="p1_e"/><transition id="t1_tk"/><transition id="t1_pt"/>
+   <arc source="p1_t" target="t1_tk"/><arc source="f1" target="t1_tk"/><arc source="f2" target="t1_tk"/><arc source="t1_tk" target="p1_e"/>
+   <arc source="p1_e" target="t1_pt"/><arc source="t1_pt" target="p1_t"/><arc source="t1_pt" target="f1"/><arc source="t1_pt" target="f2"/>
+
+   <place id="p2_t"><initialMarking><text>1</text></initialMarking></place><place id="p2_e"/><transition id="t2_tk"/><transition id="t2_pt"/>
+   <arc source="p2_t" target="t2_tk"/><arc source="f2" target="t2_tk"/><arc source="f3" target="t2_tk"/><arc source="t2_tk" target="p2_e"/>
+   <arc source="p2_e" target="t2_pt"/><arc source="t2_pt" target="p2_t"/><arc source="t2_pt" target="f2"/><arc source="t2_pt" target="f3"/>
+
+   <place id="p3_t"><initialMarking><text>1</text></initialMarking></place><place id="p3_e"/><transition id="t3_tk"/><transition id="t3_pt"/>
+   <arc source="p3_t" target="t3_tk"/><arc source="f3" target="t3_tk"/><arc source="f4" target="t3_tk"/><arc source="t3_tk" target="p3_e"/>
+   <arc source="p3_e" target="t3_pt"/><arc source="t3_pt" target="p3_t"/><arc source="t3_pt" target="f3"/><arc source="t3_pt" target="f4"/>
+
+   <place id="p4_t"><initialMarking><text>1</text></initialMarking></place><place id="p4_e"/><transition id="t4_tk"/><transition id="t4_pt"/>
+   <arc source="p4_t" target="t4_tk"/><arc source="f4" target="t4_tk"/><arc source="f5" target="t4_tk"/><arc source="t4_tk" target="p4_e"/>
+   <arc source="p4_e" target="t4_pt"/><arc source="t4_pt" target="p4_t"/><arc source="t4_pt" target="f4"/><arc source="t4_pt" target="f5"/>
+
+   <place id="p5_t"><initialMarking><text>1</text></initialMarking></place><place id="p5_e"/><transition id="t5_tk"/><transition id="t5_pt"/>
+   <arc source="p5_t" target="t5_tk"/><arc source="f5" target="t5_tk"/><arc source="f6" target="t5_tk"/><arc source="t5_tk" target="p5_e"/>
+   <arc source="p5_e" target="t5_pt"/><arc source="t5_pt" target="p5_t"/><arc source="t5_pt" target="f5"/><arc source="t5_pt" target="f6"/>
+
+   <place id="p6_t"><initialMarking><text>1</text></initialMarking></place><place id="p6_e"/><transition id="t6_tk"/><transition id="t6_pt"/>
+   <arc source="p6_t" target="t6_tk"/><arc source="f6" target="t6_tk"/><arc source="f7" target="t6_tk"/><arc source="t6_tk" target="p6_e"/>
+   <arc source="p6_e" target="t6_pt"/><arc source="t6_pt" target="p6_t"/><arc source="t6_pt" target="f6"/><arc source="t6_pt" target="f7"/>
+
+   <place id="p7_t"><initialMarking><text>1</text></initialMarking></place><place id="p7_e"/><transition id="t7_tk"/><transition id="t7_pt"/>
+   <arc source="p7_t" target="t7_tk"/><arc source="f7" target="t7_tk"/><arc source="f8" target="t7_tk"/><arc source="t7_tk" target="p7_e"/>
+   <arc source="p7_e" target="t7_pt"/><arc source="t7_pt" target="p7_t"/><arc source="t7_pt" target="f7"/><arc source="t7_pt" target="f8"/>
+
+   <place id="p8_t"><initialMarking><text>1</text></initialMarking></place><place id="p8_e"/><transition id="t8_tk"/><transition id="t8_pt"/>
+   <arc source="p8_t" target="t8_tk"/><arc source="f8" target="t8_tk"/><arc source="f9" target="t8_tk"/><arc source="t8_tk" target="p8_e"/>
+   <arc source="p8_e" target="t8_pt"/><arc source="t8_pt" target="p8_t"/><arc source="t8_pt" target="f8"/><arc source="t8_pt" target="f9"/>
+
+   <place id="p9_t"><initialMarking><text>1</text></initialMarking></place><place id="p9_e"/><transition id="t9_tk"/><transition id="t9_pt"/>
+   <arc source="p9_t" target="t9_tk"/><arc source="f9" target="t9_tk"/><arc source="f10" target="t9_tk"/><arc source="t9_tk" target="p9_e"/>
+   <arc source="p9_e" target="t9_pt"/><arc source="t9_pt" target="p9_t"/><arc source="t9_pt" target="f9"/><arc source="t9_pt" target="f10"/>
+
+   <place id="p10_t"><initialMarking><text>1</text></initialMarking></place><place id="p10_e"/><transition id="t10_tk"/><transition id="t10_pt"/>
+   <arc source="p10_t" target="t10_tk"/><arc source="f10" target="t10_tk"/><arc source="f11" target="t10_tk"/><arc source="t10_tk" target="p10_e"/>
+   <arc source="p10_e" target="t10_pt"/><arc source="t10_pt" target="p10_t"/><arc source="t10_pt" target="f10"/><arc source="t10_pt" target="f11"/>
+
+   <place id="p11_t"><initialMarking><text>1</text></initialMarking></place><place id="p11_e"/><transition id="t11_tk"/><transition id="t11_pt"/>
+   <arc source="p11_t" target="t11_tk"/><arc source="f11" target="t11_tk"/><arc source="f12" target="t11_tk"/><arc source="t11_tk" target="p11_e"/>
+   <arc source="p11_e" target="t11_pt"/><arc source="t11_pt" target="p11_t"/><arc source="t11_pt" target="f11"/><arc source="t11_pt" target="f12"/>
+
+   <place id="p12_t"><initialMarking><text>1</text></initialMarking></place><place id="p12_e"/><transition id="t12_tk"/><transition id="t12_pt"/>
+   <arc source="p12_t" target="t12_tk"/><arc source="f12" target="t12_tk"/><arc source="f13" target="t12_tk"/><arc source="t12_tk" target="p12_e"/>
+   <arc source="p12_e" target="t12_pt"/><arc source="t12_pt" target="p12_t"/><arc source="t12_pt" target="f12"/><arc source="t12_pt" target="f13"/>
+
+   <place id="p13_t"><initialMarking><text>1</text></initialMarking></place><place id="p13_e"/><transition id="t13_tk"/><transition id="t13_pt"/>
+   <arc source="p13_t" target="t13_tk"/><arc source="f13" target="t13_tk"/><arc source="f14" target="t13_tk"/><arc source="t13_tk" target="p13_e"/>
+   <arc source="p13_e" target="t13_pt"/><arc source="t13_pt" target="p13_t"/><arc source="t13_pt" target="f13"/><arc source="t13_pt" target="f14"/>
+
+   <place id="p14_t"><initialMarking><text>1</text></initialMarking></place><place id="p14_e"/><transition id="t14_tk"/><transition id="t14_pt"/>
+   <arc source="p14_t" target="t14_tk"/><arc source="f14" target="t14_tk"/><arc source="f15" target="t14_tk"/><arc source="t14_tk" target="p14_e"/>
+   <arc source="p14_e" target="t14_pt"/><arc source="t14_pt" target="p14_t"/><arc source="t14_pt" target="f14"/><arc source="t14_pt" target="f15"/>
+
+   <place id="p15_t"><initialMarking><text>1</text></initialMarking></place><place id="p15_e"/><transition id="t15_tk"/><transition id="t15_pt"/>
+   <arc source="p15_t" target="t15_tk"/><arc source="f15" target="t15_tk"/><arc source="f16" target="t15_tk"/><arc source="t15_tk" target="p15_e"/>
+   <arc source="p15_e" target="t15_pt"/><arc source="t15_pt" target="p15_t"/><arc source="t15_pt" target="f15"/><arc source="t15_pt" target="f16"/>
+
+   <place id="p16_t"><initialMarking><text>1</text></initialMarking></place><place id="p16_e"/><transition id="t16_tk"/><transition id="t16_pt"/>
+   <arc source="p16_t" target="t16_tk"/><arc source="f16" target="t16_tk"/><arc source="f17" target="t16_tk"/><arc source="t16_tk" target="p16_e"/>
+   <arc source="p16_e" target="t16_pt"/><arc source="t16_pt" target="p16_t"/><arc source="t16_pt" target="f16"/><arc source="t16_pt" target="f17"/>
+
+   <place id="p17_t"><initialMarking><text>1</text></initialMarking></place><place id="p17_e"/><transition id="t17_tk"/><transition id="t17_pt"/>
+   <arc source="p17_t" target="t17_tk"/><arc source="f17" target="t17_tk"/><arc source="f18" target="t17_tk"/><arc source="t17_tk" target="p17_e"/>
+   <arc source="p17_e" target="t17_pt"/><arc source="t17_pt" target="p17_t"/><arc source="t17_pt" target="f17"/><arc source="t17_pt" target="f18"/>
+
+   <place id="p18_t"><initialMarking><text>1</text></initialMarking></place><place id="p18_e"/><transition id="t18_tk"/><transition id="t18_pt"/>
+   <arc source="p18_t" target="t18_tk"/><arc source="f18" target="t18_tk"/><arc source="f19" target="t18_tk"/><arc source="t18_tk" target="p18_e"/>
+   <arc source="p18_e" target="t18_pt"/><arc source="t18_pt" target="p18_t"/><arc source="t18_pt" target="f18"/><arc source="t18_pt" target="f19"/>
+
+   <place id="p19_t"><initialMarking><text>1</text></initialMarking></place><place id="p19_e"/><transition id="t19_tk"/><transition id="t19_pt"/>
+   <arc source="p19_t" target="t19_tk"/><arc source="f19" target="t19_tk"/><arc source="f20" target="t19_tk"/><arc source="t19_tk" target="p19_e"/>
+   <arc source="p19_e" target="t19_pt"/><arc source="t19_pt" target="p19_t"/><arc source="t19_pt" target="f19"/><arc source="t19_pt" target="f20"/>
+
+   <place id="p20_t"><initialMarking><text>1</text></initialMarking></place><place id="p20_e"/><transition id="t20_tk"/><transition id="t20_pt"/>
+   <arc source="p20_t" target="t20_tk"/><arc source="f20" target="t20_tk"/><arc source="f21" target="t20_tk"/><arc source="t20_tk" target="p20_e"/>
+   <arc source="p20_e" target="t20_pt"/><arc source="t20_pt" target="p20_t"/><arc source="t20_pt" target="f20"/><arc source="t20_pt" target="f21"/>
+
+   <place id="p21_t"><initialMarking><text>1</text></initialMarking></place><place id="p21_e"/><transition id="t21_tk"/><transition id="t21_pt"/>
+   <arc source="p21_t" target="t21_tk"/><arc source="f21" target="t21_tk"/><arc source="f22" target="t21_tk"/><arc source="t21_tk" target="p21_e"/>
+   <arc source="p21_e" target="t21_pt"/><arc source="t21_pt" target="p21_t"/><arc source="t21_pt" target="f21"/><arc source="t21_pt" target="f22"/>
+
+   <place id="p22_t"><initialMarking><text>1</text></initialMarking></place><place id="p22_e"/><transition id="t22_tk"/><transition id="t22_pt"/>
+   <arc source="p22_t" target="t22_tk"/><arc source="f22" target="t22_tk"/><arc source="f23" target="t22_tk"/><arc source="t22_tk" target="p22_e"/>
+   <arc source="p22_e" target="t22_pt"/><arc source="t22_pt" target="p22_t"/><arc source="t22_pt" target="f22"/><arc source="t22_pt" target="f23"/>
+
+   <place id="p23_t"><initialMarking><text>1</text></initialMarking></place><place id="p23_e"/><transition id="t23_tk"/><transition id="t23_pt"/>
+   <arc source="p23_t" target="t23_tk"/><arc source="f23" target="t23_tk"/><arc source="f24" target="t23_tk"/><arc source="t23_tk" target="p23_e"/>
+   <arc source="p23_e" target="t23_pt"/><arc source="t23_pt" target="p23_t"/><arc source="t23_pt" target="f23"/><arc source="t23_pt" target="f24"/>
+
+   <place id="p24_t"><initialMarking><text>1</text></initialMarking></place><place id="p24_e"/><transition id="t24_tk"/><transition id="t24_pt"/>
+   <arc source="p24_t" target="t24_tk"/><arc source="f24" target="t24_tk"/><arc source="f25" target="t24_tk"/><arc source="t24_tk" target="p24_e"/>
+   <arc source="p24_e" target="t24_pt"/><arc source="t24_pt" target="p24_t"/><arc source="t24_pt" target="f24"/><arc source="t24_pt" target="f25"/>
+
+   <place id="p25_t"><initialMarking><text>1</text></initialMarking></place><place id="p25_e"/><transition id="t25_tk"/><transition id="t25_pt"/>
+   <arc source="p25_t" target="t25_tk"/><arc source="f25" target="t25_tk"/><arc source="f26" target="t25_tk"/><arc source="t25_tk" target="p25_e"/>
+   <arc source="p25_e" target="t25_pt"/><arc source="t25_pt" target="p25_t"/><arc source="t25_pt" target="f25"/><arc source="t25_pt" target="f26"/>
+
+   <place id="p26_t"><initialMarking><text>1</text></initialMarking></place><place id="p26_e"/><transition id="t26_tk"/><transition id="t26_pt"/>
+   <arc source="p26_t" target="t26_tk"/><arc source="f26" target="t26_tk"/><arc source="f27" target="t26_tk"/><arc source="t26_tk" target="p26_e"/>
+   <arc source="p26_e" target="t26_pt"/><arc source="t26_pt" target="p26_t"/><arc source="t26_pt" target="f26"/><arc source="t26_pt" target="f27"/>
+
+   <place id="p27_t"><initialMarking><text>1</text></initialMarking></place><place id="p27_e"/><transition id="t27_tk"/><transition id="t27_pt"/>
+   <arc source="p27_t" target="t27_tk"/><arc source="f27" target="t27_tk"/><arc source="f28" target="t27_tk"/><arc source="t27_tk" target="p27_e"/>
+   <arc source="p27_e" target="t27_pt"/><arc source="t27_pt" target="p27_t"/><arc source="t27_pt" target="f27"/><arc source="t27_pt" target="f28"/>
+
+   <place id="p28_t"><initialMarking><text>1</text></initialMarking></place><place id="p28_e"/><transition id="t28_tk"/><transition id="t28_pt"/>
+   <arc source="p28_t" target="t28_tk"/><arc source="f28" target="t28_tk"/><arc source="f29" target="t28_tk"/><arc source="t28_tk" target="p28_e"/>
+   <arc source="p28_e" target="t28_pt"/><arc source="t28_pt" target="p28_t"/><arc source="t28_pt" target="f28"/><arc source="t28_pt" target="f29"/>
+
+   <place id="p29_t"><initialMarking><text>1</text></initialMarking></place><place id="p29_e"/><transition id="t29_tk"/><transition id="t29_pt"/>
+   <arc source="p29_t" target="t29_tk"/><arc source="f29" target="t29_tk"/><arc source="f0" target="t29_tk"/><arc source="t29_tk" target="p29_e"/>
+   <arc source="p29_e" target="t29_pt"/><arc source="t29_pt" target="p29_t"/><arc source="t29_pt" target="f29"/><arc source="t29_pt" target="f0"/>
+
+  </page>
+ </net>
+</pnml>
