@@ -9,6 +9,7 @@ import numpy as np
 import time
 from graphviz import Source
 import sys
+import tracemalloc
 
 def generate_custom_bdd_image(bdd_obj):
     """
@@ -38,7 +39,7 @@ def main():
     # 1. Load Petri Net từ file PNML
     # ------------------------------------------------------
     # Đảm bảo bạn đã tạo file deadlock.pnml
-    filename = "testcase4.pnml"   
+    filename = "deadlock.pnml"   
     print("Loading PNML:", filename)
 
     try:
@@ -57,11 +58,17 @@ def main():
     print("\n--- TASK 2: EXPLICIT REACHABILITY ---")
     print("\n---     BFS Reachable Markings    ---")
 
+    tracemalloc.start()
     start_bfs = time.perf_counter()  # [THÊM] Bắt đầu bấm giờ
     bfs_set = bfs_reachable(pn)
     end_bfs = time.perf_counter()    # [THÊM] Kết thúc bấm giờ
+
+    current, peak = tracemalloc.get_traced_memory() # Lấy thông số RAM
+    tracemalloc.stop()
     
     bfs_time = end_bfs - start_bfs # Tính khoảng thời gian
+    bfs_mem_mb = peak / (1024 * 1024) # Đổi sang MB
+
     # for m in bfs_set:
     #    print(np.array(m))
     print("Total BFS reachable =", len(bfs_set))
@@ -81,11 +88,17 @@ def main():
     # ------------------------------------------------------
     print("\n--- TASK 3: BDD-BASED REACHABILITY ---")
     try:
+        tracemalloc.start()
+
         start_bdd = time.perf_counter()  # [THÊM] Bắt đầu bấm giờ
         bdd, count = bdd_reachable(pn)
         end_bdd = time.perf_counter()    # [THÊM] Kết thúc bấm giờ
+
+        current, peak = tracemalloc.get_traced_memory() # Lấy thông số RAM
+        tracemalloc.stop()
         
         bdd_time = end_bdd - start_bdd # Tính khoảng thời gian
+        bdd_mem_mb = peak / (1024 * 1024) # Đổi sang MB
 
         print("BDD reachable markings count =", count) 
         if count < 10000:  # Ngưỡng an toàn
@@ -100,12 +113,23 @@ def main():
     # 5. Deadlock detection
     # ------------------------------------------------------
     print("\n--- TASK 4: ILP + BDD DEADLOCK DETECTION ---")
+    start_dl = time.perf_counter() # BẮT ĐẦU ĐO
     dead = deadlock_reachable_marking(pn, bdd)
+    end_dl = time.perf_counter()   # KẾT THÚC ĐO
+
+    dl_time = end_dl - start_dl
+    
     if dead is not None:
-        print("Deadlock marking:", dead)
+        print(f"RESULT: FOUND Deadlock!")
+        
+        # Chỉ in vector nếu ngắn
+        if len(dead) <= 20:
+            print(f"Marking: {dead}")
+        else:
+            print(f"Marking: (Vector too long to print, length={len(dead)})")
         print("\nTASK 4: [SUCCESS]")
     else:
-        print("No deadlock reachable.")
+        print("RESULT: NO Deadlock reachable.")
 
     # ------------------------------------------------------
     # 6. Optimization: maximize c·M
@@ -147,6 +171,7 @@ def main():
 
     # print("DEBUG MAP:", uuid_map)
 
+    start_opt = time.perf_counter() # BẮT ĐẦU ĐO
     try:
         # [FIX 3] Truyền pn.place_ids thay vì place_names để đảm bảo không bị None
         max_mark, max_val = max_reachable_marking(
@@ -155,6 +180,7 @@ def main():
             c, 
             place_uuid_mapping=uuid_map # Dùng Map để tìm tên biến trong BDD
         )
+        end_opt = time.perf_counter()   # KẾT THÚC ĐO
         print("Max marking found:", max_mark)
         print("Max value:", max_val)
         
@@ -163,6 +189,10 @@ def main():
         print("Hãy chắc chắn file src/Optimization.py đã được cập nhật hàm nhận tham số 'place_uuid_mapping'.")
     except Exception as e:
         print(f"\n[LỖI] Optimization thất bại: {e}")
+
+    print("\n" + "="*60)
+    print("EXPERIMENT FINISHED")
+    print("="*60)
 
     # Tổng kết toàn bộ thời gian chạy
     total_duration = time.time() - total_start_time
@@ -177,6 +207,20 @@ def main():
     if bfs_time > 0:
         diff = bfs_time / bdd_time if bdd_time > 0 else 0
         print(f"=> BDD nhanh hơn BFS khoảng {diff:.2f} lần" if diff > 1 else f"=> BFS nhanh hơn BDD khoảng {1/diff:.2f} lần")
+
+    print(f"Total BFS States: {len(bfs_set)}")
+    print(f"BFS Time        : {bfs_time:.6f} s")
+    print(f"BFS Peak Memory : {bfs_mem_mb:.6f} MB") # In ra kết quả
+
+    print(f"Total BDD States: {count}")
+    print(f"BDD Time        : {bdd_time:.6f} s")
+    print(f"BDD Peak Memory : {bdd_mem_mb:.6f} MB") # In ra kết quả
+
+    print(f"Deadlock Time   : {dl_time:.6f} s")
+
+    print(f"Optimization Time: {end_opt - start_opt:.6f} s")
+
+    
 
 if __name__ == "__main__":
     main()

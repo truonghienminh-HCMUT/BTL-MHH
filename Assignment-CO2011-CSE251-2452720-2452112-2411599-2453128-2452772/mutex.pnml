@@ -1,27 +1,20 @@
 <pnml xmlns="http://www.pnml.org/version-2009/grammar/pnml">
-  <net id="n_mutex" type="http://www.pnml.org/version-2009/grammar/ptnet">
-    <page id="p1">
-      <name><text>Mutual Exclusion</text></name>
-      <place id="mutex"><name><text>Resource</text></name><initialMarking><text>1</text></initialMarking></place>
-
-      <place id="p_a_wait"><initialMarking><text>1</text></initialMarking></place>
-      <place id="p_a_crit"><name><text>Critical_A</text></name></place>
-      <transition id="t_a_enter"/> <transition id="t_a_exit"/>
-
-      <arc source="p_a_wait" target="t_a_enter"/> 
-      <arc source="mutex" target="t_a_enter"/> <arc source="t_a_enter" target="p_a_crit"/>
-      
-      <arc source="p_a_crit" target="t_a_exit"/>
-      <arc source="t_a_exit" target="p_a_wait"/>
-      <arc source="t_a_exit" target="mutex"/> <place id="p_b_wait"><initialMarking><text>1</text></initialMarking></place>
-      <place id="p_b_crit"><name><text>Critical_B</text></name></place>
-      <transition id="t_b_enter"/> <transition id="t_b_exit"/>
-
-      <arc source="p_b_wait" target="t_b_enter"/> 
-      <arc source="mutex" target="t_b_enter"/> <arc source="t_b_enter" target="p_b_crit"/>
-      
-      <arc source="p_b_crit" target="t_b_exit"/>
-      <arc source="t_b_exit" target="p_b_wait"/>
-      <arc source="t_b_exit" target="mutex"/> </page>
-  </net>
+ <net id="n4" type="http://www.pnml.org/version-2009/grammar/ptnet">
+  <page id="p1">
+   <name><text>Mutual Exclusion</text></name>
+   <place id="mutex"><initialMarking><text>1</text></initialMarking></place>
+   
+   <place id="wait_a"><initialMarking><text>1</text></initialMarking></place><place id="crit_a"/>
+   <transition id="enter_a"/><transition id="exit_a"/>
+   <arc source="wait_a" target="enter_a"/><arc source="mutex" target="enter_a"/>
+   <arc source="enter_a" target="crit_a"/>
+   <arc source="crit_a" target="exit_a"/><arc source="exit_a" target="wait_a"/><arc source="exit_a" target="mutex"/>
+   
+   <place id="wait_b"><initialMarking><text>1</text></initialMarking></place><place id="crit_b"/>
+   <transition id="enter_b"/><transition id="exit_b"/>
+   <arc source="wait_b" target="enter_b"/><arc source="mutex" target="enter_b"/>
+   <arc source="enter_b" target="crit_b"/>
+   <arc source="crit_b" target="exit_b"/><arc source="exit_b" target="wait_b"/><arc source="exit_b" target="mutex"/>
+  </page>
+ </net>
 </pnml>
