@@ -38,7 +38,7 @@ def main():
     # 1. Load Petri Net từ file PNML
     # ------------------------------------------------------
     # Đảm bảo bạn đã tạo file deadlock.pnml
-    filename = "testcase8.pnml"   
+    filename = "testcase4.pnml"   
     print("Loading PNML:", filename)
 
     try:
