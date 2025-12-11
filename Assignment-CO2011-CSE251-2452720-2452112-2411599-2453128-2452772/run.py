@@ -88,7 +88,10 @@ def main():
         bdd_time = end_bdd - start_bdd # Tính khoảng thời gian
 
         print("BDD reachable markings count =", count) 
-        generate_custom_bdd_image(bdd) # Chỉ vẽ hình minh họa tĩnh
+        if count < 10000:  # Ngưỡng an toàn
+            generate_custom_bdd_image(bdd)
+        else:
+            print(f"[SKIP] BDD quá lớn ({count} states), bỏ qua vẽ hình.")
         print("\nTASK 3: [SUCCESS]")
     except Exception as e:
         print("Lỗi BDD:", e)
@@ -121,7 +124,8 @@ def main():
         print(f"[WARN] File PNML có {num_places} places, nhưng vector c mẫu có {len(c_sample)}.")
         print("-> Tự động tạo vector c ngẫu nhiên để test.")
         np.random.seed(42)
-        c = np.random.randint(-2, 3, size=num_places) # Random từ -2 đến 2
+        c = np.arange(1, num_places + 1)  # [1, 2, 3, ..., n]
+        print("Using linearly increasing weights for testing.")
     
     print("Weight vector c:", c)
 

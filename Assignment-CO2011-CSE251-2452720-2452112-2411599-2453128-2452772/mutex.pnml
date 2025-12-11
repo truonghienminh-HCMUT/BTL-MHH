@@ -1,0 +1,27 @@
+<pnml xmlns="http://www.pnml.org/version-2009/grammar/pnml">
+  <net id="n_mutex" type="http://www.pnml.org/version-2009/grammar/ptnet">
+    <page id="p1">
+      <name><text>Mutual Exclusion</text></name>
+      <place id="mutex"><name><text>Resource</text></name><initialMarking><text>1</text></initialMarking></place>
+
+      <place id="p_a_wait"><initialMarking><text>1</text></initialMarking></place>
+      <place id="p_a_crit"><name><text>Critical_A</text></name></place>
+      <transition id="t_a_enter"/> <transition id="t_a_exit"/>
+
+      <arc source="p_a_wait" target="t_a_enter"/> 
+      <arc source="mutex" target="t_a_enter"/> <arc source="t_a_enter" target="p_a_crit"/>
+      
+      <arc source="p_a_crit" target="t_a_exit"/>
+      <arc source="t_a_exit" target="p_a_wait"/>
+      <arc source="t_a_exit" target="mutex"/> <place id="p_b_wait"><initialMarking><text>1</text></initialMarking></place>
+      <place id="p_b_crit"><name><text>Critical_B</text></name></place>
+      <transition id="t_b_enter"/> <transition id="t_b_exit"/>
+
+      <arc source="p_b_wait" target="t_b_enter"/> 
+      <arc source="mutex" target="t_b_enter"/> <arc source="t_b_enter" target="p_b_crit"/>
+      
+      <arc source="p_b_crit" target="t_b_exit"/>
+      <arc source="t_b_exit" target="p_b_wait"/>
+      <arc source="t_b_exit" target="mutex"/> </page>
+  </net>
+</pnml>

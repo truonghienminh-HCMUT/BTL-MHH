@@ -1,0 +1,28 @@
+<pnml xmlns="http://www.pnml.org/version-2009/grammar/pnml">
+  <net id="n_choice" type="http://www.pnml.org/version-2009/grammar/ptnet">
+    <page id="p1">
+      <name><text>Choice and Merge</text></name>
+      <place id="p_start"><name><text>Start</text></name><initialMarking><text>1</text></initialMarking></place>
+      <place id="p_left"><name><text>Branch_A</text></name></place>
+      <place id="p_right"><name><text>Branch_B</text></name></place>
+      <place id="p_end"><name><text>End</text></name></place>
+
+      <transition id="t_go_left"><name><text>Go_A</text></name></transition>
+      <transition id="t_go_right"><name><text>Go_B</text></name></transition>
+      <transition id="t_merge_left"><name><text>End_A</text></name></transition>
+      <transition id="t_merge_right"><name><text>End_B</text></name></transition>
+
+      <arc id="a1" source="p_start" target="t_go_left"/>
+      <arc id="a2" source="p_start" target="t_go_right"/>
+      
+      <arc id="a3" source="t_go_left" target="p_left"/>
+      <arc id="a4" source="t_go_right" target="p_right"/>
+
+      <arc id="a5" source="p_left" target="t_merge_left"/>
+      <arc id="a6" source="t_merge_left" target="p_end"/>
+
+      <arc id="a7" source="p_right" target="t_merge_right"/>
+      <arc id="a8" source="t_merge_right" target="p_end"/>
+    </page>
+  </net>
+</pnml>

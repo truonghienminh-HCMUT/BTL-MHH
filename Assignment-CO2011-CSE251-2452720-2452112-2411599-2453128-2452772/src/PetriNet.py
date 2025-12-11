@@ -120,8 +120,8 @@ class PetriNet:
         # Khởi tạo Ma trận & Quét các Cung (Arcs)
         # Số hàng = số transition
         # Số cột = số place
-        I = np.zeros((n_trans, n_places), dtype=int)
-        O = np.zeros((n_trans, n_places), dtype=int)
+        I = np.zeros((n_places, n_trans), dtype=int)  # P×T
+        O = np.zeros((n_places, n_trans), dtype=int)
         
         # Parse arcs để điền vào I và O
         # Một arc dạng:
@@ -150,15 +150,15 @@ class PetriNet:
             
             # Xác định hướng arc
             if source in place_map and target in trans_map:
-                # Place to Transition: input arc
                 place_idx = place_map[source]
                 trans_idx = trans_map[target]
-                I[trans_idx, place_idx] = weight
+                I[place_idx, trans_idx] = weight  # ĐỔI thứ tự index
+    
             elif source in trans_map and target in place_map:
                 # Transition to Place: output arc
                 trans_idx = trans_map[source]
                 place_idx = place_map[target]
-                O[trans_idx, place_idx] = weight
+                O[place_idx, trans_idx] = weight  # ĐỔI thứ tự index
         
         # Tạo Vector Marking (M0)
         M0 = np.array([initial_marking.get(pid, 0) for pid in place_ids], dtype=int)

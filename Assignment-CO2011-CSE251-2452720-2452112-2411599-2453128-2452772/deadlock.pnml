@@ -1,0 +1,18 @@
+<pnml xmlns="http://www.pnml.org/version-2009/grammar/pnml">
+ <net id="n5" type="http://www.pnml.org/version-2009/grammar/ptnet">
+  <page id="p1">
+   <name><text>Simple Deadlock</text></name>
+   <place id="r1"><initialMarking><text>1</text></initialMarking></place>
+   <place id="r2"><initialMarking><text>1</text></initialMarking></place>
+   
+   <place id="a_start"><initialMarking><text>1</text></initialMarking></place><place id="a_hold"/>
+   <transition id="t_a_grab"/><transition id="t_a_finish"/>
+   <arc source="a_start" target="t_a_grab"/><arc source="r1" target="t_a_grab"/>
+   <arc source="t_a_grab" target="a_hold"/>
+   <arc source="a_hold" target="t_a_finish"/><arc source="r2" target="t_a_finish"/> <place id="b_start"><initialMarking><text>1</text></initialMarking></place><place id="b_hold"/>
+   <transition id="t_b_grab"/><transition id="t_b_finish"/>
+   <arc source="b_start" target="t_b_grab"/><arc source="r2" target="t_b_grab"/>
+   <arc source="t_b_grab" target="b_hold"/>
+   <arc source="b_hold" target="t_b_finish"/><arc source="r1" target="t_b_finish"/> </page>
+ </net>
+</pnml>

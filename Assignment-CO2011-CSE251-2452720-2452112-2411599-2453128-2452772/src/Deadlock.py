@@ -1,27 +1,24 @@
 import numpy as np
-from typing import List, Tuple, Optional
-
-from PetriNet import PetriNet
-from .BDD import bdd_reachable
-from pyeda.inter import bdd2expr, exprvar, BinaryDecisionDiagram
-from collections import deque
+from typing import List, Optional
 import pulp
-
+from pyeda.inter import BinaryDecisionDiagram
+from src.PetriNet import PetriNet
 
 def deadlock_reachable_marking(
     pn: PetriNet,
     reachable_bdd: "BinaryDecisionDiagram",
 ) -> Optional[List[int]]:
     """
-    Tìm một marking vừa:
-      - reachable từ M0 của Petri Net pn (với điều kiện 1-safe)
-      - thỏa BDD 'reachable_bdd'
-      - và là deadlock (không còn transition nào enabled)
-
-    Nếu không có marking nào như vậy -> trả về None.
+    Tìm một deadlock marking sử dụng phương pháp lai giữa ILP và BDD (Task 4).
+    
+    Cập nhật logic cho mạng 1-safe:
+    Transition t bị disable nếu:
+    1. (Resource Deadlock) Thiếu token ở input places.
+       HOẶC
+    2. (Safety Deadlock) Place output (pure output) đã có token (gây violation 1-safe).
     """
 
-    # --- 1. Lấy I, O, M0 từ PetriNet ---------------------------------------
+    # --- 1. Lấy ma trận Incidence và thông tin Petri Net -------------------
     if hasattr(pn, "I"):
         I = np.array(pn.I, dtype=int)
     elif hasattr(pn, "pre"):
@@ -36,124 +33,155 @@ def deadlock_reachable_marking(
     else:
         raise AttributeError("PetriNet object must have attribute O or post")
 
-    if hasattr(pn, "M0"):
-        M0 = np.array(pn.M0, dtype=int)
-    elif hasattr(pn, "initial_marking"):
-        M0 = np.array(pn.initial_marking, dtype=int)
-    else:
-        raise AttributeError("PetriNet object must have attribute M0 or initial_marking")
-
-    # Đưa về vector 1 chiều
-    M0 = M0.reshape(-1)
-    num_places = M0.shape[0]
-
-    # --- 2. Xác định orientation của I, O -----------------------------------
-    if I.shape != O.shape:
-        raise ValueError("I and O must have the same shape")
-
-    r, c = I.shape
-    if c == num_places:
-        # I[t, p] – mỗi hàng là 1 transition
-        row_is_transition = True
-        num_trans = r
-    elif r == num_places:
-        # I[p, t] – mỗi cột là 1 transition
-        row_is_transition = False
-        num_trans = c
-    else:
-        raise ValueError("Shape of I does not match number of places/transitions")
-
-    def pre_vec(t_idx: int) -> np.ndarray:
-        return I[t_idx, :] if row_is_transition else I[:, t_idx]
-
-    def post_vec(t_idx: int) -> np.ndarray:
-        return O[t_idx, :] if row_is_transition else O[:, t_idx]
-
-    # --- 3. Lấy tên place để map sang biến trong BDD -----------------------
+    # Lấy danh sách tên Place
     if hasattr(pn, "place_ids"):
-        places = list(pn.place_ids)
+        place_names = list(pn.place_ids)
     else:
-        # fallback đơn giản – đánh số p0, p1, ...
-        places = [f"p{i+1}" for i in range(num_places)]
+        num_places_temp = I.shape[1] 
+        place_names = [f"p{i+1}" for i in range(num_places_temp)]
+    
+    num_places = len(place_names)
+    
+    # --- XỬ LÝ ORIENTATION (QUAN TRỌNG CHO TEST CASE) ---
+    r, c = I.shape
+    
+    # Mặc định ưu tiên Row=Transition (phổ biến trong test manual như test_002)
+    # Trừ khi số hàng khớp số places và số cột khác số places
+    row_is_place = False 
+    
+    if hasattr(pn, "transitions"):
+        # Nếu có thông tin chính xác về số lượng transitions, dùng để định hướng
+        if len(pn.transitions) == c and len(pn.transitions) != r:
+            row_is_place = True
+        elif len(pn.transitions) == r:
+            row_is_place = False
+    
+    # Fallback dựa trên shape nếu không có info
+    if row_is_place is False and r == num_places and c != num_places:
+        row_is_place = True
 
-    place_index = {name: idx for idx, name in enumerate(places)}
+    num_trans = c if row_is_place else r
 
-    # Hàm: marking có thỏa BDD reachable_bdd hay không
-    def marking_satisfies_bdd(marking: np.ndarray) -> bool:
+    # Helpers lấy input/output indices
+    def get_input_places(t_idx):
+        if row_is_place:
+            return np.where(I[:, t_idx] > 0)[0]
+        else:
+            return np.where(I[t_idx, :] > 0)[0]
+
+    def get_output_places(t_idx):
+        if row_is_place:
+            return np.where(O[:, t_idx] > 0)[0]
+        else:
+            return np.where(O[t_idx, :] > 0)[0]
+
+    # --- 2. Khởi tạo bài toán ILP ------------------------------------------
+    prob = pulp.LpProblem("Deadlock_Detection", pulp.LpMinimize)
+
+    # Biến nhị phân cho Marking (0 hoặc 1 do 1-safe)
+    m_vars = [pulp.LpVariable(f"m_{i}", cat='Binary') for i in range(num_places)]
+
+    # Hàm mục tiêu giả
+    prob += 0, "Arbitrary_Objective"
+
+    # --- 3. Thêm ràng buộc Structural Deadlock (Updated) -------------------
+    # Transition t DISABLED <==> (Inputs Missing) OR (Pure Outputs Full)
+    # Sử dụng kỹ thuật Big-M với biến nhị phân delta_t
+    # delta_t = 0 => Force Input Constraint
+    # delta_t = 1 => Force Output Constraint
+    
+    big_M = num_places + 1  # Đủ lớn
+    
+    for t in range(num_trans):
+        inputs = get_input_places(t)
+        outputs = get_output_places(t)
+        
+        # Pure outputs: output places that are not input places (ignore self-loops)
+        pure_outputs = [idx for idx in outputs if idx not in inputs]
+        
+        n_inputs = len(inputs)
+        
+        # Biến điều khiển switch cho điều kiện OR
+        delta = pulp.LpVariable(f"delta_t{t}", cat='Binary')
+        
+        # Constraint A: Missing Inputs
+        # Sum(inputs) <= n_inputs - 1
+        # Relaxed: Sum(inputs) <= (n_inputs - 1) + M * delta
+        if n_inputs > 0:
+            prob += pulp.lpSum([m_vars[i] for i in inputs]) <= (n_inputs - 1) + big_M * delta, f"Dis_In_t{t}"
+        else:
+            # Nếu không có input (Source), điều kiện này luôn False (0 <= -1), 
+            # buộc delta phải = 1 (chuyển sang check output)
+            prob += 0 <= -1 + big_M * delta, f"Dis_In_Source_t{t}"
+
+        # Constraint B: Output Full (Safety violation)
+        # Sum(pure_outputs) >= 1 (Có ít nhất 1 chỗ output đã bị chiếm)
+        # Relaxed: Sum(pure_outputs) >= 1 - M * (1 - delta)
+        if len(pure_outputs) > 0:
+             prob += pulp.lpSum([m_vars[i] for i in pure_outputs]) >= 1 - big_M * (1 - delta), f"Dis_Out_t{t}"
+        else:
+            # Nếu không có pure output (Sink hoặc Loop), điều kiện này luôn False (0 >= 1),
+            # buộc delta phải = 0 (chuyển sang check input)
+            prob += 0 >= 1 - big_M * (1 - delta), f"Dis_Out_Sink_t{t}"
+
+    # --- 4. Hàm kiểm tra tính Reachable bằng BDD ---------------------------
+    place_map = {name: i for i, name in enumerate(place_names)}
+
+    def check_reachability_bdd(marking_list):
         if reachable_bdd is None:
-            # Nếu không đưa BDD vào thì coi như mọi marking đều hợp lệ
             return True
-
-        # Tạo "point" cho các biến có trong BDD (support)
+        
         point = {}
         for var in reachable_bdd.support:
-            vname = str(var)  # ví dụ 'p1', 'p2', ...
-            idx = place_index.get(vname, None)
+            vname = str(var)
+            idx = place_map.get(vname)
+            
+            # Fallback case-insensitive
             if idx is None:
-                # Biến không thuộc danh sách place -> bỏ qua
-                continue
-            point[var] = int(marking[idx])
-
-        # Nếu BDD không phụ thuộc vào biến nào -> nó là hằng 0 hoặc 1
+                for name, i in place_map.items():
+                    if name.lower() == vname.lower():
+                        idx = i
+                        break
+            
+            if idx is not None and idx < len(marking_list):
+                point[var] = int(marking_list[idx])
+        
         if not point:
             return reachable_bdd.is_one()
+            
+        return reachable_bdd.restrict(point).is_one()
 
-        # restricted là BDD sau khi gán các biến theo marking
-        restricted = reachable_bdd.restrict(point)
-        return restricted.is_one()
+    # --- 5. Vòng lặp giải ILP & Kiểm tra BDD -------------------------------
+    solver = pulp.PULP_CBC_CMD(msg=False) 
+    attempt = 0
+    max_attempts = 1000
 
-    # --- 4. Kiểm tra transition enabled với điều kiện 1-safe ---------------
-    def is_enabled(marking: np.ndarray, t_idx: int) -> bool:
-        pre = pre_vec(t_idx)
-        post = post_vec(t_idx)
+    while attempt < max_attempts:
+        attempt += 1
+        prob.solve(solver)
 
-        # Điều kiện 1: đủ token ở các place input
-        if np.any(marking < pre):
-            return False
+        if prob.status != pulp.LpStatusOptimal:
+            return None
 
-        # Điều kiện 2: sau khi fire vẫn không vượt quá 1 token / place
-        new_marking = marking - pre + post
-        if np.any(new_marking > 1):
-            return False
+        try:
+            current_marking = [int(round(var.varValue)) for var in m_vars]
+        except (TypeError, ValueError):
+            return None
+        
+        # Debug print nếu cần thiết
+        # print(f"ILP found dead marking: {current_marking}")
 
-        return True
-
-    def fire(marking: np.ndarray, t_idx: int) -> np.ndarray:
-        pre = pre_vec(t_idx)
-        post = post_vec(t_idx)
-        return marking - pre + post
-
-    # --- 5. BFS trên không gian reachable markings -------------------------
-    visited = set()
-    q = deque()
-
-    init_tuple = tuple(int(x) for x in M0.tolist())
-    visited.add(init_tuple)
-    q.append(M0)
-
-    while q:
-        M = q.popleft()
-
-        # 5.1. Nếu marking nằm trong BDD và là deadlock -> trả về
-        if marking_satisfies_bdd(M):
-            any_enabled = False
-            for t_idx in range(num_trans):
-                if is_enabled(M, t_idx):
-                    any_enabled = True
-                    break
-
-            if not any_enabled:
-                # Deadlock reachable & thỏa BDD
-                return [int(x) for x in M.tolist()]
-
-        # 5.2. Sinh các marking kế tiếp bằng cách fire từng transition enabled
-        for t_idx in range(num_trans):
-            if is_enabled(M, t_idx):
-                M_next = fire(M, t_idx)
-                key = tuple(int(x) for x in M_next.tolist())
-                if key not in visited:
-                    visited.add(key)
-                    q.append(M_next)
-
-    # Không có deadlock nào thỏa BDD
+        if check_reachability_bdd(current_marking):
+            return current_marking
+        else:
+            # Spurious Deadlock -> Add canonical cut
+            ones = [i for i, val in enumerate(current_marking) if val == 1]
+            zeros = [i for i, val in enumerate(current_marking) if val == 0]
+            
+            prob += (
+                pulp.lpSum([m_vars[i] for i in ones]) - 
+                pulp.lpSum([m_vars[j] for j in zeros]) 
+                <= len(ones) - 1
+            ), f"Cut_{attempt}"
+    
     return None
