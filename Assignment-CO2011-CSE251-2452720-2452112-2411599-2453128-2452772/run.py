@@ -38,7 +38,7 @@ def main():
     # 1. Load Petri Net từ file PNML
     # ------------------------------------------------------
     # Đảm bảo bạn đã tạo file deadlock.pnml
-    filename = "testcase6.pnml"   
+    filename = "testcase8.pnml"   
     print("Loading PNML:", filename)
 
     try:
@@ -62,8 +62,8 @@ def main():
     end_bfs = time.perf_counter()    # [THÊM] Kết thúc bấm giờ
     
     bfs_time = end_bfs - start_bfs # Tính khoảng thời gian
-    for m in bfs_set:
-        print(np.array(m))
+    # for m in bfs_set:
+    #    print(np.array(m))
     print("Total BFS reachable =", len(bfs_set))
 
     # ------------------------------------------------------

@@ -1,4 +1,3 @@
-<! 30 triết gia, ~1,860,498 trạng thái>
 <pnml xmlns="http://www.pnml.org/version-2009/grammar/pnml">
  <net id="n_philo_30" type="http://www.pnml.org/version-2009/grammar/ptnet">
   <page id="page1">
